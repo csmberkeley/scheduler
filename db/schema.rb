@@ -11,7 +11,67 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150719080422) do
+ActiveRecord::Schema.define(version: 20150719234818) do
+
+  create_table "answers", force: true do |t|
+    t.integer  "feedback_id"
+    t.integer  "question_id"
+    t.text     "answer"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "comments", force: true do |t|
+    t.integer  "session_id"
+    t.integer  "from_id"
+    t.text     "body"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "courses", force: true do |t|
+    t.string   "course_name"
+    t.string   "semester"
+    t.integer  "year"
+    t.string   "password"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "enrolls", force: true do |t|
+    t.integer  "user_id"
+    t.integer  "course_id"
+    t.boolean  "tutor"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "questions", force: true do |t|
+    t.text     "question"
+    t.boolean  "active"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "sessions", force: true do |t|
+    t.integer  "tutor_id"
+    t.integer  "tutee_id"
+    t.text     "availability"
+    t.text     "additional_info"
+    t.datetime "start"
+    t.datetime "end"
+    t.string   "status"
+    t.boolean  "feedback"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "topics", force: true do |t|
+    t.integer  "course_id"
+    t.string   "name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "users", force: true do |t|
     t.string   "name"

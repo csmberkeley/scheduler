@@ -1,0 +1,21 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  tutor_id: 1
+  tutee_id: 1
+  availability: MyText
+  additional_info: MyText
+  start: 2015-07-19 16:44:35
+  end: 2015-07-19 16:44:35
+  status: MyString
+  feedback: false
+
+two:
+  tutor_id: 1
+  tutee_id: 1
+  availability: MyText
+  additional_info: MyText
+  start: 2015-07-19 16:44:35
+  end: 2015-07-19 16:44:35
+  status: MyString
+  feedback: false
