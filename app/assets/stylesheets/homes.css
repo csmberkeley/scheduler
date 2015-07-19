@@ -1,0 +1,20 @@
+/* Navigation bar CSS */
+
+.navbar-right {
+  margin-right: 20px;
+}
+
+.navbar-brand {
+  padding: 0px;
+  margin-left: 20px;
+}
+
+
+/* Main page dividers */
+div.content {
+  overflow: hidden;
+  margin: 40px;
+}
+
+
+

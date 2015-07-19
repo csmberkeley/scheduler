@@ -43,5 +43,6 @@ gem 'spring',        group: :development
 
 gem "binding_of_caller"
 gem "better_errors"
+gem "twitter-bootstrap-rails"
 gem 'devise'
 

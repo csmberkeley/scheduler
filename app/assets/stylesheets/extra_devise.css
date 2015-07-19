@@ -1,0 +1,13 @@
+div.dform{
+    line-height: 1.8;
+    border-radius: 25px;
+    background-color: #f0f0f0;
+    padding-left: 3%;
+    padding-right: 3%;
+    padding-bottom: 2%;
+    padding-top: 1%;
+    margin-left: 10%;
+    margin-right: 10%;
+    font-family: Arial, sans-serif;
+    min-height: 500px;
+}
