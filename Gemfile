@@ -41,8 +41,16 @@ gem 'spring',        group: :development
 
 #Extra gems added
 
-gem "binding_of_caller"
-gem "better_errors"
+group :development, :test do 
+  gem "better_errors"
+  gem "binding_of_caller"
+  gem 'sqlite3'
+end
+
+group :production do
+  gem 'pg'
+end
+
 gem "twitter-bootstrap-rails"
 gem 'devise'
 
