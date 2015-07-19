@@ -40,5 +40,8 @@ gem 'spring',        group: :development
 
 
 #Extra gems added
+
+gem "binding_of_caller"
+gem "better_errors"
 gem 'devise'
 
