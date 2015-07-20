@@ -7,6 +7,9 @@ Things you may want to cover:
 
 * Ruby version
 
+Rails 4.1.8
+Ruby 2.1.0
+
 * System dependencies
 
 * Configuration
