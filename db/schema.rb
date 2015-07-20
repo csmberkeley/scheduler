@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150719234818) do
+ActiveRecord::Schema.define(version: 20150720000305) do
 
   create_table "answers", force: true do |t|
     t.integer  "feedback_id"
@@ -42,6 +42,13 @@ ActiveRecord::Schema.define(version: 20150719234818) do
     t.integer  "user_id"
     t.integer  "course_id"
     t.boolean  "tutor"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "feedbacks", force: true do |t|
+    t.integer  "session_id"
+    t.boolean  "completed"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
