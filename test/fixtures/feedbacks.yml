@@ -1,0 +1,9 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  session_id: 1
+  completed: false
+
+two:
+  session_id: 1
+  completed: false
