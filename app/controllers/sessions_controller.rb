@@ -7,10 +7,10 @@ class SessionsController < ApplicationController
 	def create
 		@session = Session.new(session_params)
 		@session.tutee_id = current_user.id
-		@topic = Topic.where(id: eval(params[:topic])[:value])
-		#TODO: add session to topic and vice versa
+		@topic = Topic.find(eval(params[:topic_id])[:value])
+		@session.topics << @topic
+		#TODO: make sure that this is correct in terms of adding a topic to session and vice versa
 		if @session.save
-			#save stuff
 			redirect_to "/sessions"
 		else
 			render 'new'
