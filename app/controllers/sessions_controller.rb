@@ -22,13 +22,6 @@ class SessionsController < ApplicationController
 
 	private
 	def session_params
-		puts "HELLO"
-		puts params
-		puts "1 THING"
-		puts params[:session][:availability]
-		puts "2 THING"
-		puts params[:session][:additional_info]
-
 		params.require(:session).permit(:availability, :additional_info)
 	end
 end
