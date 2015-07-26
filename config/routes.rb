@@ -3,6 +3,9 @@ Rails.application.routes.draw do
   devise_for :users
   #Set root to ensure devise works
   root "homes#index"
+  get "/courses" => "courses#index"
+  get "/courses/:id" => "courses#show", as: :course
+  get "/topics/:id" => "topics#show", as: :topic
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

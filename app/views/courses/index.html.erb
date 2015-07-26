@@ -1,0 +1,8 @@
+<div class = "container">
+	<h1>Your Courses </h1>
+	<div class = "courses">
+		<% @courses.each do |course| %>
+			<h2><%=link_to course.course_name, course_path(course)%></h2>
+		<% end %>
+	</div>
+</div>
