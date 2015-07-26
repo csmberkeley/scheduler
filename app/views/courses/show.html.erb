@@ -1,0 +1,10 @@
+<div class = "container">
+	<h1>Topics for <%= @course.course_name %> </h1>
+	<hr>
+	<div class = "topics">
+		<% @course.topics.each do |topic| %>
+			<h2><%=link_to topic.name, topic_path(topic)%></h2>
+			<hr>
+		<% end %>
+	</div>
+</div>

@@ -1,0 +1,10 @@
+<div class = "container">
+	<h1>Your Courses </h1>
+	<hr>
+	<div class = "courses">
+		<% @courses.each do |course| %>
+			<h2><%=link_to course.course_name, course_path(course)%></h2>
+			<hr>
+		<% end %>
+	</div>
+</div>

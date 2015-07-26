@@ -4,6 +4,6 @@ class User < ActiveRecord::Base
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
 
-  has_many :enrollments, dependent: :destroy
-  has_many :sessions, dependent: :destroy
+  has_many :enrolls, dependent: :destroy
+  has_many :sessions, dependent: :destroy, :foreign_key => :tutee_id
 end
