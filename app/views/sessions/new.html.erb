@@ -18,6 +18,7 @@
 				<h4>Additional Info</h4>
 				<%= f.text_area :additional_info %>
 			</div>
+			<%= hidden_field_tag :topic, :value => @topic.id %>
 		</div>
 		<div class = "actions">
 			<%= f.submit "Create Session" %>
