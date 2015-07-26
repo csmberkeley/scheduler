@@ -1,0 +1,26 @@
+<div class = "container">
+	<h1>Sign Up for Tutoring in <%= @topic.name %></h1>
+	<%= form_for(@session) do |f| %>
+		<div class = "field">
+			<div class = "availability">
+				<h4>Availability</h4>
+				<%= f.text_area :availability %>
+			</div>
+			<div class = "start">
+				<h4>Start</h4>
+				<%= f.date_select :start %>
+			</div>
+			<div class = "start">
+				<h4>End</h4>
+				<%= f.date_select :end %>
+			</div>
+			<div class = "additional_info">
+				<h4>Additional Info</h4>
+				<%= f.text_area :additional_info %>
+			</div>
+		</div>
+		<div class = "actions">
+			<%= f.submit "Create Session" %>
+		</div>
+	<% end %>
+</div>

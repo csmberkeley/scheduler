@@ -1,0 +1,15 @@
+<div class = "container">
+	<h1>Your Sessions </h1>
+	<hr>
+	<div class = "sessions">
+		<% @sessions.each do |session| %>
+			<h3>Session Id: <%= session.id %></h3>
+			<ul>
+				<li>Availability: <%=session.availability%></li>
+				<li>Additional Infor: <%=session.additional_info %></li>
+			</ul>
+			<hr>
+		<% end %>
+		
+	</div>
+</div>
