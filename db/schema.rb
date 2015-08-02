@@ -11,15 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150720002344) do
-
-  create_table "answers", force: true do |t|
-    t.integer  "feedback_id"
-    t.integer  "question_id"
-    t.text     "answer"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
+ActiveRecord::Schema.define(version: 20150802174859) do
 
   create_table "comments", force: true do |t|
     t.integer  "session_id"
@@ -46,41 +38,32 @@ ActiveRecord::Schema.define(version: 20150720002344) do
     t.datetime "updated_at"
   end
 
-  create_table "feedbacks", force: true do |t|
-    t.integer  "session_id"
-    t.boolean  "completed"
+  create_table "offers", force: true do |t|
+    t.integer  "section_id"
+    t.integer  "user_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
-  create_table "questions", force: true do |t|
-    t.text     "question"
-    t.boolean  "active"
+  create_table "replies", force: true do |t|
+    t.integer  "section_d"
+    t.integer  "user_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
-  create_table "sessions", force: true do |t|
-    t.integer  "tutor_id"
-    t.integer  "tutee_id"
-    t.text     "availability"
-    t.text     "additional_info"
+  create_table "requests", force: true do |t|
+    t.integer  "section_id"
+    t.integer  "user_id"
+    t.integer  "priority"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "sections", force: true do |t|
     t.datetime "start"
     t.datetime "end"
-    t.string   "status"
-    t.boolean  "feedback"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  create_table "sessions_topics", id: false, force: true do |t|
-    t.integer "session_id", null: false
-    t.integer "topic_id",   null: false
-  end
-
-  create_table "topics", force: true do |t|
-    t.integer  "course_id"
-    t.string   "name"
+    t.boolean  "empty"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
