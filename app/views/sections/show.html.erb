@@ -1,8 +1,8 @@
 <div class = "container">
 	<h1>Section: <%= @section.name%> </h1>
 	<h1>Comments</h1>
-	<%= render partial: "comments_section.html", locals: {comments: @comments}%>
-	<hr>
 	<%= render partial: "add_comment.html", locals: {new_comment: @new_comment, section: @section} %>
+	<hr>
+	<%= render partial: "comments_section.html", locals: {comments: @comments}%>
 	<!-- http://guides.rubyonrails.org/working_with_javascript_in_rails.html -->
 </div>
