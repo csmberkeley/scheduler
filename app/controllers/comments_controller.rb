@@ -4,6 +4,7 @@ class CommentsController < ApplicationController
 		@section = Section.find(eval(params[:section_id])[:value])
 		@section.comments << @comment
 		@comment.from_id = current_user.id
+		@comments = @section.comments.order(:created_at).reverse_order
 		respond_to do |format|
 		    if @section.save && @comment.save
 		      format.js

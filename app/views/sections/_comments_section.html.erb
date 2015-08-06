@@ -1,7 +1,9 @@
-<div class = "comments">
+<div id = "comments">
 	<% comments.each do |comment|%>
-		<div class = "comment" style = "border-bottom: 1px #ccc solid">
+		<div class = "comment" style = "border: 1px #ccc solid; width: 400px; padding:3px;">
 			<b><%= User.find(comment.from_id).name %></b>
+			<i style="float:right;"><%= comment.created_at.strftime("%I:%M:%S %p on %b. %d, %Y") %></i>
+			<br>
 			<%= comment.body %>
 		</div>
 	<% end %>		
