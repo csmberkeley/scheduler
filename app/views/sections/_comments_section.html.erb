@@ -1,0 +1,8 @@
+<div class = "comments">
+	<% comments.each do |comment|%>
+		<div class = "comment" style = "border-bottom: 1px #ccc solid">
+			<b><%= User.find(comment.from_id).name %></b>
+			<%= comment.body %>
+		</div>
+	<% end %>		
+</div>

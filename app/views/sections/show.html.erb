@@ -1,25 +1,8 @@
 <div class = "container">
 	<h1>Section: <%= @section.name%> </h1>
-	<div class = "container">
 	<h1>Comments</h1>
-		<% @comments.each do |comment|%>
-			<div class = "comment" style = "border-bottom: 1px #ccc solid">
-				<b><%= User.find(comment.from_id).name %></b>
-				<%= comment.body %>
-			</div>
-		<% end %>
-		<hr>
-		<%= form_for(@new_comment) do |f| %>
-			<div class = "field">
-				<div class = "add_comment">
-					<h4>Add Comment</h4>
-					<%= f.text_area :body %>
-				</div>
-				<%= hidden_field_tag :section_id, :value => @section.id %>
-			</div>
-			<div class = "actions">
-				<%= f.submit "Add Comment" %>
-			</div>
-		<% end %>
-	</div>
+	<%= render partial: "comments_section.html", locals: {comments: @comments}%>
+	<hr>
+	<%= render partial: "add_comment.html", locals: {new_comment: @new_comment, section: @section} %>
+	<!-- http://guides.rubyonrails.org/working_with_javascript_in_rails.html -->
 </div>

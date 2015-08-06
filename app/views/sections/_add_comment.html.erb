@@ -1,0 +1,14 @@
+<div class = "add-comment">
+	<%= form_for(new_comment, :remote => true) do |f| %>
+		<div class = "field">
+			<div class = "add_comment">
+				<h4>Add Comment</h4>
+				<%= f.text_area :body %>
+			</div>
+			<%= hidden_field_tag :section_id, :value => section.id %>
+		</div>
+		<div class = "actions">
+			<%= f.submit "Add Comment" %>
+		</div>
+	<% end %>
+</div>
