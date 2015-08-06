@@ -4,10 +4,13 @@ class CommentsController < ApplicationController
 		@section = Section.find(eval(params[:section_id])[:value])
 		@section.comments << @comment
 		@comment.from_id = current_user.id
-		if @section.save && @comment.save
-			redirect_to section_path(@section)
-		else
-			redirect_to section_path(@section)
+		respond_to do |format|
+		    if @section.save && @comment.save
+		      format.js
+		    else
+		      # format.html { render action: "new" }
+		      # format.json { render json: @user.errors, status: :unprocessable_entity }
+		    end
 		end
 	end
 
