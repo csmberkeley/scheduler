@@ -14,7 +14,7 @@ admin = User.create! :name => "Admin",
 admin.admin = true
 admin.save
 
-#mike's test data for courses controller
+#mike's test data
 
 mike = User.create! :name => "Mike Aboody",
 			:email => "mikeaboody@berkeley.edu",

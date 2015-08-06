@@ -5,7 +5,6 @@ Rails.application.routes.draw do
   root "homes#index"
   get "/courses" => "courses#index"
   get "/courses/:id" => "courses#show", as: :course
-  get "/topics/:id" => "topics#show", as: :topic
   get "/sections" => "sections#index"
   get "/sections/:id" => "sections#show", as: :section
   post "/comments" => "comments#create"
