@@ -6,9 +6,9 @@ Rails.application.routes.draw do
   get "/courses" => "courses#index"
   get "/courses/:id" => "courses#show", as: :course
   get "/topics/:id" => "topics#show", as: :topic
-  get "/sessions" => "sessions#index"
-  get "/sessions/new" => "sessions#new", as: :new_session
-  post "/sessions" => "sessions#create"
+  get "/sections" => "sections#index"
+  get "/sections/:id" => "sections#show", as: :section
+  post "/comments" => "comments#create"
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

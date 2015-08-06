@@ -6,7 +6,8 @@
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 
-admin = User.create! :email => "admin@csm.com",
+admin = User.create! :name => "Admin",
+			 :email => "admin@csm.com",
              :password => "el psy congroo",
              :password_confirmation => "el psy congroo"
 
@@ -15,9 +16,10 @@ admin.save
 
 #mike's test data for courses controller
 
-mike = User.create! :email => "mikeaboody@berkeley.edu",
-            :password => "mikespassword",
-            :password_confirmation => "mikespassword"
+mike = User.create! :name => "Mike Aboody",
+			:email => "mikeaboody@berkeley.edu",
+            :password => "mikespass",
+            :password_confirmation => "mikespass"
 mike_cs61a = Course.create! :course_name => "CS61A",
 			:semester => "Fall",
 			:year => 2014,
@@ -41,6 +43,17 @@ mike_cs61b_enr = Enroll.create! :user_id => mike.id,
 			:tutor => false
 
 mike.enrolls << mike_cs61b_enr
+
+mike_cs61a_section1 = Section.create! :name => "61a-1"
+mike_cs61a_section2 = Section.create! :name => "61a-2"
+mike_cs61b_section1 = Section.create! :name => "61b-1"
+mike_cs61b_section2 = Section.create! :name => "61b-2"
+
+mike_cs61a_section1.save
+mike_cs61a_section2.save
+mike_cs61b_section1.save
+mike_cs61b_section2.save
+
 
 mike_cs61a.save
 mike_cs61b.save

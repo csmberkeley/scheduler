@@ -14,7 +14,7 @@
 ActiveRecord::Schema.define(version: 20150802174859) do
 
   create_table "comments", force: true do |t|
-    t.integer  "session_id"
+    t.integer  "section_id"
     t.integer  "from_id"
     t.text     "body"
     t.datetime "created_at"
@@ -61,6 +61,7 @@ ActiveRecord::Schema.define(version: 20150802174859) do
   end
 
   create_table "sections", force: true do |t|
+    t.string   "name"
     t.datetime "start"
     t.datetime "end"
     t.boolean  "empty"

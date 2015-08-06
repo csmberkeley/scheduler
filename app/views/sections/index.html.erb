@@ -1,0 +1,10 @@
+<div class = "container">
+	<h1>Sections</h1>
+	<hr>
+	<div class = "sections">
+		<% @sections.each do |section| %>
+			<h2><%=link_to section.name, section_path(section)%></h2>
+			<hr>
+		<% end %>
+	</div>
+</div>
