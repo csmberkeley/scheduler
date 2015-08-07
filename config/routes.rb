@@ -8,6 +8,7 @@ Rails.application.routes.draw do
   get "/sections" => "sections#index"
   get "/sections/:id" => "sections#show", as: :section
   post "/comments" => "comments#create"
+  delete "/comments/:id" => "comments#destroy", as: :delete_comment
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

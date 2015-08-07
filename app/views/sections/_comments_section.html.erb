@@ -5,6 +5,9 @@
 			<i style="float:right;"><%= comment.created_at.strftime("%I:%M:%S %p on %b. %d, %Y") %></i>
 			<br>
 			<%= comment.body %>
+			<% if current_user.id == comment.from_id %>
+				<%= button_to "Delete", delete_comment_path(comment), method: :delete, :remote => true %>
+			<% end %>
 		</div>
 	<% end %>		
 </div>
