@@ -1,3 +1,2 @@
 $("#comments").empty();
 $("#comments").append("<%= escape_javascript(render partial:'sections/comments_section', locals: {comments: @comments}) %>");
-$("#comment_body").val("");

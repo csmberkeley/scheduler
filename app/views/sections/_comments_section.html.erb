@@ -1,13 +1,16 @@
-<div id = "comments">
-	<% comments.each do |comment|%>
-		<div class = "comment" style = "border: 1px #ccc solid; width: 400px; padding:3px;">
-			<b><%= User.find(comment.from_id).name %></b>
-			<i style="float:right;"><%= comment.created_at.strftime("%I:%M:%S %p on %b. %d, %Y") %></i>
-			<br>
-			<%= comment.body %>
-			<% if current_user.id == comment.from_id %>
-				<%= button_to "Delete", delete_comment_path(comment), method: :delete, :remote => true %>
-			<% end %>
+<% comments.each do |comment|%>
+	<div class = "row">
+		<div class = "media col-sm-6 col-xs-12" style = "border: #ccc solid 1px; padding: 5px; border-radius: 3px;">
+			<div class="pull-right">
+				<%= image_tag "anon_user.png", :style => "width: 36px; height: 36px;"%>
+			</div>
+			<div class="media-body">
+				<h4 class="media-heading"><%= User.find(comment.from_id).name %><br><small><%= comment.created_at.strftime("%I:%M:%S %p on %b. %d, %Y") %></small></h4>
+			    <%= comment.body %>
+			    <% if current_user.id == comment.from_id %>
+					<%= button_to "Delete", delete_comment_path(comment), method: :delete, :remote => true %>
+				<% end %>
+			</div>
 		</div>
-	<% end %>		
-</div>
+	</div>
+<% end %>		
