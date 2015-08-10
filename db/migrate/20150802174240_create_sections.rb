@@ -5,6 +5,7 @@ class CreateSections < ActiveRecord::Migration
       t.datetime :start
       t.datetime :end
       t.boolean :empty
+      t.integer :course_id
 
       t.timestamps
     end

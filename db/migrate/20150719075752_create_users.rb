@@ -4,6 +4,7 @@ class CreateUsers < ActiveRecord::Migration
       t.string :name
       t.string :nickname
       t.boolean :admin
+      t.integer :section_id
 
       t.timestamps
     end

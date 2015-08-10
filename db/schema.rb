@@ -11,11 +11,11 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150802174859) do
+ActiveRecord::Schema.define(version: 20150810070455) do
 
   create_table "comments", force: true do |t|
-    t.integer  "section_id"
-    t.integer  "from_id"
+    t.integer  "offer_id"
+    t.integer  "user_id"
     t.text     "body"
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -33,7 +33,7 @@ ActiveRecord::Schema.define(version: 20150802174859) do
   create_table "enrolls", force: true do |t|
     t.integer  "user_id"
     t.integer  "course_id"
-    t.boolean  "tutor"
+    t.integer  "section_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -41,13 +41,17 @@ ActiveRecord::Schema.define(version: 20150802174859) do
   create_table "offers", force: true do |t|
     t.integer  "section_id"
     t.integer  "user_id"
+    t.string   "status"
+    t.text     "body"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
   create_table "replies", force: true do |t|
-    t.integer  "section_d"
+    t.integer  "offer_id"
     t.integer  "user_id"
+    t.string   "status"
+    t.text     "body"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -65,6 +69,7 @@ ActiveRecord::Schema.define(version: 20150802174859) do
     t.datetime "start"
     t.datetime "end"
     t.boolean  "empty"
+    t.integer  "course_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -73,6 +78,7 @@ ActiveRecord::Schema.define(version: 20150802174859) do
     t.string   "name"
     t.string   "nickname"
     t.boolean  "admin"
+    t.integer  "section_id"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "email",                  default: "", null: false
@@ -89,5 +95,12 @@ ActiveRecord::Schema.define(version: 20150802174859) do
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
+
+  create_table "wants", force: true do |t|
+    t.integer  "offer_id"
+    t.integer  "section_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
 end

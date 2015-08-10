@@ -1,8 +1,10 @@
 class CreateReplies < ActiveRecord::Migration
   def change
     create_table :replies do |t|
-      t.integer :section_d
+      t.integer :offer_id
       t.integer :user_id
+      t.string :status
+      t.text :body
 
       t.timestamps
     end

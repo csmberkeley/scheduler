@@ -5,7 +5,8 @@ class User < ActiveRecord::Base
          :recoverable, :rememberable, :trackable, :validatable
 
   has_many :enrolls, dependent: :destroy
+  has_many :offers, dependent: :destroy
+  has_many :requests, dependent: :destroy
+  has_many :comments, dependent: :destroy
   belongs_to :section
-  has_many :offers
-  has_many :requests
 end
