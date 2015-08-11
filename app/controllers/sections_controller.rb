@@ -4,7 +4,9 @@ class SectionsController < ApplicationController
 	end
 	def show
 		@section = Section.find(params[:id]);
-		@comments = @section.comments.order(:created_at).reverse_order
-		@new_comment = Comment.new
+	end
+	def switch
+		@section = Section.find(params[:id])
+		@offers = current_user.offers.where(section_id: @section.id)
 	end
 end

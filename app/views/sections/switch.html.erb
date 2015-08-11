@@ -1,0 +1,19 @@
+<div class = "container">
+	<!-- for now just allows you to view offer -->
+	<div class = "open-sections">
+		<!-- open sections section -->
+	</div>
+	<div class = "trade">
+		<!-- trade section -->
+		<div class = "your-offers">
+			<h2>Your offers for section <%= @section.name %>:</h2>
+			<% @offers.each do |offer| %>
+				<%= link_to "View Offer", offer_path(offer) %>
+			<% end %>
+		</div>
+		
+	</div>
+	<div class = "transactions">
+		<!-- transactions section -->
+	</div>
+</div>

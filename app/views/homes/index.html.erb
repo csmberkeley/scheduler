@@ -3,4 +3,12 @@
   <%= link_to "View Courses", "/courses" %>
   <br>
   <%= link_to "View Sections", "/sections" %>
+  <div class = "switch-sections">
+  	<% @enrolls.each do |enroll| %>
+  		<% curr_section = Section.find(enroll.section_id) %>
+  		<% curr_course = Course.find(enroll.course_id) %>
+  		<h4><%= curr_course.course_name %></h4>
+  		<%= link_to "Switch '" + curr_section.name + "' Section", switch_section_path(curr_section) %>
+  	<% end %>
+  </div>
 </div>  

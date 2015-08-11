@@ -1,11 +1,3 @@
 <div class = "container">
 	<h1>Section: <%= @section.name%> </h1>
-	<h1>Comments</h1>
-	<div id = "add-comment">
-		<%= render partial: "add_comment.html", locals: {new_comment: @new_comment, section: @section} %>
-		<hr>
-	</div>
-	<div class = "container" id = "comments">
-		<%= render partial: "comments_section.html", locals: {comments: @comments}%>
-	</div>
 </div>

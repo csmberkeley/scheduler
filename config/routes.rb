@@ -7,6 +7,8 @@ Rails.application.routes.draw do
   get "/courses/:id" => "courses#show", as: :course
   get "/sections" => "sections#index"
   get "/sections/:id" => "sections#show", as: :section
+  get "/offers/:id" => "offers#show", as: :offer
+  get "/sections/:id/switch" => "sections#switch", as: :switch_section
   post "/comments" => "comments#create"
   delete "/comments/:id" => "comments#destroy", as: :delete_comment
 

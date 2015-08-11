@@ -1,12 +1,13 @@
 class CommentsController < ApplicationController
 	def create
 		@comment = Comment.new(comment_params)
-		@section = Section.find(eval(params[:section_id])[:value])
-		@section.comments << @comment
-		@comment.from_id = current_user.id
-		@comments = @section.comments.order(:created_at).reverse_order
+		@offer = Offer.find(eval(params[:offer_id])[:value])
+		@offer.comments << @comment
+		@comment.user_id = current_user.id
+		@comment.offer_id = @offer.id
+		@comments = @offer.getCommentsInReverseOrder
 		respond_to do |format|
-		    if @section.save && @comment.save
+		    if @offer.save && @comment.save
 		      format.js
 		    else
 		      # format.html { render action: "new" }
@@ -16,8 +17,8 @@ class CommentsController < ApplicationController
 	end
 	def destroy
 		@comment = Comment.find(params[:id])
-		@section = Section.find(@comment.section_id)
-		@comments = @section.comments.order(:created_at).reverse_order
+		@offer = Offer.find(@comment.offer_id)
+		@comments = @offer.getCommentsInReverseOrder
 		respond_to do |format|
 		    if @comment.destroy
 		      format.js
