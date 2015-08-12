@@ -7,6 +7,8 @@ class SectionsController < ApplicationController
 	end
 	def switch
 		@section = Section.find(params[:id])
-		@offers = current_user.offers.where(section_id: @section.id)
+		@course = Course.find(@section.course_id)
+		@open_sections = @section.getOtherOpenSections()
+		@offer = Offer.getUserOfferFromSection(current_user, @section)
 	end
 end

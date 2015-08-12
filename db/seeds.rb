@@ -43,16 +43,16 @@ mike_cs61b_enr = Enroll.create! :user_id => mike.id,
 mike.enrolls << mike_cs61b_enr
 
 mike_cs61a_section1 = Section.create! :name => "Section 1022", 
-      :course_id => mike_cs61a_enr.course_id
+      :course_id => mike_cs61a_enr.course_id, :empty => false
 
 mike_cs61a_section2 = Section.create! :name => "Section 1023", 
-      :course_id => mike_cs61a_enr.course_id
+      :course_id => mike_cs61a_enr.course_id, :empty => false
 
-mike_cs61b_section1 = Section.create! :name => "Section 1022", 
-      :course_id => mike_cs61b_enr.course_id
+mike_cs61b_section1 = Section.create! :name => "Section 1024", 
+      :course_id => mike_cs61b_enr.course_id, :empty => false
 
-mike_cs61b_section2 = Section.create! :name => "Section 1023", 
-      :course_id => mike_cs61b_enr.course_id
+mike_cs61b_section2 = Section.create! :name => "Section 1025", 
+      :course_id => mike_cs61b_enr.course_id, :empty => true
 
 mike_cs61a_section1.users << mike
 mike_cs61a_section2.users << mike

@@ -2,17 +2,30 @@
 	<!-- for now just allows you to view offer -->
 	<div class = "open-sections">
 		<!-- open sections section -->
+		<h2>Open Sections</h2>
+		<ul>
+			<% @open_sections.each do |section|%>
+				<li><%= section.name %></li>
+			<% end %>
+		</ul>
+		<% if @open_sections.length == 0 %>
+			<h4>No open sections for this course.</h4>
+		<% end %>
 	</div>
+	<hr>
 	<div class = "trade">
 		<!-- trade section -->
 		<div class = "your-offers">
-			<h2>Your offers for section <%= @section.name %>:</h2>
-			<% @offers.each do |offer| %>
-				<%= link_to "View Offer", offer_path(offer) %>
+			<h2>Your offer for section <%= @section.name %>:</h2>
+			<% if @offer %>
+				<%= link_to "View Offer", offer_path(@offer) %>
+			<% else %>
+				<h4>No offer exists.</h4>
 			<% end %>
 		</div>
 		
 	</div>
+	<hr>
 	<div class = "transactions">
 		<!-- transactions section -->
 	</div>
