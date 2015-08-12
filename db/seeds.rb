@@ -61,6 +61,8 @@ mike_cs61b_section2.users << mike
 
 mike_cs61a_section1.enrolls << mike_cs61a_enr
 mike_cs61b_section1.enrolls << mike_cs61b_enr
+mike_cs61a_enr.save
+mike_cs61b_enr.save
 
 mike_cs61a_offer = Offer.create! :body => "61A Section 1022 Offer", 
       :status => "pending",
