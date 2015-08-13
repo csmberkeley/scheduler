@@ -9,6 +9,7 @@ Rails.application.routes.draw do
   get "/sections/:id" => "sections#show", as: :section
   get "/offers/:id" => "offers#show", as: :offer
   get "/enrollments/:id/switch-section" => "enrollments#switch_section", as: :switch_section
+  get "/sections/make-switch/:old_id/:new_id" => "sections#make_switch", as: :make_switch
   post "/comments" => "comments#create"
   delete "/comments/:id" => "comments#destroy", as: :delete_comment
 

@@ -5,7 +5,7 @@
 		<h2>Open Sections</h2>
 		<ul>
 			<% @open_sections.each do |section|%>
-				<li><%= section.name %></li>
+				<li><%= section.name %> <%= link_to "Switch", make_switch_path(old_id: @enrollment.section_id, new_id: section.id, enroll_id: @enrollment.id) %></li>
 			<% end %>
 		</ul>
 		<% if @open_sections.length == 0 %>
