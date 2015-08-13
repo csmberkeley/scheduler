@@ -43,29 +43,28 @@ mike_cs61b_enr = Enroll.create! :user_id => mike.id,
 mike.enrolls << mike_cs61b_enr
 
 mike_cs61a_section1 = Section.create! :name => "Section 1022", 
-      :course_id => mike_cs61a_enr.course_id, :empty => false
+      :course_id => mike_cs61a_enr.course_id, :empty => true
 
 mike_cs61a_section2 = Section.create! :name => "Section 1023", 
-      :course_id => mike_cs61a_enr.course_id, :empty => false
+      :course_id => mike_cs61a_enr.course_id, :empty => true
 
 mike_cs61a_section3 = Section.create! :name => "Section 1026", 
-      :course_id => mike_cs61a_enr.course_id, :empty => false
+      :course_id => mike_cs61a_enr.course_id, :empty => true
 
 mike_cs61b_section1 = Section.create! :name => "Section 1024", 
-      :course_id => mike_cs61b_enr.course_id, :empty => false
+      :course_id => mike_cs61b_enr.course_id, :empty => true
 
 mike_cs61b_section2 = Section.create! :name => "Section 1025", 
+      :course_id => mike_cs61b_enr.course_id, :empty => false
+
+mike_cs61b_section3 = Section.create! :name => "Section 1027", 
       :course_id => mike_cs61b_enr.course_id, :empty => true
 
 mike_cs61a_section1.users << mike
-mike_cs61a_section2.users << mike
 mike_cs61b_section1.users << mike
-mike_cs61b_section2.users << mike
 
 mike_cs61a_section1.enrolls << mike_cs61a_enr
 mike_cs61b_section1.enrolls << mike_cs61b_enr
-mike_cs61a_enr.save
-mike_cs61b_enr.save
 
 mike_cs61a_offer = Offer.create! :body => "61A Section 1022 Offer", 
       :status => "pending",

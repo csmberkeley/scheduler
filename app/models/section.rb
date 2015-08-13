@@ -10,7 +10,7 @@ class Section < ActiveRecord::Base
   belongs_to :course
 
   def getOtherOpenSections()
-  	return Section.where(empty: false, course_id: self.course_id).where.not(id: self.id)
+  	return Section.where(empty: true, course_id: self.course_id).where.not(id: self.id)
   end
 
 end

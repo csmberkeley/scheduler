@@ -9,8 +9,11 @@ class SectionsController < ApplicationController
 		@old_section = Section.find(params[:old_id])
 		@new_section = Section.find(params[:new_id])
 		@enrollment = Enroll.find(params[:enroll_id])
-		@enrollment.switchSection(@old_section, @new_section, current_user)
-		flash[:notice] = "Successfully switched your section from " << @old_section.name << " to " << @new_section.name
+		if @enrollment.switchSection(@old_section, @new_section, current_user)
+			flash[:notice] = "Successfully switched your section from " << @old_section.name << " to " << @new_section.name
+		else
+			flash[:notice] = "Sorry, that section has been filled up."
+		end
 		redirect_to "/"
 	end
 end
