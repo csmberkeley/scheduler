@@ -1,32 +1,34 @@
-<div class = "container">
-	<!-- for now just allows you to view offer -->
-	<div class = "open-sections">
-		<!-- open sections section -->
-		<h2>Open Sections</h2>
-		<ul>
-			<% @open_sections.each do |section|%>
-				<li><%= section.name %> <%= link_to "Switch", make_switch_path(old_id: @enrollment.section_id, new_id: section.id, enroll_id: @enrollment.id) %></li>
-			<% end %>
-		</ul>
-		<% if @open_sections.length == 0 %>
-			<h4>No open sections for this course.</h4>
+<ul class="nav nav-tabs">
+  <li class="active"><a data-toggle="tab" href="#open-sections">Open Sections</a></li>
+  <li><a data-toggle="tab" href="#trade-section">Trade</a></li>
+  <li><a data-toggle="tab" href="#transactions">Transactions</a></li>
+</ul>
+
+<div class="tab-content">
+  <div id="open-sections" class="tab-pane fade in active">
+  	<!-- open sections section -->
+    <h2>Open Sections</h2>
+	<ul>
+		<% @open_sections.each do |section|%>
+			<li><%= section.name %> <%= link_to "Switch", make_switch_path(old_id: @enrollment.section_id, new_id: section.id, enroll_id: @enrollment.id) %></li>
+		<% end %>
+	</ul>
+	<% if @open_sections.length == 0 %>
+		<h4>No open sections for this course.</h4>
+	<% end %>
+  </div>
+  <div id="trade-section" class="tab-pane fade">
+  	<!-- trade section -->
+	<div class = "your-offers">
+		<h2>Your offer for section <%= @section.name %>:</h2>
+		<% if @offer %>
+			<%= link_to "View Offer", offer_path(@offer) %>
+		<% else %>
+			<h4>No offer exists.</h4>
 		<% end %>
 	</div>
-	<hr>
-	<div class = "trade">
-		<!-- trade section -->
-		<div class = "your-offers">
-			<h2>Your offer for section <%= @section.name %>:</h2>
-			<% if @offer %>
-				<%= link_to "View Offer", offer_path(@offer) %>
-			<% else %>
-				<h4>No offer exists.</h4>
-			<% end %>
-		</div>
-		
-	</div>
-	<hr>
-	<div class = "transactions">
-		<!-- transactions section -->
-	</div>
+  </div>
+  <div id="transactions" class="tab-pane fade">
+  	<h4>Nothing to show for this yet.</h4>
+  </div>
 </div>
