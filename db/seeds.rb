@@ -48,6 +48,9 @@ mike_cs61a_section1 = Section.create! :name => "Section 1022",
 mike_cs61a_section2 = Section.create! :name => "Section 1023", 
       :course_id => mike_cs61a_enr.course_id, :empty => false
 
+mike_cs61a_section3 = Section.create! :name => "Section 1026", 
+      :course_id => mike_cs61a_enr.course_id, :empty => false
+
 mike_cs61b_section1 = Section.create! :name => "Section 1024", 
       :course_id => mike_cs61b_enr.course_id, :empty => false
 
