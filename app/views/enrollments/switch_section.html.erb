@@ -19,12 +19,23 @@
   </div>
   <div id="trade-section" class="tab-pane fade">
   	<!-- trade section -->
-	<div class = "your-offers">
+	<div class = "your-offer">
 		<h2>Your offer for section <%= @section.name %>:</h2>
 		<% if @offer %>
 			<%= link_to "View Offer", offer_path(@offer) %> | <%= link_to "Cancel Offer", delete_offer_path(@enrollment), method: :delete %>
 		<% else %>
 			<h4>No offer exists. <%= link_to "Create One?", new_offer_path(section_id: @section.id)%></h4>
+		<% end %>
+	</div>
+	<h1>OR</h1>
+	<div class = "other-offers">
+		<h2>See available trading offers:</h2>
+		<% @compatable_offers.each do |offer|%>
+			<% section = Section.find(offer.section_id) %>
+			<%= link_to "Offer for " << section.name, offer_path(offer) %>
+		<% end %>
+		<% if @compatable_offers.length == 0 %>
+			<h5>Sorry. No offers exist that want <%= @section.name %></h5>
 		<% end %>
 	</div>
   </div>

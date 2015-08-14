@@ -20,6 +20,12 @@ mike = User.create! :name => "Mike Aboody",
 			:email => "mikeaboody@berkeley.edu",
             :password => "mikespass",
             :password_confirmation => "mikespass"
+
+mike2 = User.create! :name => "Mike Aboody2",
+      :email => "mikeaboody@gmail.com",
+            :password => "mikespass",
+            :password_confirmation => "mikespass"
+
 mike_cs61a = Course.create! :course_name => "CS61A",
 			:semester => "Fall",
 			:year => 2014,
@@ -34,37 +40,49 @@ mike_cs61b = Course.create! :course_name => "CS61B",
 
 mike_cs61a_enr = Enroll.create! :user_id => mike.id,
 			:course_id => mike_cs61a.id
+mike2_cs61a_enr = Enroll.create! :user_id => mike2.id,
+      :course_id => mike_cs61a.id
 
 mike.enrolls << mike_cs61a_enr
+mike2.enrolls << mike2_cs61a_enr
 
 mike_cs61b_enr = Enroll.create! :user_id => mike.id,
 			:course_id => mike_cs61b.id
+mike2_cs61b_enr = Enroll.create! :user_id => mike2.id,
+      :course_id => mike_cs61b.id
 
 mike.enrolls << mike_cs61b_enr
+mike2.enrolls << mike2_cs61b_enr
 
 mike_cs61a_section1 = Section.create! :name => "Section 1022", 
-      :course_id => mike_cs61a_enr.course_id, :empty => true
+      :course_id => mike_cs61a.id, :empty => true
 
 mike_cs61a_section2 = Section.create! :name => "Section 1023", 
-      :course_id => mike_cs61a_enr.course_id, :empty => true
+      :course_id => mike_cs61a.id, :empty => true
 
 mike_cs61a_section3 = Section.create! :name => "Section 1026", 
-      :course_id => mike_cs61a_enr.course_id, :empty => true
+      :course_id => mike_cs61a.id, :empty => true
 
 mike_cs61b_section1 = Section.create! :name => "Section 1024", 
-      :course_id => mike_cs61b_enr.course_id, :empty => true
+      :course_id => mike_cs61b.id, :empty => true
 
 mike_cs61b_section2 = Section.create! :name => "Section 1025", 
-      :course_id => mike_cs61b_enr.course_id, :empty => false
+      :course_id => mike_cs61b.id, :empty => false
 
 mike_cs61b_section3 = Section.create! :name => "Section 1027", 
-      :course_id => mike_cs61b_enr.course_id, :empty => true
+      :course_id => mike_cs61b.id, :empty => true
 
 mike_cs61a_section1.users << mike
 mike_cs61b_section1.users << mike
 
+mike_cs61a_section2.users << mike2
+mike_cs61b_section2.users << mike2
+
 mike_cs61a_section1.enrolls << mike_cs61a_enr
 mike_cs61b_section1.enrolls << mike_cs61b_enr
+
+mike_cs61a_section2.enrolls << mike2_cs61a_enr
+mike_cs61b_section2.enrolls << mike2_cs61b_enr
 
 mike_cs61a_offer = Offer.create! :body => "61A Section 1022 Offer", 
       :status => "pending",
