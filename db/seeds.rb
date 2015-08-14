@@ -70,6 +70,10 @@ mike_cs61a_offer = Offer.create! :body => "61A Section 1022 Offer",
       :status => "pending",
       :section_id => mike_cs61a_section1.id,
       :user_id => mike.id 
+Want.create! :offer_id => mike_cs61a_offer.id,
+      :section_id => mike_cs61a_section2.id
+Want.create! :offer_id => mike_cs61a_offer.id,
+      :section_id => mike_cs61a_section3.id
 
 
 

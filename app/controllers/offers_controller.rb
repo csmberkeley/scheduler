@@ -1,6 +1,11 @@
 class OffersController < ApplicationController
 	def show
 		@offer = Offer.find(params[:id])
+		@section = Section.find(@offer.section_id)
+		@wanted_sections = []
+		@offer.wants.each do |want|
+			@wanted_sections << Section.find(want.section_id)
+		end
 		@comments = @offer.comments.order(:created_at).reverse_order
 		@new_comment = Comment.new
 	end
@@ -16,7 +21,7 @@ class OffersController < ApplicationController
 				curr_want = Want.create(offer_id: @offer.id, section_id: id)
 			end
 			flash[:notice] = "Created an offer for your section!"
-			redirect_to "/"
+			redirect_to offer_path(@offer)
 		end
 	end
 

@@ -1,5 +1,19 @@
 <div class = "container">
-	<h1>Comments</h1>
+	<div class = "header">
+		<h1>Offer For <%=  @section.name %></h1>
+		<i>
+			<h5>Wants:</h5> 
+			|<% @wanted_sections.each do |section| %>
+				<%= section.name %> | 
+			<% end %>
+		</i>
+	</div>
+
+	<h2>Additional Info</h2>
+	<div class = "body">
+		<%= @offer.body %>
+	</div>
+	<h2>Comments</h2>
 	<div id = "add-comment">
 		<%= render partial: "add_comment.html", locals: {new_comment: @new_comment, offer: @offer} %>
 		<hr>
