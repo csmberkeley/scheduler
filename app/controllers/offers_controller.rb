@@ -24,6 +24,21 @@ class OffersController < ApplicationController
 			redirect_to offer_path(@offer)
 		end
 	end
+	def destroy
+		@enroll = Enroll.find(params[:id])
+		@section = Section.find(@enroll.section_id)
+		@offer = Offer.getUserOfferFromSection(current_user, @section)
+		if @offer
+			if @offer.destroy
+				flash[:notice] = "Canceled your offer for your section."
+			else
+				flash[:notice] = "Something went wrong with deleting your offer. Try again later."
+			end
+		else
+			flash[:notice] = "You don't have an offer to cancel."
+		end
+		redirect_to "/"
+	end
 
 	private
 	def offer_params
