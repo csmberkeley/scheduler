@@ -22,7 +22,7 @@
 	<div class = "your-offers">
 		<h2>Your offer for section <%= @section.name %>:</h2>
 		<% if @offer %>
-			<%= link_to "View Offer", offer_path(@offer) %>
+			<%= link_to "View Offer", offer_path(@offer) %> | <%= link_to "Cancel Offer", delete_offer_path(@enrollment), method: :delete %>
 		<% else %>
 			<h4>No offer exists. <%= link_to "Create One?", new_offer_path(section_id: @section.id)%></h4>
 		<% end %>

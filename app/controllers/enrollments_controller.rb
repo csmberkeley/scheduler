@@ -5,5 +5,7 @@ class EnrollmentsController < ApplicationController
 		@course = Course.find(@enrollment.course_id)
 		@open_sections = @section.getOtherOpenSections()
 		@offer = Offer.getUserOfferFromSection(current_user, @section)
+		#untested:
+		#@compatable_offers = Offer.getCompatableOffers(@section)
 	end
 end

@@ -16,4 +16,18 @@ class Offer < ActiveRecord::Base
   	end
   	return nil
   end
+
+  #untested:
+  def self.getCompatableOffers(current_section)
+    compatable_offers = []
+    #getting compatable offers from all other sections
+    current_section.getAllOtherSections.each do |section|
+      section.wants.each do |want|
+        if want.section_id == current_section.id
+          compatable_offers << Offer.find(want.offer_id)
+        end
+      end
+    end
+    return compatable_offers
+  end
 end
