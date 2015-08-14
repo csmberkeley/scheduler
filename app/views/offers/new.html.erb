@@ -10,7 +10,7 @@
 			</div>
 			<h4>Anything to add?</h4>
 			<div class = "extra-info">
-				<%= f.text_area :body, :class => "col-sm-6 col-xs-12", :style => "height:100px" %>
+				<%= f.text_area :body, :style => "width: 400px; height:100px" %>
 			</div>
 			<%= f.hidden_field :section_id, :value => @my_section.id %>
 			<%= f.hidden_field :user_id, :value => current_user.id %>
