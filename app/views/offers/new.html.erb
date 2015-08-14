@@ -1,0 +1,23 @@
+<div class = "container">
+	<%= form_for(@new_offer) do |f| %>
+		<div class = "field">
+			<h2>Offer For Section <%= @my_section.name %></h2>
+			<h4>Which Sections Are Okay To Switch With?</h4>
+			<div class = "wanted-sections">
+				<% @other_sections.each do |section| %>
+					<h5><%= section.name %> <%= check_box_tag 'section_ids[]', section.id %></h5>
+				<% end %>
+			</div>
+			<h4>Anything to add?</h4>
+			<div class = "extra-info">
+				<%= f.text_area :body, :class => "col-sm-6 col-xs-12", :style => "height:100px" %>
+			</div>
+			<%= f.hidden_field :section_id, :value => @my_section.id %>
+			<%= f.hidden_field :user_id, :value => current_user.id %>
+			<%= f.hidden_field :status, :value => "pending" %>
+		</div>
+		<div class = "actions">
+			<%= f.submit "Create Offer" %>
+		</div>
+	<% end %>
+</div>

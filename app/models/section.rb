@@ -13,4 +13,8 @@ class Section < ActiveRecord::Base
   	return Section.where(empty: true, course_id: self.course_id).where.not(id: self.id)
   end
 
+  def getAllOtherSections()
+    return Section.where(course_id: self.course_id).where.not(id: self.id)
+  end
+
 end

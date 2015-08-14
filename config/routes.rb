@@ -8,6 +8,8 @@ Rails.application.routes.draw do
   get "/sections" => "sections#index"
   get "/sections/:id" => "sections#show", as: :section
   get "/offers/:id" => "offers#show", as: :offer
+  get "/new_offer" => "offers#new", as: :new_offer
+  post "/offers" => "offers#create"
   get "/enrollments/:id/switch-section" => "enrollments#switch_section", as: :switch_section
   get "/sections/make-switch/:old_id/:new_id" => "sections#make_switch", as: :make_switch
   post "/comments" => "comments#create"

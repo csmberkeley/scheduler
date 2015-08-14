@@ -24,7 +24,7 @@
 		<% if @offer %>
 			<%= link_to "View Offer", offer_path(@offer) %>
 		<% else %>
-			<h4>No offer exists.</h4>
+			<h4>No offer exists. <%= link_to "Create One?", new_offer_path(section_id: @section.id)%></h4>
 		<% end %>
 	</div>
   </div>
