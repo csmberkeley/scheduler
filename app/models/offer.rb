@@ -9,6 +9,10 @@ class Offer < ActiveRecord::Base
   	return self.comments.order(:created_at).reverse_order
   end
 
+   def getRepliesInOrder()
+    return self.replies.order(:created_at)
+  end
+
   def self.getUserOfferFromSection(current_user, section)
   	request_offers = current_user.offers.where(section_id: section.id)
   	if request_offers.length > 0

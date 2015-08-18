@@ -1,12 +1,12 @@
-<%= form_for(new_comment, :remote => true) do |f| %>
+<%= form_for(new_reply, :remote => true) do |f| %>
 	<div class = "field">
-		<h4>Add Comment</h4>
+		<h4>Add Reply</h4>
 		<div class = "row container">
 			<%= f.text_area :body, :class => "col-sm-5 col-xs-12", :style => "height:100px" %>
 		</div>
 		<%= hidden_field_tag :offer_id, :value => offer.id %>
 	</div>
 	<div class = "actions">
-		<%= f.submit "Add Comment" %>
+		<%= f.submit "Add Reply" %>
 	</div>
 <% end %>

@@ -1,0 +1,14 @@
+<% replies.each do |reply|%>
+	<div class = "media" style = "border: #ccc solid 1px; padding: 5px; border-radius: 3px; background-color: #F0F8FF;">
+		<div class="pull-right">
+			<%= image_tag "anon_user.png", :style => "width: 36px; height: 36px;"%>
+		</div>
+		<div class="media-body">
+			<h4 class="media-heading"><%= User.find(reply.user_id).name %><br><small><%= reply.created_at.strftime("%I:%M:%S %p on %b. %d, %Y") %></small></h4>
+		    <%= reply.body %>
+		    <% if current_user.id == reply.user_id %>
+				<%= button_to "Delete", delete_reply_path(reply), method: :delete, :remote => true %>
+			<% end %>
+		</div>
+	</div>
+<% end %>		

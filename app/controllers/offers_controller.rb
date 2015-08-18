@@ -8,6 +8,8 @@ class OffersController < ApplicationController
 		end
 		@comments = @offer.comments.order(:created_at).reverse_order
 		@new_comment = Comment.new
+		@replies = @offer.replies.order(:created_at)
+		@new_reply = Reply.new
 	end
 	def new
 		@my_section = Section.find(params[:section_id])

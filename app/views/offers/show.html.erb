@@ -14,11 +14,21 @@
 		<%= @offer.body %>
 	</div>
 	<h2>Comments</h2>
-	<div id = "add-comment">
-		<%= render partial: "add_comment.html", locals: {new_comment: @new_comment, offer: @offer} %>
-		<hr>
+	<div class = "row">
+		<div class = "col-sm-6 col-xs-12" id = "add-comment">
+			<%= render partial: "add_comment.html", locals: {new_comment: @new_comment, offer: @offer} %>
+		</div>
+		<div class = "col-sm-6 col-xs-12" id = "add-reply">
+			<%= render partial: "add_reply.html", locals: {new_reply: @new_reply, offer: @offer} %>
+		</div>
 	</div>
-	<div class = "container" id = "comments">
-		<%= render partial: "comments_section.html", locals: {comments: @comments}%>
+	<hr>
+	<div class = "row">
+		<div class = "col-sm-6 col-xs-12" id = "comments">
+			<%= render partial: "comments_section.html", locals: {comments: @comments}%>
+		</div>
+		<div class = "col-sm-6 col-xs-12" id = "replies">
+			<%= render partial: "replies_section.html", locals: {replies: @replies}%>
+		</div>
 	</div>
 </div>

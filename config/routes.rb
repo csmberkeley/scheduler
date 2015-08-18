@@ -15,6 +15,8 @@ Rails.application.routes.draw do
   get "/sections/make-switch/:old_id/:new_id" => "sections#make_switch", as: :make_switch
   post "/comments" => "comments#create"
   delete "/comments/:id" => "comments#destroy", as: :delete_comment
+    post "/replies" => "replies#create"
+  delete "/replies/:id" => "replies#destroy", as: :delete_reply
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
