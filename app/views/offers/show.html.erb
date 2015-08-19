@@ -13,14 +13,19 @@
 	<div class = "body">
 		<%= @offer.body %>
 	</div>
-	<h2>Comments</h2>
+	<div class = "row">
+		<h2 class = "col-sm-6 col-xs-12" >Comments</h2>
+		<h2 class = "col-sm-6 col-xs-12" >Replies</h2>
+	</div>
 	<div class = "row">
 		<div class = "col-sm-6 col-xs-12" id = "add-comment">
 			<%= render partial: "add_comment.html", locals: {new_comment: @new_comment, offer: @offer} %>
 		</div>
-		<div class = "col-sm-6 col-xs-12" id = "add-reply">
-			<%= render partial: "add_reply.html", locals: {new_reply: @new_reply, offer: @offer} %>
-		</div>
+		<% if current_user.id != @offer.user_id %>
+			<div class = "col-sm-6 col-xs-12" id = "add-reply">
+				<%= render partial: "add_reply.html", locals: {new_reply: @new_reply, offer: @offer} %>
+			</div>
+		<% end %>
 	</div>
 	<hr>
 	<div class = "row">
