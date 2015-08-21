@@ -11,11 +11,10 @@ Rails.application.routes.draw do
   get "/new_offer" => "offers#new", as: :new_offer
   post "/offers" => "offers#create"
   delete "/offers/delete/enrollment/:id" => "offers#destroy", as: :delete_offer
+  post "/create_response" => "offers#create_response", as: :create_response
   get "/enrollments/:id/switch-section" => "enrollments#switch_section", as: :switch_section
   get "/sections/make-switch/:old_id/:new_id" => "sections#make_switch", as: :make_switch
-  post "/comments" => "comments#create"
   delete "/comments/:id" => "comments#destroy", as: :delete_comment
-    post "/replies" => "replies#create"
   delete "/replies/:id" => "replies#destroy", as: :delete_reply
 
   # The priority is based upon order of creation: first created -> highest priority.

@@ -42,6 +42,43 @@ class OffersController < ApplicationController
 		redirect_to "/"
 	end
 
+	def create_response
+		if params[:switch]
+			@reply = Reply.new(body: params[:body])
+			@offer = Offer.find(eval(params[:offer_id])[:value])
+			@offer.replies << @reply
+			@reply.user_id = current_user.id
+			@reply.offer_id = @offer.id
+			@reply.status = "pending"
+			@replies = @offer.getRepliesInOrder
+			@comments = @offer.getCommentsInReverseOrder
+			respond_to do |format|
+			    if @offer.save && @reply.save
+			      format.js
+			    else
+			      # format.html { render action: "new" }
+			      # format.json { render json: @user.errors, status: :unprocessable_entity }
+			    end
+			end
+		else
+			@comment = Comment.new(body: params[:body])
+			@offer = Offer.find(eval(params[:offer_id])[:value])
+			@offer.comments << @comment
+			@comment.user_id = current_user.id
+			@comment.offer_id = @offer.id
+			@replies = @offer.getRepliesInOrder
+			@comments = @offer.getCommentsInReverseOrder
+			respond_to do |format|
+			    if @offer.save && @comment.save
+			      format.js
+			    else
+			      # format.html { render action: "new" }
+			      # format.json { render json: @user.errors, status: :unprocessable_entity }
+			    end
+			end
+		end
+	end
+
 	private
 	def offer_params
 		params.require(:offer).permit(:body, :section_id, :user_id, :status)

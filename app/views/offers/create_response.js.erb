@@ -1,0 +1,5 @@
+$("#comments").empty();
+$("#comments").append("<%= escape_javascript(render partial:'offers/comments_section', locals: {comments: @comments}) %>");
+$("#replies").empty();
+$("#replies").append("<%= escape_javascript(render partial:'offers/replies_section', locals: {replies: @replies}) %>");
+$("#add-response textarea").val("");
