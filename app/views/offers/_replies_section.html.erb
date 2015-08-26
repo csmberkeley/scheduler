@@ -4,7 +4,8 @@
 			<%= image_tag "anon_user.png", :style => "width: 36px; height: 36px;"%>
 		</div>
 		<div class="media-body">
-			<h4 class="media-heading"><%= User.find(reply.user_id).name %><br><small><%= reply.created_at.strftime("%I:%M:%S %p on %b. %d, %Y") %></small></h4>
+			<h4 class="media-heading"><%= User.find(reply.user_id).name %><br><small><%= reply.created_at.strftime("%I:%M:%S %p on %b. %d, %Y") %> | <%= Section.find(reply.getEnrollmentOfReplier.section_id).name %>
+			</small></h4>
 		    <%= reply.body %>
 		    <% if current_user.id == Offer.find(reply.offer_id).user_id %>
 		    	<%= button_to "Accept Reply", accept_reply_path(reply)%>
