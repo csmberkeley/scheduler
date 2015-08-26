@@ -26,6 +26,16 @@ class RepliesController < ApplicationController
 		end
 	end
 
+	def deny
+		reply = Reply.find(params[:id])
+		offer = Offer.find(reply.offer_id)
+		reply.status = "Denied"
+		if reply.destroy
+			flash[:notice] = "Denied user"
+			redirect_to offer_path(offer)
+		end
+
+	end
 	private
 	def reply_params
 		params.require(:reply).permit(:body)

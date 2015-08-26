@@ -17,6 +17,7 @@ Rails.application.routes.draw do
   delete "/comments/:id" => "comments#destroy", as: :delete_comment
   delete "/replies/:id" => "replies#destroy", as: :delete_reply
   post "/replies/accept/:id" => "replies#accept", as: :accept_reply
+  post "/replies/deny/:id" => "replies#deny", as: :deny_reply
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
