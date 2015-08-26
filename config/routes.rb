@@ -17,6 +17,8 @@ Rails.application.routes.draw do
   delete "/comments/:id" => "comments#destroy", as: :delete_comment
   delete "/replies/:id" => "replies#destroy", as: :delete_reply
 
+  resources :settings, only:[:index, :update]
+  post "/settings" => "settings#update"
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
