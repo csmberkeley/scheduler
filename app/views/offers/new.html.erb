@@ -14,7 +14,7 @@
 			</div>
 			<%= f.hidden_field :section_id, :value => @my_section.id %>
 			<%= f.hidden_field :user_id, :value => current_user.id %>
-			<%= f.hidden_field :status, :value => "pending" %>
+			<%= f.hidden_field :accepted, :value => false %>
 		</div>
 		<div class = "actions">
 			<%= f.submit "Create Offer" %>

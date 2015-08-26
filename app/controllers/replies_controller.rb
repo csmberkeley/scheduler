@@ -12,7 +12,30 @@ class RepliesController < ApplicationController
 		    end
 		end
 	end
+	def accept
+		reply = Reply.find(params[:id])
+		offer = Offer.find(reply.offer_id)
+		enrollment1 = reply.getEnrollmentOfReplier
+		enrollment2 = offer.getEnrollmentOfOfferer
+		enrollment1.tradeSection(enrollment2)
+		reply.status = "Accepted"
+		offer.accepted = true
+		if offer.destroy
+			flash[:notice] = "Traded your section!"
+			redirect_to "/"
+		end
+	end
 
+	def deny
+		reply = Reply.find(params[:id])
+		offer = Offer.find(reply.offer_id)
+		reply.status = "Denied"
+		if reply.destroy
+			flash[:notice] = "Denied user"
+			redirect_to offer_path(offer)
+		end
+
+	end
 	private
 	def reply_params
 		params.require(:reply).permit(:body)

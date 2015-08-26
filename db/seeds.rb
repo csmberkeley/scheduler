@@ -85,7 +85,7 @@ mike_cs61a_section2.enrolls << mike2_cs61a_enr
 mike_cs61b_section2.enrolls << mike2_cs61b_enr
 
 mike_cs61a_offer = Offer.create! :body => "61A Section 1022 Offer", 
-      :status => "pending",
+      :accepted => false,
       :section_id => mike_cs61a_section1.id,
       :user_id => mike.id 
 Want.create! :offer_id => mike_cs61a_offer.id,

@@ -1,6 +1,7 @@
 class OffersController < ApplicationController
 	def show
 		@offer = Offer.find(params[:id])
+		@offer_user = User.find(@offer.user_id)
 		@section = Section.find(@offer.section_id)
 		@wanted_sections = []
 		@offer.wants.each do |want|
@@ -14,7 +15,7 @@ class OffersController < ApplicationController
 	def new
 		@my_section = Section.find(params[:section_id])
 		@other_sections = @my_section.getAllOtherSections
-		@new_offer = Offer.new(:section_id => @my_section.id, :user_id => current_user.id, :status => "pending")
+		@new_offer = Offer.new(:section_id => @my_section.id, :user_id => current_user.id, :accepted => false)
 	end
 	def create
 		@offer = Offer.new(offer_params)
