@@ -1,0 +1,19 @@
+<h2>Settings</h2>
+<div class="form">
+    <%= form_tag settings_path do %>
+        <% @settings.each do |setting| %>
+        <%= fields_for "setting[]", setting do |f| %>
+            <div class="field">
+                <%= f.label setting.setting_name %>
+                <%= f.check_box :enabled %>
+            </div>
+            
+            <% end %>
+    
+        <% end %>
+        <%= submit_tag "Save" %>
+    <% end %>
+</div>
+
+
+

@@ -13,11 +13,20 @@
 	<div class = "body">
 		<%= @offer.body %>
 	</div>
+	<hr />
 	<div class = "row">
+
 		<div class = "col-sm-6 col-xs-12" id = "add-response">
+			
+			<% if @comments_allowed %>
 			<%= render partial: "add_response.html", locals: {offer: @offer} %>
+			<% else %>
+			<h4>Adding comments is currently disabled.</h4>
+			<% end %>
 		</div>
 	</div>
+	
+	
 	<div class = "row">
 		<h2 class = "col-sm-6 col-xs-12" >Comments</h2>
 		<h2 class = "col-sm-6 col-xs-12" >Replies</h2>

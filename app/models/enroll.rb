@@ -51,4 +51,11 @@ class Enroll < ActiveRecord::Base
     end
     return nil
   end
+
+  def createTransaction(body)
+    new_transaction = Transaction.create! body: body
+    self.transactions << new_transaction
+    user = User.find(self.user_id)
+    user.transactions << new_transaction
+  end
 end

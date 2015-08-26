@@ -5,6 +5,10 @@
     <%= link_to "Add Course", new_enrollment_path %>
   <br>
   <%= link_to "View Sections", "/sections" %>
+  <br />
+  <% if current_user.admin %>
+  <%= link_to "Admin Settings", settings_path %>
+  <% end %>
   <div class = "switch-sections">
 
   <% @enrolls.each do |enroll| %>

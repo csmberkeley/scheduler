@@ -92,11 +92,6 @@ Want.create! :offer_id => mike_cs61a_offer.id,
 Want.create! :offer_id => mike_cs61a_offer.id,
       :section_id => mike_cs61a_section3.id
 
-t = Transaction.create! :body => "Here is my first transaction!"
-mike_cs61a_enr.transactions << t
-mike.transactions << t
-
-
 allan = User.create! :name => "Allan Tang",
             :email => "allan_tang@berkeley.edu",
             :password => "allanpass",
@@ -106,3 +101,10 @@ allan_cs61a_enr = Enroll.create! :user_id => allan.id,
                   :course_id => cs61a.id
 
 allan.enrolls << allan_cs61a_enr
+
+Setting.create! :setting_name => "Enable Comments" , :enabled => true, :name => "comments"
+Setting.create! :setting_name => "Enable Section Switching" , :enabled => false, :name => "section"
+
+t = Transaction.create! :body => "Here is my first transaction!"
+mike_cs61a_enr.transactions << t
+mike.transactions << t

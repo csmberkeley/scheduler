@@ -1,4 +1,5 @@
 class OffersController < ApplicationController
+	before_filter :check_comment, :only => [:create_response]
 	def show
 		@offer = Offer.find(params[:id])
 		@offer_user = User.find(@offer.user_id)
@@ -11,6 +12,8 @@ class OffersController < ApplicationController
 		@new_comment = Comment.new
 		@replies = @offer.replies.order(:created_at)
 		@new_reply = Reply.new
+
+		@comments_allowed = Setting.find_by(name: 'comments').enabled
 	end
 	def new
 		@my_section = Section.find(params[:section_id])
@@ -24,6 +27,7 @@ class OffersController < ApplicationController
 				curr_want = Want.create(offer_id: @offer.id, section_id: id)
 			end
 			flash[:notice] = "Created an offer for your section!"
+			@offer.getEnrollmentOfOfferer.createTransaction("You created an offer for " << Section.find(@offer.section_id).name)
 			redirect_to offer_path(@offer)
 		end
 	end
@@ -33,6 +37,7 @@ class OffersController < ApplicationController
 		if @offer
 			if @offer.destroy
 				flash[:notice] = "Canceled your offer for your section."
+				@enroll.createTransaction("You canceled your offer for " << Section.find(@offer.section_id).name)
 			else
 				flash[:notice] = "Something went wrong with deleting your offer. Try again later."
 			end
@@ -53,6 +58,7 @@ class OffersController < ApplicationController
 			@comments = @offer.getCommentsInReverseOrder
 			respond_to do |format|
 			    if @offer.save && @reply.save
+			    	@reply.getEnrollmentOfReplier.createTransaction("You created a reply to an offer.")
 			      format.js
 			    else
 			      # format.html { render action: "new" }
@@ -69,6 +75,7 @@ class OffersController < ApplicationController
 			@comments = @offer.getCommentsInReverseOrder
 			respond_to do |format|
 			    if @offer.save && @comment.save
+			    	@comment.getEnrollmentOfCommenter.createTransaction("You created a comment to an offer.")
 			      format.js
 			    else
 			      # format.html { render action: "new" }
