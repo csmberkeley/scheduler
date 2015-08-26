@@ -1,6 +1,7 @@
 class OffersController < ApplicationController
 	def show
 		@offer = Offer.find(params[:id])
+		@offer_user = User.find(@offer.user_id)
 		@section = Section.find(@offer.section_id)
 		@wanted_sections = []
 		@offer.wants.each do |want|
