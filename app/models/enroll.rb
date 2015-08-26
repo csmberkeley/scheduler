@@ -2,6 +2,7 @@ class Enroll < ActiveRecord::Base
   belongs_to :user
   belongs_to :courses
   belongs_to :section
+  has_many :transactions
 
   def enrollUserInSection(section)
   	if not section.empty

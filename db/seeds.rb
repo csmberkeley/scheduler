@@ -92,5 +92,9 @@ Want.create! :offer_id => mike_cs61a_offer.id,
 Want.create! :offer_id => mike_cs61a_offer.id,
       :section_id => mike_cs61a_section3.id
 
+t = Transaction.create! :body => "Here is my first transaction!"
+mike_cs61a_enr.transactions << t
+mike.transactions << t
+
 
 

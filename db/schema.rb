@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150810070455) do
+ActiveRecord::Schema.define(version: 20150826043420) do
 
   create_table "comments", force: true do |t|
     t.integer  "offer_id"
@@ -68,6 +68,14 @@ ActiveRecord::Schema.define(version: 20150810070455) do
     t.datetime "end"
     t.boolean  "empty"
     t.integer  "course_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "transactions", force: true do |t|
+    t.integer  "user_id"
+    t.integer  "enroll_id"
+    t.string   "body"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
