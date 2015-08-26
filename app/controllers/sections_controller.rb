@@ -1,4 +1,5 @@
 class SectionsController < ApplicationController
+	before_filter :check_switch, :only => [:make_switch]
 	def index
 		@sections = Section.all
 	end
