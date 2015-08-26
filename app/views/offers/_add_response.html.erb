@@ -4,9 +4,11 @@
 		<div class = "row container">
 			<%= text_area_tag :body, nil, :class => "col-sm-5 col-xs-12", :style => "height:100px" %>
 		</div>
-		<div class = "row container">
-			Want to switch? <%= check_box_tag "switch" %>
-		</div>
+		<% if current_user.id != @offer_user.id %>
+			<div class = "row container">
+				Want to switch? <%= check_box_tag "switch" %>
+			</div>
+		<% end %>
 		<%= hidden_field_tag :offer_id, :value => offer.id %>
 	</div>
 	<div class = "actions">
