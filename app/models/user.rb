@@ -8,5 +8,6 @@ class User < ActiveRecord::Base
   has_many :offers, dependent: :destroy
   has_many :requests, dependent: :destroy
   has_many :comments, dependent: :destroy
-  belongs_to :section
+  has_many :transactions, dependent: :destroy
+
 end

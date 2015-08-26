@@ -2,12 +2,14 @@ class Enroll < ActiveRecord::Base
   belongs_to :user
   belongs_to :courses
   belongs_to :section
+  has_many :transactions
 
-  def enrollUserInSection(user, section)
+  def enrollUserInSection(section)
   	if not section.empty
   		return false
   	end
   	section.enrolls << self
+    user = User.find(self.user_id)
   	section.users << user
   	if section.users.length >= 6
   		section.empty = false
@@ -15,28 +17,38 @@ class Enroll < ActiveRecord::Base
   	return true
   end
 
-  def unenrollUserInSection(user, section)
+  def unenrollUserInSection()
+    user = User.find(self.user_id)
+    section = Section.find(self.section_id)
   	section.users.delete(user)
-  	section_offer = Offer.getUserOfferFromSection(user, section)
+  	section_offer = self.getOffer
   	if section_offer
   		section_offer.destroy
   	end
   end
 
-  def switchSection(old_section, new_section, user)
-  	if not self.enrollUserInSection(user, new_section)
+  def switchSection(new_section)
+  	if not self.enrollUserInSection(new_section)
   		return false
   	end
-  	self.unenrollUserInSection(user, old_section)
+  	self.unenrollUserInSection
   	return true
   end
 
   def tradeSection(other_enrollment)
-    this_user = User.find(self.user_id)
-    other_user = User.find(other_enrollment.user_id)
     this_user_section = Section.find(self.section_id)
     other_user_section = Section.find(other_enrollment.section_id)
-    self.switchSection(this_user_section, other_user_section, this_user)
-    other_enrollment.switchSection(other_user_section, this_user_section, other_user)
+    self.switchSection(other_user_section)
+    other_enrollment.switchSection(this_user_section)
+  end
+
+  def getOffer
+    user = User.find(self.user_id)
+    section = Section.find(self.section_id)
+    request_offers = user.offers.where(section_id: section.id)
+    if request_offers.length > 0
+      return request_offers[0]
+    end
+    return nil
   end
 end

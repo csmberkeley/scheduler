@@ -24,13 +24,6 @@ class Offer < ActiveRecord::Base
     end
     return nil
   end
-  def self.getUserOfferFromSection(current_user, section)
-  	request_offers = current_user.offers.where(section_id: section.id)
-  	if request_offers.length > 0
-  		return request_offers[0]
-  	end
-  	return nil
-  end
 
   def self.getCompatableOffers(current_section)
     compatable_offers = []

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150825233326) do
+ActiveRecord::Schema.define(version: 20150826043420) do
 
   create_table "comments", force: true do |t|
     t.integer  "offer_id"
@@ -41,7 +41,6 @@ ActiveRecord::Schema.define(version: 20150825233326) do
   create_table "offers", force: true do |t|
     t.integer  "section_id"
     t.integer  "user_id"
-    t.boolean  "accepted"
     t.text     "body"
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -50,7 +49,6 @@ ActiveRecord::Schema.define(version: 20150825233326) do
   create_table "replies", force: true do |t|
     t.integer  "offer_id"
     t.integer  "user_id"
-    t.string   "status"
     t.text     "body"
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -74,12 +72,12 @@ ActiveRecord::Schema.define(version: 20150825233326) do
     t.datetime "updated_at"
   end
 
-  create_table "settings", force: true do |t|
-    t.string   "setting_name"
-    t.boolean  "enabled"
+  create_table "transactions", force: true do |t|
+    t.integer  "user_id"
+    t.integer  "enroll_id"
+    t.string   "body"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "name"
   end
 
   create_table "users", force: true do |t|
