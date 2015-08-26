@@ -22,8 +22,6 @@ class Enroll < ActiveRecord::Base
     section = Section.find(self.section_id)
   	section.users.delete(user)
   	section_offer = self.getOffer
-    puts "ASDFHLASDKJF"
-    puts section_offer
   	if section_offer
   		section_offer.destroy
   	end
@@ -48,11 +46,6 @@ class Enroll < ActiveRecord::Base
     user = User.find(self.user_id)
     section = Section.find(self.section_id)
     request_offers = user.offers.where(section_id: section.id)
-    puts "======="
-    puts user
-    puts section
-    puts request_offers.inspect
-    puts "======="
     if request_offers.length > 0
       return request_offers[0]
     end
