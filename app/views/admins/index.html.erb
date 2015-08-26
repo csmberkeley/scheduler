@@ -1,0 +1,24 @@
+<div class = "container">
+    <h1>Sections</h1>
+    <hr>
+    <div class = "sections">
+        <ul class="list-unstyled" >
+            <% @students.each do |student| %>
+
+                <li style="margin-bottom:5px">
+                <a class="btn btn-success" href="#" role="button">Add class</a> <a class="btn btn-warning" href="#" role="button">Edit</a>
+                <a class="btn btn-danger" href="#" role="button">Delete</a> <%= student.name + " " + student.email %>
+                <br />
+                <% student.enrolls.each do |enroll| %>
+                    <a class="btn btn-danger" href="#" role="button">Drop</a>
+                    <b><%= enroll.course.course_name %></b>
+                    
+                    <%= enroll.section.name %>                
+                    <br />
+                <% end %>
+               </li>
+                
+            <% end %>
+        </ul>
+    </div>
+</div>
