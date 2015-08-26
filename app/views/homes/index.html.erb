@@ -4,11 +4,22 @@
   <br>
   <%= link_to "View Sections", "/sections" %>
   <div class = "switch-sections">
+
+    <% @courses.each do |course| %>
+      <h4> <%= course.name %> </h4>
+      <% @enrolls.each do |enroll| %>
+        <% if enroll.course_id == course.id %>
+          <h5> Current Section: <%= curr_section.name %></h5>
+          <%= link_to "Switch Section", switch_section_path(enroll) %>
+        <% end %>
+      <% end %> 
+    <% end %>
+
   	<% @enrolls.each do |enroll| %>
   		<% curr_section = Section.find(enroll.section_id) %>
   		<% curr_course = Course.find(enroll.course_id) %>
-  		<h4><%= curr_course.course_name %></h4>
-      <h5>Current Section: <%= curr_section.name %></h5>
+  		<h4> <%= curr_course.course_name %> </h4>
+      <h5> Current Section: <%= curr_section.name %></h5>
   		<%= link_to "Switch Section", switch_section_path(enroll) %>
   	<% end %>
   </div>
