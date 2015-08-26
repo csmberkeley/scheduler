@@ -29,8 +29,7 @@ class OffersController < ApplicationController
 	end
 	def destroy
 		@enroll = Enroll.find(params[:id])
-		@section = Section.find(@enroll.section_id)
-		@offer = Offer.getUserOfferFromSection(current_user, @section)
+		@offer = @enroll.getOffer
 		if @offer
 			if @offer.destroy
 				flash[:notice] = "Canceled your offer for your section."
