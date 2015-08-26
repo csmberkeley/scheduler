@@ -1,26 +1,24 @@
 <div class="home">
   <h3> This is the home page! </h3>
-  <%= link_to "View Courses", "/courses" %>
+    <%= link_to "View Courses", "/courses" %>
+  <br>
+    <%= link_to "Add Course", new_enrollment_path %>
   <br>
   <%= link_to "View Sections", "/sections" %>
   <div class = "switch-sections">
 
-    <% @courses.each do |course| %>
-      <h4> <%= course.name %> </h4>
-      <% @enrolls.each do |enroll| %>
-        <% if enroll.course_id == course.id %>
-          <h5> Current Section: <%= curr_section.name %></h5>
-          <%= link_to "Switch Section", switch_section_path(enroll) %>
-        <% end %>
-      <% end %> 
-    <% end %>
+  <% @enrolls.each do |enroll| %>
+    <% curr_course = Course.find(enroll.course_id) %>
+    <h4> <%= curr_course.course_name %> </h4>
 
-  	<% @enrolls.each do |enroll| %>
-  		<% curr_section = Section.find(enroll.section_id) %>
-  		<% curr_course = Course.find(enroll.course_id) %>
-  		<h4> <%= curr_course.course_name %> </h4>
+    <% if not enroll.section_id.nil? %>
+      <% curr_section = Section.find(enroll.section_id) %>
       <h5> Current Section: <%= curr_section.name %></h5>
-  		<%= link_to "Switch Section", switch_section_path(enroll) %>
-  	<% end %>
+      <%= link_to "Switch Section", switch_section_path(enroll) %>
+    <% else %>
+      <%= link_to "Add section", edit_enrollment_path(enroll) %>
+    <% end %>
+  <% end %> 
+
   </div>
 </div>  

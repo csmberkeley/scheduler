@@ -5,8 +5,13 @@ Rails.application.routes.draw do
   root "homes#index"
   get "/courses" => "courses#index"
   get "/courses/:id" => "courses#show", as: :course
+
   get "/sections" => "sections#index"
   get "/sections/:id" => "sections#show", as: :section
+
+  resources :enrollments
+  post "/enrollments/new" => "enrollments#create"
+
   get "/offers/:id" => "offers#show", as: :offer
   get "/new_offer" => "offers#new", as: :new_offer
   post "/offers" => "offers#create"
@@ -14,6 +19,7 @@ Rails.application.routes.draw do
   post "/create_response" => "offers#create_response", as: :create_response
   get "/enrollments/:id/switch-section" => "enrollments#switch_section", as: :switch_section
   get "/sections/make-switch/:old_id/:new_id" => "sections#make_switch", as: :make_switch
+
   delete "/comments/:id" => "comments#destroy", as: :delete_comment
   delete "/replies/:id" => "replies#destroy", as: :delete_reply
   post "/replies/accept/:id" => "replies#accept", as: :accept_reply

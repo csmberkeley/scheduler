@@ -3,6 +3,5 @@ class HomesController < ApplicationController
 
   def index
   	@enrolls = current_user.enrolls
-    @courses = Course.all
   end
 end
