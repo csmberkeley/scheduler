@@ -1,4 +1,5 @@
 class OffersController < ApplicationController
+	before_filter :check_comment, :only => [:create_response]
 	def show
 		@offer = Offer.find(params[:id])
 		@offer_user = User.find(@offer.user_id)
@@ -11,6 +12,8 @@ class OffersController < ApplicationController
 		@new_comment = Comment.new
 		@replies = @offer.replies.order(:created_at)
 		@new_reply = Reply.new
+
+		@comments_allowed = Setting.find_by(name: 'comments').enabled
 	end
 	def new
 		@my_section = Section.find(params[:section_id])

@@ -5,7 +5,7 @@ class ApplicationController < ActionController::Base
 
   private
   def check_admin
-    if not current_user.admin?
+    if user_signed_in? and not current_user.admin?
       flash[:alert] = "You do not have permission for this action"
       redirect_to root_path
     end
@@ -18,5 +18,18 @@ class ApplicationController < ActionController::Base
       redirect_to new_user_session_path
     end
   end
-
+  private
+  def check_comment
+    if not Setting.find_by(name: 'comments').enabled
+        flash[:alert] = "Commenting has been disabled"
+        redirect_to root_path
+    end
+  end
+  private 
+  def check_switch
+    if not Setting.find_by(name: 'section').enabled
+        flash[:alert] = "Section switching has been disabled"
+        redirect_to root_path
+    end
+  end
 end
