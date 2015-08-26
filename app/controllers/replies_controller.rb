@@ -1,5 +1,6 @@
 class RepliesController < ApplicationController
 	def destroy
+		#needs enrollment
 		@reply = Reply.find(params[:id])
 		@offer = Offer.find(@reply.offer_id)
 		@replies = @offer.getRepliesInOrder
@@ -13,6 +14,7 @@ class RepliesController < ApplicationController
 		end
 	end
 	def accept
+		#enrollment2 is the one
 		reply = Reply.find(params[:id])
 		offer = Offer.find(reply.offer_id)
 		enrollment1 = reply.getEnrollmentOfReplier
@@ -27,6 +29,7 @@ class RepliesController < ApplicationController
 	end
 
 	def deny
+		#enrollment2 is the one
 		reply = Reply.find(params[:id])
 		offer = Offer.find(reply.offer_id)
 		enrollment1 = reply.getEnrollmentOfReplier

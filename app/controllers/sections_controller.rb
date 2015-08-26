@@ -7,6 +7,8 @@ class SectionsController < ApplicationController
 		@section = Section.find(params[:id]);
 	end
 	def make_switch
+		#should not need old section
+		#needs to check if new section is full
 		@old_section = Section.find(params[:old_id])
 		@new_section = Section.find(params[:new_id])
 		@enrollment = Enroll.find(params[:enroll_id])

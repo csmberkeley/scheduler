@@ -16,11 +16,13 @@ class OffersController < ApplicationController
 		@comments_allowed = Setting.find_by(name: 'comments').enabled
 	end
 	def new
+		#needs to take in enrollment instead of section
 		@my_section = Section.find(params[:section_id])
 		@other_sections = @my_section.getAllOtherSections
 		@new_offer = Offer.new(:section_id => @my_section.id, :user_id => current_user.id)
 	end
 	def create
+		#@offer.getEnrollmentOfOfferer is the enrollment to check here
 		@offer = Offer.new(offer_params)
 		if @offer.save
 			params[:section_ids].each do |id|
@@ -48,6 +50,8 @@ class OffersController < ApplicationController
 	end
 
 	def create_response
+		#needs to check if params[:switch] is there
+		#needs enrollment
 		if params[:switch]
 			@reply = Reply.new(body: params[:body])
 			@offer = Offer.find(eval(params[:offer_id])[:value])

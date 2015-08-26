@@ -1,5 +1,6 @@
 class CommentsController < ApplicationController
 	def destroy
+		#needs enrollment
 		@comment = Comment.find(params[:id])
 		@offer = Offer.find(@comment.offer_id)
 		@comments = @offer.getCommentsInReverseOrder
