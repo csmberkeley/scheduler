@@ -11,6 +11,7 @@ Rails.application.routes.draw do
 
   resources :enrollments
   post "/enrollments/new" => "enrollments#create"
+  post "/enrollments/edit" => "enrollments#update"
 
   get "/offers/:id" => "offers#show", as: :offer
   get "/new_offer" => "offers#new", as: :new_offer

@@ -1,0 +1,7 @@
+<%= form_for @enrollment, url: edit_enrollment_path do |f| %>
+  <% @sections.each do |section| %>
+    <%= f.radio_button :section_id, section.name %>
+    <%= f.label section.name %>
+  <% end %>
+  <%= f.submit "Add section" %>
+<% end %>

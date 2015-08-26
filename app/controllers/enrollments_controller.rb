@@ -9,28 +9,28 @@ class EnrollmentsController < ApplicationController
 		@transactions = @enrollment.transactions
 	end
 
-  def show
-
-  end
-
   def new
     @enrollment = Enroll.new
     @courses = Course.all
   end
 
   def create
-
     course = Course.find_by_course_name(params[:enroll][:course_id])
 
     #check if the student has already been enrolled in the class
     @enrolls = current_user.enrolls
     @enrolls.each do |enroll|
-      
+      if enroll.course_id == course.id
+        flash[:notice] = "You are already enrolled into this class"
+        redirect_to new_enrollment_path
+        return
+      end
     end  
 
-
-    @enrollment = Enroll.new(enroll_params)
+    @enrollment = Enroll.new
     course = Course.find_by_course_name(params[:enroll][:course_id])
+    @enrollment.user_id = current_user.id
+    @enrollment.course_id = course.id
     if @enrollment.save
       flash[:notice] = "You have been enrolled into #{course.course_name}"
       redirect_to root_path
@@ -40,8 +40,9 @@ class EnrollmentsController < ApplicationController
   end
 
   def edit
-    @enrollment = Enroll.new
-    @courses = Course.all
+    @enrollment = Enroll.find(params[:id])
+    course = Course.find(@enrollment.course_id)
+    @sections = course.sections
   end
 
   def update
@@ -49,12 +50,11 @@ class EnrollmentsController < ApplicationController
   end
 
   def destroy
-
+    @enrollment = Enroll.find(params[:id])
+    @course = Course.find(@enrollment.course_id)
+    flash[:notice] = "You have been dropped from #{@course.course_name}"
+    @enrollment.destroy
+    redirect_to root_path
   end
 
-  private
-
-  def enroll_params
-    params.require(:enroll).permit(:user_id, :course_id, :section_id)
-  end
 end
