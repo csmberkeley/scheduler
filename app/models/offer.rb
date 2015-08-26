@@ -9,10 +9,21 @@ class Offer < ActiveRecord::Base
   	return self.comments.order(:created_at).reverse_order
   end
 
-   def getRepliesInOrder()
+  def getRepliesInOrder()
     return self.replies.order(:created_at)
   end
 
+  def getEnrollmentOfOfferer()
+    offerer = User.find(self.user_id)
+    section = Section.find(self.section_id)
+    course = Course.find(section.course_id)
+    offerer.enrolls.each do |e|
+      if e.course_id == course.id
+        return e
+      end
+    end
+    return nil
+  end
   def self.getUserOfferFromSection(current_user, section)
   	request_offers = current_user.offers.where(section_id: section.id)
   	if request_offers.length > 0

@@ -15,7 +15,7 @@ class OffersController < ApplicationController
 	def new
 		@my_section = Section.find(params[:section_id])
 		@other_sections = @my_section.getAllOtherSections
-		@new_offer = Offer.new(:section_id => @my_section.id, :user_id => current_user.id, :status => "pending")
+		@new_offer = Offer.new(:section_id => @my_section.id, :user_id => current_user.id, :accepted => false)
 	end
 	def create
 		@offer = Offer.new(offer_params)
