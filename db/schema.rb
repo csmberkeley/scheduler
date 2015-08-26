@@ -41,7 +41,6 @@ ActiveRecord::Schema.define(version: 20150810070455) do
   create_table "offers", force: true do |t|
     t.integer  "section_id"
     t.integer  "user_id"
-    t.boolean  "accepted"
     t.text     "body"
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -50,7 +49,6 @@ ActiveRecord::Schema.define(version: 20150810070455) do
   create_table "replies", force: true do |t|
     t.integer  "offer_id"
     t.integer  "user_id"
-    t.string   "status"
     t.text     "body"
     t.datetime "created_at"
     t.datetime "updated_at"

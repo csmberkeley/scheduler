@@ -15,7 +15,7 @@ class OffersController < ApplicationController
 	def new
 		@my_section = Section.find(params[:section_id])
 		@other_sections = @my_section.getAllOtherSections
-		@new_offer = Offer.new(:section_id => @my_section.id, :user_id => current_user.id, :accepted => false)
+		@new_offer = Offer.new(:section_id => @my_section.id, :user_id => current_user.id)
 	end
 	def create
 		@offer = Offer.new(offer_params)
@@ -49,7 +49,6 @@ class OffersController < ApplicationController
 			@offer.replies << @reply
 			@reply.user_id = current_user.id
 			@reply.offer_id = @offer.id
-			@reply.status = "pending"
 			@replies = @offer.getRepliesInOrder
 			@comments = @offer.getCommentsInReverseOrder
 			respond_to do |format|
@@ -81,6 +80,6 @@ class OffersController < ApplicationController
 
 	private
 	def offer_params
-		params.require(:offer).permit(:body, :section_id, :user_id, :status)
+		params.require(:offer).permit(:body, :section_id, :user_id)
 	end
 end
