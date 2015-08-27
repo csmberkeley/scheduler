@@ -42,13 +42,15 @@
   <div id="transactions" class="tab-pane fade">
   	<h2>Transactions</h2>
   	<% @transactions.each do |t| %>
-  		<div class = "col-sm-4 col-xs-5" style = "border: #eee solid 2px; border-radius: 4px;">
-  			<h4>
-  				<small><%= t.created_at.strftime("%I:%M:%S %p on %b. %d, %Y") %></small>
-  				<br>
-  				<%=t.body%>
-  			</h4>
-  		</div>
+  		<div class = "row container">
+	  		<div class = "col-sm-4 col-xs-5" style = "border: #eee solid 2px; border-radius: 4px;">
+	  			<h4>
+	  				<small><%= t.created_at.strftime("%I:%M:%S %p on %b. %d, %Y") %></small>
+	  				<br>
+	  				<%=t.body%>
+	  			</h4>
+	  		</div>
+	  	</div>
   	<% end %>
   	<% if @transactions.length == 0 %>
   		<h4>No transactions.</h4>

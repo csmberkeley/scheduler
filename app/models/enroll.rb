@@ -48,4 +48,8 @@ class Enroll < ActiveRecord::Base
     user = User.find(self.user_id)
     user.transactions << new_transaction
   end
+
+  def getTransactionsInReverseOrder()
+    return self.transactions.order(:created_at).reverse_order
+  end
 end

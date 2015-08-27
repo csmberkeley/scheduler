@@ -7,6 +7,6 @@ class EnrollmentsController < ApplicationController
 		@open_sections = @section.getOtherOpenSections()
 		@offer = @enrollment.offer
 		@compatable_offers = Offer.getCompatableOffers(@section)
-		@transactions = @enrollment.transactions
+		@transactions = @enrollment.getTransactionsInReverseOrder
 	end
 end
