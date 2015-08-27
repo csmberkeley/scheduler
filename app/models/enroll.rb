@@ -1,6 +1,6 @@
 class Enroll < ActiveRecord::Base
   belongs_to :user
-  belongs_to :courses
+  belongs_to :course
   belongs_to :section
   has_many :transactions
 
