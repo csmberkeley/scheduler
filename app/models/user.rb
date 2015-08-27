@@ -10,4 +10,12 @@ class User < ActiveRecord::Base
   has_many :comments, dependent: :destroy
   has_many :transactions, dependent: :destroy
 
+  def getEnrollmentInCourse(course)
+  	self.enrolls.each do |e|
+  		if e.course_id == course.id
+  			return e
+  		end
+  	end
+  	return nil
+  end
 end

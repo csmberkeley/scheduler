@@ -4,12 +4,13 @@
 		<div class = "row container">
 			<%= text_area_tag :body, nil, :class => "col-sm-5 col-xs-12", :style => "height:100px" %>
 		</div>
-		<% if current_user.id != @offer_user.id %>
+		<% if current_user.id != @offerer.id %>
 			<div class = "row container">
 				Want to switch? <%= check_box_tag "switch" %>
 			</div>
 		<% end %>
 		<%= hidden_field_tag :offer_id, :value => offer.id %>
+		<%= hidden_field_tag :enroll_id, :value => enroll.id %>
 	</div>
 	<div class = "actions">
 		<%= submit_tag "Add" %>

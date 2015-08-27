@@ -15,15 +15,7 @@ class Offer < ActiveRecord::Base
   end
 
   def getEnrollmentOfOfferer()
-    offerer = User.find(self.user_id)
-    section = Section.find(self.section_id)
-    course = Course.find(section.course_id)
-    offerer.enrolls.each do |e|
-      if e.course_id == course.id
-        return e
-      end
-    end
-    return nil
+    return Enroll.find(self.enroll_id)
   end
 
   def self.getCompatableOffers(current_section)
@@ -32,5 +24,20 @@ class Offer < ActiveRecord::Base
       compatable_offers << Offer.find(want.offer_id)
     end
     return compatable_offers
+  end
+
+  def getWantedSections()
+    wanted_sections = []
+    self.wants.each do |want|
+      wanted_sections << Section.find(want.section_id)
+    end
+    return wanted_sections
+  end
+
+  def createWants(section_ids)
+    section_ids.each do |id|
+      curr_want = Want.create(section_id: id)
+      self.wants << curr_want
+    end
   end
 end

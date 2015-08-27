@@ -97,7 +97,3 @@ Want.create! :offer_id => mike_cs61a_offer.id,
 
 Setting.create! :setting_name => "Enable Comments" , :enabled => true, :name => "comments"
 Setting.create! :setting_name => "Enable Section Switching" , :enabled => true, :name => "section"
-
-t = Transaction.create! :body => "Here is my first transaction!"
-mike_cs61a_enr.transactions << t
-mike.transactions << t

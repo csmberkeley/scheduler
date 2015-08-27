@@ -12,10 +12,7 @@
 			<div class = "extra-info">
 				<%= f.text_area :body, :style => "width: 400px; height:100px" %>
 			</div>
-			<%= f.hidden_field :section_id, :value => @section.id %>
-			<%= f.hidden_field :user_id, :value => current_user.id %>
 			<%= f.hidden_field :enroll_id, :value => @enrollment.id %>
-			<%= f.hidden_field :accepted, :value => false %>
 		</div>
 		<div class = "actions">
 			<%= f.submit "Create Offer" %>

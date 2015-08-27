@@ -52,4 +52,5 @@ class Enroll < ActiveRecord::Base
   def getTransactionsInReverseOrder()
     return self.transactions.order(:created_at).reverse_order
   end
+
 end
