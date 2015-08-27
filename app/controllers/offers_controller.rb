@@ -17,9 +17,10 @@ class OffersController < ApplicationController
 	end
 	def new
 		#needs to take in enrollment instead of section
-		@my_section = Section.find(params[:section_id])
-		@other_sections = @my_section.getAllOtherSections
-		@new_offer = Offer.new(:section_id => @my_section.id, :user_id => current_user.id)
+		@enrollment = Enroll.find(params[:enroll_id])
+		@section = Section.find(@enrollment.section_id)
+		@other_sections = @section.getAllOtherSections
+		@new_offer = Offer.new(:section_id => @section.id, :user_id => current_user.id, :enroll_id => @enrollment.id)
 	end
 	def create
 		#@offer.getEnrollmentOfOfferer is the enrollment to check here
@@ -35,7 +36,7 @@ class OffersController < ApplicationController
 	end
 	def destroy
 		@enroll = Enroll.find(params[:id])
-		@offer = @enroll.getOffer
+		@offer = @enroll.offer
 		if @offer
 			if @offer.destroy
 				flash[:notice] = "Canceled your offer for your section."
@@ -91,6 +92,6 @@ class OffersController < ApplicationController
 
 	private
 	def offer_params
-		params.require(:offer).permit(:body, :section_id, :user_id)
+		params.require(:offer).permit(:body, :section_id, :user_id, :enroll_id)
 	end
 end

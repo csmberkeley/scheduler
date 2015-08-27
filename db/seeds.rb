@@ -86,7 +86,9 @@ mike_cs61b_section2.enrolls << mike2_cs61b_enr
 
 mike_cs61a_offer = Offer.create! :body => "61A Section 1022 Offer", 
       :section_id => mike_cs61a_section1.id,
-      :user_id => mike.id 
+      :user_id => mike.id, 
+      :enroll_id => mike_cs61a_enr.id
+
 Want.create! :offer_id => mike_cs61a_offer.id,
       :section_id => mike_cs61a_section2.id
 Want.create! :offer_id => mike_cs61a_offer.id,
@@ -94,7 +96,7 @@ Want.create! :offer_id => mike_cs61a_offer.id,
 
 
 Setting.create! :setting_name => "Enable Comments" , :enabled => true, :name => "comments"
-Setting.create! :setting_name => "Enable Section Switching" , :enabled => false, :name => "section"
+Setting.create! :setting_name => "Enable Section Switching" , :enabled => true, :name => "section"
 
 t = Transaction.create! :body => "Here is my first transaction!"
 mike_cs61a_enr.transactions << t

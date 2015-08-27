@@ -42,6 +42,7 @@ ActiveRecord::Schema.define(version: 20150826043420) do
     t.integer  "section_id"
     t.integer  "user_id"
     t.text     "body"
+    t.integer  "enroll_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
