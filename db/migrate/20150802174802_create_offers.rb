@@ -4,6 +4,7 @@ class CreateOffers < ActiveRecord::Migration
       t.integer :section_id
       t.integer :user_id
       t.text :body
+      t.integer :enroll_id
 
       t.timestamps
     end
