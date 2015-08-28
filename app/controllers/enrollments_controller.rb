@@ -46,7 +46,13 @@ class EnrollmentsController < ApplicationController
   end
 
   def update
+    section = Section.find_by_name(params[:enroll][:section_id])
 
+    #check if section isn't full
+
+
+    @enrollment = Enroll.find(params[:id])
+    1/0
   end
 
   def destroy
