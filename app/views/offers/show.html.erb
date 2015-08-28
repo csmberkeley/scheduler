@@ -19,7 +19,7 @@
 		<div class = "col-sm-6 col-xs-12" id = "add-response">
 			
 			<% if @comments_allowed %>
-			<%= render partial: "add_response.html", locals: {offer: @offer} %>
+			<%= render partial: "add_response.html", locals: {offer: @offer, enroll: @enroll} %>
 			<% else %>
 			<h4>Adding comments is currently disabled.</h4>
 			<% end %>

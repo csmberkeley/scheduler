@@ -2,38 +2,44 @@ class OffersController < ApplicationController
 	before_filter :check_comment, :only => [:create_response]
 	def show
 		@offer = Offer.find(params[:id])
-		@offer_user = User.find(@offer.user_id)
+		@offerer = User.find(@offer.user_id)
 		@section = Section.find(@offer.section_id)
-		@wanted_sections = []
-		@offer.wants.each do |want|
-			@wanted_sections << Section.find(want.section_id)
-		end
+		@course = Course.find(@section.course_id)
+		@enroll = current_user.getEnrollmentInCourse(@course)
+		@wanted_sections = @offer.getWantedSections
 		@comments = @offer.comments.order(:created_at).reverse_order
 		@new_comment = Comment.new
 		@replies = @offer.replies.order(:created_at)
 		@new_reply = Reply.new
-
 		@comments_allowed = Setting.find_by(name: 'comments').enabled
 	end
 	def new
-		@my_section = Section.find(params[:section_id])
-		@other_sections = @my_section.getAllOtherSections
-		@new_offer = Offer.new(:section_id => @my_section.id, :user_id => current_user.id)
+		#needs to check whether or not user has an offer
+		@enrollment = Enroll.find(params[:enroll_id])
+		@section = Section.find(@enrollment.section_id)
+		@other_sections = @section.getAllOtherSections
+		@new_offer = Offer.new(:section_id => @section.id, :user_id => current_user.id, :enroll_id => @enrollment.id)
 	end
 	def create
+		#@enroll is enrollment
 		@offer = Offer.new(offer_params)
+		@enroll = @offer.getEnrollmentOfOfferer
+		@offerer = User.find(@enroll.user_id)
+		@offerer_section = Section.find(@enroll.section_id)
+		@offerer.offers << @offer
+		@offerer_section.offers << @offer
 		if @offer.save
-			params[:section_ids].each do |id|
-				curr_want = Want.create(offer_id: @offer.id, section_id: id)
-			end
+			section_ids = params[:section_ids]
+			@offer.createWants(section_ids)
 			flash[:notice] = "Created an offer for your section!"
-			@offer.getEnrollmentOfOfferer.createTransaction("You created an offer for " << Section.find(@offer.section_id).name)
+			@offered_section = Section.find(@offer.section_id)
+			@offer.getEnrollmentOfOfferer.createTransaction("You created an offer for " << @offered_section.name)
 			redirect_to offer_path(@offer)
 		end
 	end
 	def destroy
 		@enroll = Enroll.find(params[:id])
-		@offer = @enroll.getOffer
+		@offer = @enroll.offer
 		if @offer
 			if @offer.destroy
 				flash[:notice] = "Canceled your offer for your section."
@@ -48,9 +54,12 @@ class OffersController < ApplicationController
 	end
 
 	def create_response
+		#needs to check if params[:switch] is there
+		@body = params[:body]
+		@offer = Offer.find(eval(params[:offer_id])[:value])
+		@enroll = Enroll.find(eval(params[:enroll_id])[:value])
 		if params[:switch]
-			@reply = Reply.new(body: params[:body])
-			@offer = Offer.find(eval(params[:offer_id])[:value])
+			@reply = Reply.new(body: @body)
 			@offer.replies << @reply
 			@reply.user_id = current_user.id
 			@reply.offer_id = @offer.id
@@ -66,8 +75,7 @@ class OffersController < ApplicationController
 			    end
 			end
 		else
-			@comment = Comment.new(body: params[:body])
-			@offer = Offer.find(eval(params[:offer_id])[:value])
+			@comment = Comment.new(body: @body)
 			@offer.comments << @comment
 			@comment.user_id = current_user.id
 			@comment.offer_id = @offer.id
@@ -87,6 +95,6 @@ class OffersController < ApplicationController
 
 	private
 	def offer_params
-		params.require(:offer).permit(:body, :section_id, :user_id)
+		params.require(:offer).permit(:body, :enroll_id)
 	end
 end

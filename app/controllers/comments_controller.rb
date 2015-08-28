@@ -1,6 +1,8 @@
 class CommentsController < ApplicationController
 	def destroy
+		#needs enrollment
 		@comment = Comment.find(params[:id])
+		@enroll = @comment.getEnrollmentOfCommenter
 		@offer = Offer.find(@comment.offer_id)
 		@comments = @offer.getCommentsInReverseOrder
 		respond_to do |format|
@@ -12,9 +14,4 @@ class CommentsController < ApplicationController
 		    end
 		end
 	end
-
-	def index
-		# @comments = Comment.where(tutee_id: current_user.id)
-	end
-
 end

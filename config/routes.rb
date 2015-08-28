@@ -25,7 +25,7 @@ Rails.application.routes.draw do
   delete "/replies/:id" => "replies#destroy", as: :delete_reply
   post "/replies/accept/:id" => "replies#accept", as: :accept_reply
   post "/replies/deny/:id" => "replies#deny", as: :deny_reply
-
+  get "/admin/students" => "admins#index", as: :students_index
   resources :settings, only:[:index, :update]
   post "/settings" => "settings#update"
   # The priority is based upon order of creation: first created -> highest priority.

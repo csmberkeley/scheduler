@@ -1,8 +1,9 @@
 class Enroll < ActiveRecord::Base
   belongs_to :user
-  belongs_to :courses
+  belongs_to :course
   belongs_to :section
-  has_many :transactions
+  has_many :transactions, dependent: :destroy
+  has_one :offer, dependent: :destroy
 
   def enrollUserInSection(section)
   	if not section.empty
@@ -21,9 +22,8 @@ class Enroll < ActiveRecord::Base
     user = User.find(self.user_id)
     section = Section.find(self.section_id)
   	section.users.delete(user)
-  	section_offer = self.getOffer
-  	if section_offer
-  		section_offer.destroy
+  	if self.offer
+  		self.offer.destroy
   	end
   end
 
@@ -42,20 +42,15 @@ class Enroll < ActiveRecord::Base
     other_enrollment.switchSection(this_user_section)
   end
 
-  def getOffer
-    user = User.find(self.user_id)
-    section = Section.find(self.section_id)
-    request_offers = user.offers.where(section_id: section.id)
-    if request_offers.length > 0
-      return request_offers[0]
-    end
-    return nil
-  end
-
   def createTransaction(body)
     new_transaction = Transaction.create! body: body
     self.transactions << new_transaction
     user = User.find(self.user_id)
     user.transactions << new_transaction
   end
+
+  def getTransactionsInReverseOrder()
+    return self.transactions.order(:created_at).reverse_order
+  end
+
 end

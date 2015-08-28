@@ -1,7 +1,7 @@
 <div class = "container">
 	<%= form_for(@new_offer) do |f| %>
 		<div class = "field">
-			<h2>Offer For Section <%= @my_section.name %></h2>
+			<h2>Offer For Section <%= @section.name %></h2>
 			<h4>Which Sections Are Okay To Switch With?</h4>
 			<div class = "wanted-sections">
 				<% @other_sections.each do |section| %>
@@ -12,9 +12,7 @@
 			<div class = "extra-info">
 				<%= f.text_area :body, :style => "width: 400px; height:100px" %>
 			</div>
-			<%= f.hidden_field :section_id, :value => @my_section.id %>
-			<%= f.hidden_field :user_id, :value => current_user.id %>
-			<%= f.hidden_field :accepted, :value => false %>
+			<%= f.hidden_field :enroll_id, :value => @enrollment.id %>
 		</div>
 		<div class = "actions">
 			<%= f.submit "Create Offer" %>
