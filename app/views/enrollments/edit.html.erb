@@ -1,7 +1,29 @@
 <%= form_for @enrollment, url: edit_enrollment_path do |f| %>
-  <% @sections.each do |section| %>
-    <%= f.radio_button :section_id, section.name %>
-    <%= f.label section.name %>
-  <% end %>
+    <table class="table">
+      <thead>
+        <tr>
+          <th>  </th>
+          <th> Section # </th>
+          <th> # Enrolled </th>
+          <th> Mentor </th>
+          <th> Location </th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @sections.each do |section| %>
+          <tr>
+            <% if section.enrolls.size >= 5 %>
+              <td> <%= f.radio_button :section_id, section.name, :disabled => true %> </td>
+            <% else %>
+              <td> <%= f.radio_button :section_id, section.name %> </td>
+            <% end %>
+            <td> <%= section.name %> </td>
+            <td> <%= section.enrolls.size %> out of 5 </td>
+            <td> <%= section.mentor %> </td>
+            <td> <%= section.location %> </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
   <%= f.submit "Add section" %>
 <% end %>

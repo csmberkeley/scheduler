@@ -69,6 +69,8 @@ ActiveRecord::Schema.define(version: 20150826043420) do
     t.datetime "end"
     t.boolean  "empty"
     t.integer  "course_id"
+    t.string   "mentor"
+    t.string   "location"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

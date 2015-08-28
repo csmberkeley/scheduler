@@ -28,12 +28,12 @@ mike2 = User.create! :name => "Mike Aboody2",
 
 cs61a = Course.create! :course_name => "CS61A",
 			:semester => "Fall",
-			:year => 2014,
+			:year => 2015,
 			:password => "pass"
 
 cs61b = Course.create! :course_name => "CS61B",
 			:semester => "Fall",
-			:year => 2014,
+			:year => 2015,
 			:password => "pass"
 
 
@@ -55,28 +55,36 @@ mike.enrolls << mike_cs61b_enr
 mike2.enrolls << mike2_cs61b_enr
 
 mike_cs61a_section1 = Section.create! :name => "Section 1022", 
-      :course_id => cs61a.id, :empty => true
+      :course_id => cs61a.id, :empty => true,
+      :mentor => "TBD", :location => "TBD"
 
 mike_cs61a_section2 = Section.create! :name => "Section 1023", 
-      :course_id => cs61a.id, :empty => true
+      :course_id => cs61a.id, :empty => true,
+      :mentor => "TBD", :location => "TBD"
 
 mike_cs61a_section3 = Section.create! :name => "Section 1026", 
-      :course_id => cs61a.id, :empty => true
+      :course_id => cs61a.id, :empty => true,
+      :mentor => "TBD", :location => "TBD"
 
 mike_cs61b_section1 = Section.create! :name => "Section 1024", 
-      :course_id => cs61b.id, :empty => true
+      :course_id => cs61b.id, :empty => true,
+      :mentor => "TBD", :location => "TBD"
 
 mike_cs61b_section2 = Section.create! :name => "Section 1025", 
-      :course_id => cs61b.id, :empty => false
+      :course_id => cs61b.id, :empty => true,
+      :mentor => "TBD", :location => "TBD"
 
 mike_cs61b_section3 = Section.create! :name => "Section 1027", 
-      :course_id => cs61b.id, :empty => true
+      :course_id => cs61b.id, :empty => true,
+      :mentor => "TBD", :location => "TBD"
 
-mike_cs61a_section1.users << mike
-mike_cs61b_section1.users << mike
+# These actually don't save for some reason. -Allan
+# Removed direct relation between section and users. Use enrollment table. See section.rb
+# mike_cs61a_section1.users << mike
+# mike_cs61b_section1.users << mike
 
-mike_cs61a_section2.users << mike2
-mike_cs61b_section2.users << mike2
+# mike_cs61a_section2.users << mike2
+# mike_cs61b_section2.users << mike2
 
 mike_cs61a_section1.enrolls << mike_cs61a_enr
 mike_cs61b_section1.enrolls << mike_cs61b_enr
@@ -103,6 +111,46 @@ allan_cs61a_enr = Enroll.create! :user_id => allan.id,
                   :course_id => cs61a.id
 
 allan.enrolls << allan_cs61a_enr
+
+allan2 = User.create! :name => "Allan Tang",
+            :email => "allan_tang2@berkeley.edu",
+            :password => "allanpass",
+            :password_confirmation => "allanpass"
+
+allan2_cs61a_enr = Enroll.create! :user_id => allan2.id,
+                  :course_id => cs61a.id
+
+allan2.enrolls << allan2_cs61a_enr
+
+allan3 = User.create! :name => "Allan Tang",
+            :email => "allan_tang3@berkeley.edu",
+            :password => "allanpass",
+            :password_confirmation => "allanpass"
+
+allan3_cs61a_enr = Enroll.create! :user_id => allan3.id,
+                  :course_id => cs61a.id
+
+allan3.enrolls << allan3_cs61a_enr
+
+allan4 = User.create! :name => "Allan Tang",
+            :email => "allan_tang4@berkeley.edu",
+            :password => "allanpass",
+            :password_confirmation => "allanpass"
+
+allan4_cs61a_enr = Enroll.create! :user_id => allan4.id,
+                  :course_id => cs61a.id
+
+allan4.enrolls << allan4_cs61a_enr
+
+allan5 = User.create! :name => "Allan Tang",
+            :email => "allan_tang5@berkeley.edu",
+            :password => "allanpass",
+            :password_confirmation => "allanpass"
+
+allan5_cs61a_enr = Enroll.create! :user_id => allan5.id,
+                  :course_id => cs61a.id
+
+allan5.enrolls << allan5_cs61a_enr
 
 Setting.create! :setting_name => "Enable Comments" , :enabled => true, :name => "comments"
 

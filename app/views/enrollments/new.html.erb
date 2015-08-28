@@ -1,7 +1,23 @@
 <%= form_for @enrollment, url: new_enrollment_path do |f| %>
-  <% @courses.each do |course| %>
-    <%= f.radio_button :course_id, course.course_name %>
-    <%= f.label course.course_name %>
-  <% end %>
+
+  <table class="table">
+    <thead>
+      <tr>
+        <th>  </th>
+        <th> Course Name </th>
+        <th> Semester </th>
+      </tr>
+    <thead>
+    <tbody>
+      <% @courses.each do |course| %>
+        <tr>
+          <td> <%= f.radio_button :course_id, course.course_name %> </td>
+          <td> <%= course.course_name %> </td>
+          <td> <%= course.semester %> <%= course.year %> </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+
   <%= f.submit "Add course" %>
 <% end %>

@@ -42,18 +42,59 @@ class EnrollmentsController < ApplicationController
 
   def edit
     @enrollment = Enroll.find(params[:id])
+
+    #check that current user isn't editing an enrollment he/she doesn't own
+    if @enrollment.user_id != current_user.id
+      flash[:notice] = "Forbbiden access. Use the switch section button to change sections"
+      redirect_to root_path
+      return
+    end
+
     course = Course.find(@enrollment.course_id)
     @sections = course.sections
+
   end
 
   def update
     section = Section.find_by_name(params[:enroll][:section_id])
+    enrollment = Enroll.find(params[:id])
 
     #check if section isn't full
+    if section.enrolls.size >= 5
+      flash[:notice] = "Current section you selected has been filled up."
+      redirect_to edit_enrollment_path(params[:id])
+      return
+    end
 
+    #check if student already enrolled into this section
+    curr_enrolls = section.enrolls.to_ary()
+    current_user.enrolls.each do |enroll|
+      if curr_enrolls.include?(enroll)
+        flash[:notice] = "You are already enrolled into this section"
+        redirect_to root_path
+        return
+      end
+    end
 
-    @enrollment = Enroll.find(params[:id])
-    1/0
+    #check if student is already enrolled into another section in the same class
+    if not enrollment.section_id.nil?
+      flash[:notice] = "You are already enrolled into another section in this class"
+      redirect_to root_path
+      return
+    end
+
+    #safe to enroll
+    enrollment.section_id = section.id
+    section.enrolls << enrollment
+    if enrollment.save! and section.save!
+      flash[:notice] = "You have signed up for #{section.name}"
+      redirect_to root_path
+      return
+    else
+      flash[:notice] = "Couldn't sign up for section. Try again"
+      redirect_to root_path
+      return
+    end
   end
 
   def destroy
