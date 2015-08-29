@@ -1,4 +1,6 @@
 class EnrollmentsController < ApplicationController
+  before_filter :check_switch_section, :only => [:switch_section]
+
 	def switch_section
 		#enrollment works here
 		@enrollment = Enroll.find(params[:id])
@@ -104,5 +106,23 @@ class EnrollmentsController < ApplicationController
     @enrollment.destroy
     redirect_to root_path
   end
+
+  #**************************************************************************
+  #before_filters
+  private
+  def check_switch_section
+    #check if enrollment is fine
+    correct_enrollment = false
+    if params[:id] and Enroll.exists?(params[:id]) and check_enrollment(enroll = Enroll.find(params[:id]))
+      correct_enrollment = true
+    end
+    #checks if section is fine
+    correct_section = correct_section and Section.exists?(enroll.section_id)
+    if not correct_section
+      flash[:notice] = "You are not allowed access to that page."
+      redirect_to root_path
+    end
+  end
+
 
 end

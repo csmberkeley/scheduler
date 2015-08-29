@@ -32,4 +32,11 @@ class ApplicationController < ActionController::Base
         redirect_to root_path
     end
   end
+  private
+  def check_enrollment(enrollment)
+    if current_user and enrollment and enrollment.user_id == current_user.id
+      return true
+    end
+    return false
+  end
 end
