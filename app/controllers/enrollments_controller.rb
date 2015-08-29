@@ -117,8 +117,11 @@ class EnrollmentsController < ApplicationController
       correct_enrollment = true
     end
     #checks if section is fine
-    correct_section = correct_section and Section.exists?(enroll.section_id)
-    if not correct_section
+    correct = false
+    if correct_enrollment and enroll.hasSection
+      correct = true
+    end
+    if not correct
       flash[:notice] = "You are not allowed access to that page."
       redirect_to root_path
     end

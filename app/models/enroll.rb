@@ -53,4 +53,11 @@ class Enroll < ActiveRecord::Base
     return self.transactions.order(:created_at).reverse_order
   end
 
+  def hasSection()
+    if self.section_id and Section.exists?(self.section_id)
+      return true
+    end
+    return false
+  end
+
 end
