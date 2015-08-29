@@ -1,5 +1,6 @@
 class OffersController < ApplicationController
 	before_filter :check_comment, :only => [:create_response]
+	before_filter :check_show, :only => [:show]
 	def show
 		@offer = Offer.find(params[:id])
 		@offerer = User.find(@offer.user_id)
@@ -97,4 +98,28 @@ class OffersController < ApplicationController
 	def offer_params
 		params.require(:offer).permit(:body, :enroll_id)
 	end
+
+	#**************************************************************************
+  #before_filters
+  private
+  def check_show
+  	#check if offer exists
+  	correct_offer = false
+  	if params[:id] and Offer.exists?(params[:id])
+  		correct_offer = true
+  	end
+  	if correct_offer
+  		#check if he is enrolled in the correct course
+  		offer = Offer.find(params[:id])
+		offerer = User.find(offer.user_id)
+		section = Section.find(offer.section_id)
+		course = Course.find(section.course_id)
+		enroll = current_user.getEnrollmentInCourse(course)
+		if check_enrollment(enroll)
+			return
+		end
+  	end
+    flash[:notice] = "You are not allowed access to that page."
+    redirect_to root_path
+  end
 end
