@@ -2,6 +2,7 @@ class OffersController < ApplicationController
 	before_filter :check_comment, :only => [:create_response]
 	before_filter :check_show, :only => [:show]
 	before_filter :check_new, :only => [:new]
+	before_filter :check_create, :only => [:create]
 	def show
 		@offer = Offer.find(params[:id])
 		@offerer = User.find(@offer.user_id)
@@ -139,5 +140,41 @@ class OffersController < ApplicationController
   	end
   	flash[:notice] = notice
     redirect_to root_path
+  end
+  private
+  def check_new
+  	notice = "You are not allowed access to that page."
+  	if params[:enroll_id] and Enroll.exists?(params[:enroll_id]) and check_enrollment(enroll = Enroll.find(params[:enroll_id]))
+  		if enroll.hasSection
+  			if not enroll.offer
+  				return
+  			else 
+  				notice = "You already have an offer."
+  			end
+  		end
+  	end
+  	flash[:notice] = notice
+    redirect_to root_path
+  end
+  private
+  def check_create
+  	notice = "You are not allowed to access that page."
+  	path = root_path
+  	if section_ids = params[:offer] and offer = Offer.new(offer_params)
+  		if offer.enroll_id and check_enrollment(enroll = offer.getEnrollmentOfOfferer)
+  			if params[:section_ids]
+  				if not enroll.offer
+	  				return
+	  			end
+  				notice = "You already have an offer."
+  			else
+	  			notice = "You need to choose a section you want in your offer."
+	  			path = new_offer_path(enroll_id: enroll.id)
+  			end
+  				
+  		end
+  	end
+  	flash[:notice] = notice
+  	redirect_to path
   end
 end
