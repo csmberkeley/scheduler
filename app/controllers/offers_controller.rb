@@ -3,6 +3,7 @@ class OffersController < ApplicationController
 	before_filter :check_show, :only => [:show]
 	before_filter :check_new, :only => [:new]
 	before_filter :check_create, :only => [:create]
+	before_filter :check_destroy, :only => [:destroy]
 	def show
 		@offer = Offer.find(params[:id])
 		@offerer = User.find(@offer.user_id)
@@ -176,5 +177,11 @@ class OffersController < ApplicationController
   	end
   	flash[:notice] = notice
   	redirect_to path
+  end
+  def check_destroy
+  	if not(params[:id] and Enroll.exists?(params[:id]) and check_enrollment(Enroll.find(params[:id])))
+  		flash[:notice] = "You are not allowed to access that page."
+  		redirect_to root_path
+  	end
   end
 end
