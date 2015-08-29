@@ -28,6 +28,7 @@ Rails.application.routes.draw do
   get "/admin/students" => "admins#index", as: :students_index
   resources :settings, only:[:index, :update]
   post "/settings" => "settings#update"
+  match 'users/:id' => 'users#destroy', :via => :delete, :as => :admin_destroy_user
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
