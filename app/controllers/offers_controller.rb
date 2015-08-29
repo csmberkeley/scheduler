@@ -1,6 +1,7 @@
 class OffersController < ApplicationController
 	before_filter :check_comment, :only => [:create_response]
 	before_filter :check_show, :only => [:show]
+	before_filter :check_new, :only => [:new]
 	def show
 		@offer = Offer.find(params[:id])
 		@offerer = User.find(@offer.user_id)
@@ -120,6 +121,23 @@ class OffersController < ApplicationController
 		end
   	end
     flash[:notice] = "You are not allowed access to that page."
+    redirect_to root_path
+  end
+
+  private
+  def check_new
+  	notice = "You are not allowed access to that page."
+  	if params[:enroll_id] and Enroll.exists?(params[:enroll_id]) and check_enrollment(enroll = Enroll.find(params[:enroll_id]))
+  		if enroll.hasSection
+  			puts enroll.offer
+  			if not enroll.offer
+  				return
+  			else 
+  				notice = "You already have an offer."
+  			end
+  		end
+  	end
+  	flash[:notice] = notice
     redirect_to root_path
   end
 end
