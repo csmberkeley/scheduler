@@ -1,4 +1,4 @@
-$(document).ready(function(){
+var ready = function() {
   $(".table_sections").each(function () {
       var $this = $(this);
       var newrows = [];
@@ -17,4 +17,7 @@ $(document).ready(function(){
           $this.append(this);
       });
   });
-});
+}
+
+$(document).ready(ready);
+$(document).on('page:load', ready);

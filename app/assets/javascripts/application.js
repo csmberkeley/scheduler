@@ -17,5 +17,5 @@
 //= require admins
 //= require_tree .
 $(document).ready(function(){
-    $(".btn").tooltip();
+  $(".btn").tooltip();
 });
