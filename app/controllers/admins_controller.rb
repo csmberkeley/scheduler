@@ -1,7 +1,8 @@
 class AdminsController < ApplicationController
   before_filter :check_admin
   def index
-    @students = User.all      
+    @students = User.all
+    @courses = Course.all    
   end
 
 def edit_student
@@ -41,7 +42,8 @@ end
       end
     end
   end
-  
+  def add_course
+  end
   private
   def student_params
       params.require(:user).permit(:name, :nickname, :admin, :email)

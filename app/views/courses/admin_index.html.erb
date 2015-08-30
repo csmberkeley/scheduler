@@ -1,0 +1,41 @@
+<div class = "container">
+    <h1>Manage Courses</h1>
+    <hr>
+    
+    <%= link_to "Add Course", new_course_path, class: "btn btn-success" %>
+    <div class = "sections">
+      <table class="table">
+        <thead>
+          <tr>
+            <th> Actions </th>
+            <th> Course </th>
+            <th> Password </th>
+            <th> Semester </th>
+            <th> Year </th>
+          </tr>
+        </thead>
+        <tbody>
+            <% @courses.each do |course| %>
+                <tr >
+                <td class="col-md-2">
+                <div>
+                <%= link_to '<i class="fa fa-pencil-square-o"></i>'.html_safe, edit_course_path(course), class: "btn btn-warning",method: :get   %>
+                <%= link_to '<i class="fa fa-trash-o"></i>'.html_safe, course_path(course), method: :delete, class: "btn btn-danger", data: { confirm: "Are you sure you want to delete #{course.course_name}?" }%>
+                </div>
+                <div style="margin-top:5px">
+                </div>
+                </td>
+                <td>
+                <h4>
+                 <%= course.course_name %>
+                 </h4>                
+                </td>
+                <td><%= course.password%></td>
+                <td><%= course.semester%></td>
+                <td><%= course.year%></td>
+                </tr>  
+            <% end %>
+        </tbody>
+        </table>
+    </div>
+</div>
