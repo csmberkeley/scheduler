@@ -16,4 +16,6 @@
 //= require turbolinks
 //= require admins
 //= require_tree .
-
+$(document).ready(function(){
+    $(".btn").tooltip();
+});
