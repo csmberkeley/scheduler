@@ -9,6 +9,7 @@ Rails.application.routes.draw do
   get "/sections" => "sections#index"
   get "/sections/:id" => "sections#show", as: :section
 
+  #enrolling into a course and section
   resources :enrollments
   post "/enrollments/new" => "enrollments#create"
   patch "/enrollments/:id/edit" => "enrollments#update"
@@ -25,9 +26,14 @@ Rails.application.routes.draw do
   delete "/replies/:id" => "replies#destroy", as: :delete_reply
   post "/replies/accept/:id" => "replies#accept", as: :accept_reply
   post "/replies/deny/:id" => "replies#deny", as: :deny_reply
+
+  #admin stuff
   get "/admin/students" => "admins#index", as: :students_index
   resources :settings, only:[:index, :update]
   post "/settings" => "settings#update"
+
+  get "/admin/manage_sections" => "admins#manage_sections", as: :manage_sections
+
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
