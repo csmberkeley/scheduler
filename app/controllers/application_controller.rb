@@ -25,13 +25,6 @@ class ApplicationController < ActionController::Base
         redirect_to root_path
     end
   end
-  private 
-  def check_switch
-    if not Setting.find_by(name: 'section').enabled
-        flash[:alert] = "Section switching has been disabled"
-        redirect_to root_path
-    end
-  end
   private
   def check_enrollment(enrollment)
     if current_user and enrollment and enrollment.user_id == current_user.id
