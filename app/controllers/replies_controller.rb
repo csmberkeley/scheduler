@@ -22,7 +22,7 @@ class RepliesController < ApplicationController
 		replier_enrollment.tradeSection(offerer_enrollment)
 		if offer.destroy
 			flash[:notice] = "Traded your section!"
-			replier_enrollment.createTransaction("Your reply to aoffer has been accepted!")
+			replier_enrollment.createTransaction("Your reply to an offer has been accepted!")
 			offerer_enrollment.createTransaction("You accepted a reply to an offer!")
 			redirect_to root_path
 		end
