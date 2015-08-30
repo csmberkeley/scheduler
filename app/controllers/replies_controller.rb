@@ -1,5 +1,6 @@
 class RepliesController < ApplicationController
 	before_filter :check_respond, :only => [:accept, :deny]
+	before_filter :check_destroy, :only => [:destroy]
 	def destroy
 		@reply = Reply.find(params[:id])
 		@enroll = @reply.getEnrollmentOfReplier
@@ -41,6 +42,11 @@ class RepliesController < ApplicationController
 		end
 
 	end
+	def error
+		respond_to do |format|
+		    format.js
+		end
+	end
 	private
 	def reply_params
 		params.require(:reply).permit(:body)
@@ -59,6 +65,24 @@ class RepliesController < ApplicationController
 		flash[:notice] = "You cannot trade."
 		redirect_to root_path
 	end
+	#**************************************************************************
+  #before_filters
+  private
+  def check_destroy
+  	@notice = "You do not have permission to do that."
+  	if params[:id] and Reply.exists?(params[:id])
+  		reply = Reply.find(params[:id])
+  		if check_enrollment(enroll = reply.getEnrollmentOfReplier)
+  			if enroll.user_id == reply.user_id
+  				return
+  			end
+  		end
+  	else
+  		@notice = "This reply has already been deleted."
+  	end
+  	flash[:notice] = notice
+  	render "error"
+  end
 
 
 end

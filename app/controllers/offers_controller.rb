@@ -214,8 +214,7 @@ class OffersController < ApplicationController
 						@notice = "You cannot create a blank comment."
 					else 
 						return
-					end
-  					
+					end		
   				end
   			end
   		end
