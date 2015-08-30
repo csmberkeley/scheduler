@@ -194,7 +194,7 @@ class OffersController < ApplicationController
   private
   def check_create_response
   	@notice = "You cannot create a comment."
-  	if params[:body] and params[:offer_id] and params[:enroll_id]
+  	if params[:offer_id] and params[:enroll_id]
   		if Offer.exists?(eval(params[:offer_id])[:value]) and Enroll.exists?(eval(params[:enroll_id])[:value])
   			offer = Offer.find(eval(params[:offer_id])[:value])
   			enroll = Enroll.find(eval(params[:enroll_id])[:value])
@@ -203,10 +203,19 @@ class OffersController < ApplicationController
   					if offer.hasReplyFrom(enroll)
   						@notice = "You have already made a reply to this offer."
   					else
-  						return
+  						if params[:body] == ""
+  							@notice = "You cannot create a blank reply."
+  						else
+  							return
+  						end	
   					end
   				else
-  					return
+  					if params[:body] == ""
+						@notice = "You cannot create a blank comment."
+					else 
+						return
+					end
+  					
   				end
   			end
   		end
