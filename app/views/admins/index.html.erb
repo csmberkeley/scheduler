@@ -1,24 +1,68 @@
 <div class = "container">
-    <h1>Sections</h1>
+    <h1>Manage Students</h1>
     <hr>
     <div class = "sections">
-        <ul class="list-unstyled" >
+      <table class="table">
+        <thead>
+          <tr>
+            <th> Actions </th>
+            <th> Users </th>
+          </tr>
+        </thead>
+        <tbody>
             <% @students.each do |student| %>
-
-                <li style="margin-bottom:5px">
-                <a class="btn btn-success" href="#" role="button">Add class</a> <a class="btn btn-warning" href="#" role="button">Edit</a>
-                <a class="btn btn-danger" href="#" role="button">Delete</a> <%= student.name + " " + student.email %>
-                <br />
-                <% student.enrolls.each do |enroll| %>
-                    <a class="btn btn-danger" href="#" role="button">Drop</a>
-                    <b><%= enroll.course.course_name %></b>
-                    
-                    <%= enroll.section.name %>                
-                    <br />
-                <% end %>
-               </li>
+                <% next if student.admin%>
+                <tr class="student-list">
+                <td class="col-md-2">
+                <div>
+                <a class="btn btn-success" href="#" role="button"><i class="fa fa-plus"></i></a> <a class="btn btn-warning"  data-toggle="collapse" href="#collapse<%=student.id%>"  role="button"><i class="fa fa-pencil-square-o"></i></a>
+                </div>
+                <div style="margin-top:5px">
+                <a class="btn btn-info" href="#" role="button"><i class="fa fa-user"></i></a>
                 
+                <%= link_to '<span style="padding-right:15px"class="btn btn-danger" href="#" role="button"><i class="fa fa-times"></i></span>'.html_safe, admin_destroy_user_path(student), method: :delete, data: { confirm: "You sure?" } %>
+                </div>
+                </td>
+                <td>
+                <h4 style="">
+                 <%= student.name %>
+                 </h4>
+                
+                <%= student.email %>
+                <div class="collapse" id="collapse<%=student.id%>">
+                <table class="table" >
+                        <thead>
+                            <tr>
+                                <th></th>
+                                <th>Class</th>
+                                <th>Section</th>
+                            </tr>
+                        
+                        </thead>
+                    <tbody>
+                <% student.enrolls.each do |enroll| %>
+                    
+                    <tr>
+                        <td class="col-md-1"><a data-toggle="tooltip" data-placement="bottom" title="Drop from class" class="btn btn-danger" href="#" role="button"><i class="fa fa-trash-o"></i></a></td>
+                        <td class="col-md-1"><b><%= enroll.course.course_name %></b></td>
+                        <td>
+                            <% if enroll.section %>
+                            <span><%= enroll.section.name.chomp %></span>
+                            <% else %>
+                            N/A
+                            <% end %>
+                        </td>
+                        </tr>
+                    
+                <% end %>
+                    </tbody>
+                    </table>
+                    <br />
+                </div>
+                </td>
+                </tr>  
             <% end %>
-        </ul>
+        </tbody>
+        </table>
     </div>
 </div>

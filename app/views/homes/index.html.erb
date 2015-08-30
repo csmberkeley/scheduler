@@ -9,6 +9,8 @@
   <% if current_user.admin %>
   <%= link_to "Admin Settings", settings_path %>
   <br />
+  <%= link_to "Manage Sections", manage_sections_path %>
+  <br />
   <%= link_to "Manage Students", students_index_path %>
   <% end %>
   <div class = "switch-sections">

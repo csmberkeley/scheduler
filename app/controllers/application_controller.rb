@@ -5,7 +5,7 @@ class ApplicationController < ActionController::Base
 
   private
   def check_admin
-    if user_signed_in? and not current_user.admin?
+    if not user_signed_in? or not current_user.admin?
       flash[:alert] = "You do not have permission for this action"
       redirect_to root_path
     end
