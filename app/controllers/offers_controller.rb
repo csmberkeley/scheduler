@@ -178,6 +178,7 @@ class OffersController < ApplicationController
   	flash[:notice] = notice
   	redirect_to path
   end
+  private
   def check_destroy
   	if not(params[:id] and Enroll.exists?(params[:id]) and check_enrollment(Enroll.find(params[:id])))
   		flash[:notice] = "You are not allowed to access that page."

@@ -1,4 +1,5 @@
 class RepliesController < ApplicationController
+	before_filter :check_respond, :only => [:accept, :deny]
 	def destroy
 		@reply = Reply.find(params[:id])
 		@enroll = @reply.getEnrollmentOfReplier
@@ -23,7 +24,7 @@ class RepliesController < ApplicationController
 			flash[:notice] = "Traded your section!"
 			replier_enrollment.createTransaction("Your reply to an offer has been accepted!")
 			offerer_enrollment.createTransaction("You accepted a reply to an offer!")
-			redirect_to "/"
+			redirect_to root_path
 		end
 	end
 
@@ -44,4 +45,20 @@ class RepliesController < ApplicationController
 	def reply_params
 		params.require(:reply).permit(:body)
 	end
+	private
+	def check_respond
+		if params[:id] and Reply.exists?(params[:id])
+			reply = Reply.find(params[:id])
+			offer = Offer.find(reply.id)
+			if replier_enrollment = reply.getEnrollmentOfReplier and offerer_enrollment = offer.getEnrollmentOfOfferer
+				if replier_enrollment.course_id == offerer_enrollment.course_id
+					return
+				end
+			end
+		end
+		flash[:notice] = "You cannot trade."
+		redirect_to root_path
+	end
+
+
 end
