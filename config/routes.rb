@@ -12,7 +12,7 @@ Rails.application.routes.draw do
   resources :enrollments
   post "/enrollments/new" => "enrollments#create"
   patch "/enrollments/:id/edit" => "enrollments#update"
-
+  delete "/enrollments/delete/:id" => "enrollments#destroy_admin", as: :admin_destroy_enroll
   get "/offers/:id" => "offers#show", as: :offer
   get "/new_offer" => "offers#new", as: :new_offer
   post "/offers" => "offers#create"
@@ -26,9 +26,14 @@ Rails.application.routes.draw do
   post "/replies/accept/:id" => "replies#accept", as: :accept_reply
   post "/replies/deny/:id" => "replies#deny", as: :deny_reply
   get "/admin/students" => "admins#index", as: :students_index
-  resources :settings, only:[:index, :update]
+  get "/admin/students/:id" => "admins#edit_student", as: :admin_edit_student
+  patch "/admin/students/:id" => "admins#update_student", as: :admin_update_student
+  #resources :settings, only:[:index, :update]
+  get "/settings" => "settings#index",  as: :settings
   post "/settings" => "settings#update"
   match 'users/:id' => 'users#destroy', :via => :delete, :as => :admin_destroy_user
+
+
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

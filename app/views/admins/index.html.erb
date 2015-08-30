@@ -18,9 +18,9 @@
                 <a class="btn btn-success" href="#" role="button"><i class="fa fa-plus"></i></a> <a class="btn btn-warning"  data-toggle="collapse" href="#collapse<%=student.id%>"  role="button"><i class="fa fa-pencil-square-o"></i></a>
                 </div>
                 <div style="margin-top:5px">
-                <a class="btn btn-info" href="#" role="button"><i class="fa fa-user"></i></a>
                 
-                <%= link_to '<span style="padding-right:15px"class="btn btn-danger" href="#" role="button"><i class="fa fa-times"></i></span>'.html_safe, admin_destroy_user_path(student), method: :delete, data: { confirm: "You sure?" } %>
+                <%= link_to '<span class="btn btn-info" href="#" role="button"><i class="fa fa-user"></i></span>'.html_safe, admin_edit_student_path(student), method: :get %>
+                <%= link_to '<span style="padding-right:15px"class="btn btn-danger" href="#" role="button"><i class="fa fa-times"></i></span>'.html_safe, admin_destroy_user_path(student), method: :delete, data: { confirm: "Are you sure?" } %>
                 </div>
                 </td>
                 <td>
@@ -43,7 +43,10 @@
                 <% student.enrolls.each do |enroll| %>
                     
                     <tr>
-                        <td class="col-md-1"><a data-toggle="tooltip" data-placement="bottom" title="Drop from class" class="btn btn-danger" href="#" role="button"><i class="fa fa-trash-o"></i></a></td>
+                        <td class="col-md-1">
+                         <%= link_to '<span data-toggle="tooltip" data-placement="bottom" title="Drop from class" class="btn btn-danger" href="#" role="button"><i class="fa fa-trash-o"></i></span>'.html_safe, admin_destroy_enroll_path(enroll), method: :delete, data: { confirm: "Are you sure?" } %>
+
+                        </td>
                         <td class="col-md-1"><b><%= enroll.course.course_name %></b></td>
                         <td>
                             <% if enroll.section %>
