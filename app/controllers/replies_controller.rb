@@ -22,7 +22,7 @@ class RepliesController < ApplicationController
 		replier_enrollment.tradeSection(offerer_enrollment)
 		if offer.destroy
 			flash[:notice] = "Traded your section!"
-			replier_enrollment.createTransaction("Your reply to an offer has been accepted!")
+			replier_enrollment.createTransaction("Your reply to aoffer has been accepted!")n 
 			offerer_enrollment.createTransaction("You accepted a reply to an offer!")
 			redirect_to root_path
 		end
@@ -49,7 +49,7 @@ class RepliesController < ApplicationController
 	def check_respond
 		if params[:id] and Reply.exists?(params[:id])
 			reply = Reply.find(params[:id])
-			offer = Offer.find(reply.id)
+			offer = Offer.find(reply.offer_id)
 			if replier_enrollment = reply.getEnrollmentOfReplier and offerer_enrollment = offer.getEnrollmentOfOfferer
 				if replier_enrollment.course_id == offerer_enrollment.course_id
 					return
