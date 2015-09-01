@@ -2,7 +2,8 @@ class AdminsController < ApplicationController
   before_filter :check_admin
   def index
     @students = User.all
-    @courses = Course.all    
+
+    @courses = Course.all
   end
 
 def edit_student
@@ -43,6 +44,11 @@ end
     end
   end
   def add_course
+    @user = User.find(params[:user_id])
+    @course = Course.find(params[:course].values[0][:name].to_i)
+    Enroll.create(:user_id => params[:user_id], :course_id => params[:course].values[0][:name].to_i)
+    flash[:notice] = "Added #{@user.name} to #{@course.course_name}" 
+    redirect_to students_index_path
   end
   private
   def student_params

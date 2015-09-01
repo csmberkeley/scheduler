@@ -15,7 +15,7 @@
                 <tr class="student-list">
                 <td class="col-md-2">
                 <div>
-                <a class="btn btn-success" href="#" role="button"><i class="fa fa-plus"></i></a> <a class="btn btn-warning"  data-toggle="collapse" href="#collapse<%=student.id%>"  role="button"><i class="fa fa-pencil-square-o"></i></a>
+                <a class="btn btn-success" data-toggle="collapse" href="#collapse2<%=student.id%>"  href="#" role="button"><i class="fa fa-plus"></i></a> <a class="btn btn-warning"  data-toggle="collapse" href="#collapse<%=student.id%>"  role="button"><i class="fa fa-pencil-square-o"></i></a>
                 </div>
                 <div style="margin-top:5px">
                 
@@ -31,13 +31,35 @@
                 <%= student.email %>
 
                 <%= form_tag admin_add_course_path(student) do %>
+                <br />
+                <div class="panel collapse panel-default" id="collapse2<%=student.id%>">
+                    <div class="panel-heading">Add course</div>
+                    <div class="panel-body">
+                <%
+                exclude = []
+                student.enrolls.each do |e|
+                    exclude << e.course_id
+                end
+                possible_enroll = Course.where.not(id: exclude)
+                %>
+                <% if possible_enroll.length > 0 %>
                     <%= fields_for "course[]", @courses do |f| %>
                         <div class="field">
-                            <%= f.select :name, @courses.collect {|p| [ p.course_name, p.id] }, prompt: "Select one" %>
+                        <div class="form-group">
+                        <label>Course</label>
+                            <%= f.select :name, possible_enroll.collect {|p|                             
+                                [ p.course_name, p.id]
+                                 },{}, {prompt: "Select one", class: "form-control"}%>
                         </div>
-                        
-                        <% end %>
+                        </div>
+                        <%= submit_tag("Add", class: "btn btn-success") %>
+                    <% end %>
+                <% else %>
+                No courses to add.
+                 <% end %>
                 <% end %>
+                </div>
+                </div>
                 <div class="collapse" id="collapse<%=student.id%>">
                 <table class="table" >
                         <thead>
