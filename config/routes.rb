@@ -9,6 +9,7 @@ Rails.application.routes.draw do
 
   get "/sections" => "sections#index"
   get "/sections/:id" => "sections#show", as: :section
+  get "/sections/drop/:enroll_id" => "sections#drop", as: :drop_section
 
   #enrolling into a course and section
   resources :enrollments

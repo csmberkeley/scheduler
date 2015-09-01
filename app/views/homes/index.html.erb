@@ -13,7 +13,8 @@
         <% if not enroll.section_id.nil? %>
           <% curr_section = Section.find(enroll.section_id) %>
           <h4>  <%= link_to curr_section.name, section_path(curr_section) %></h4>
-          <%= link_to '<i class="fa fa-arrows-h"></i> Switch Sections'.html_safe, switch_section_path(enroll), class: "btn btn-warning" %>
+          <%= link_to '<i class="fa fa-exchange"></i> Switch Sections'.html_safe, switch_section_path(enroll), class: "btn btn-warning" %>
+          <%= link_to '<i class="fa fa-trash-o"></i> Drop Section'.html_safe, drop_section_path(enroll_id: enroll.id), class: "btn btn-warning" %>
         <% else %>
           <%= link_to "Add section", edit_enrollment_path(enroll),  class: "btn btn-success"%>
         <% end %>
