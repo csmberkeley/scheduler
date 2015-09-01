@@ -28,8 +28,7 @@ body > .row {
 }
 .sidebar-container {
     height:100%;
-    
-    padding-right:5px;
+    padding-right:0px;
     box-shadow:0 0 1px rgba(100,100,100,.05);
 }
 .sidebar {
