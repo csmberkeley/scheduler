@@ -51,14 +51,14 @@
   	<!-- trade section -->
   	<div class = "row">
   		<div class = "your-offer col-xs-12">
-  			<div class="panel panel-info" style = "text-align:center">
+  			<div class="panel panel-primary" style = "text-align:center">
 			  <div class="panel-heading">
 			    <h1 class="panel-title">Your Offer for Section <%= @section.name %></h1>
 			  </div>
 			  <div class="panel-body">
 			  	<% if @offer %>
-					<%= link_to "View Offer", offer_path(@offer), :class => "btn btn-primary" %>
-					<%= link_to "Cancel Offer", delete_offer_path(@enrollment), method: :delete, :class => "btn btn-warning"  %>
+					<%= link_to "View Offer", offer_path(@offer), :class => "btn btn-info" %>
+					<%= link_to "Cancel Offer", delete_offer_path(@enrollment), method: :delete, :class => "btn btn-danger"  %>
 				<% else %>
 					<label>No offer exists.</label><br>
 					<%= link_to "Create One?", new_offer_path(enroll_id: @enrollment.id), :class => "btn btn-success"%>
@@ -73,7 +73,7 @@
 			  <!-- Default panel contents -->
 			  <div class="panel-heading" style = "text-align:center"><h1 class="panel-title">See Other Available Trading Offers</h1></div>
 			  <div class="panel-body" style = "text-align:center; padding-bottom:0px">
-			    <div class="alert alert-info" role="alert">
+			    <div class="alert alert-info" role="alert" style = "margin-top: 0px">
 				  <i class="fa fa-exclamation"></i>
 				  <span class="sr-only">Notice:</span>
 				  You can leave a comment on any of these offers, or ask to switch. Note that only offers that want your section will appear.
@@ -101,13 +101,10 @@
   	<h2>Transactions</h2>
   	<% @transactions.each do |t| %>
   		<div class = "row container">
-	  		<div class = "col-sm-4 col-xs-5" style = "border: #eee solid 2px; border-radius: 4px;">
-	  			<h4>
-	  				<small><%= t.created_at.strftime("%I:%M:%S %p on %b. %d, %Y") %></small>
-	  				<br>
-	  				<%=t.body%>
-	  			</h4>
-	  		</div>
+  			<div class="alert alert-info col-xs-4" style = "margin-bottom:0px">
+			  <strong><%= t.created_at.strftime("%I:%M:%S %p on %b. %d, %Y") %></strong> 
+			  <br><%=t.body%>
+			</div>
 	  	</div>
   	<% end %>
   	<% if @transactions.length == 0 %>
