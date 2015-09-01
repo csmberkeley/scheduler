@@ -5,7 +5,12 @@
             <img src="http://i.imgur.com/CMg4rGP.jpg" style=" display: block;
     margin-left: auto;
     margin-right: auto;">
-            
+            <% if notice %>
+              <div class="alert alert-info" style="margin-bottom:0" role="alert"><%= notice %></div>
+            <% end %>
+            <% if alert %>
+              <div class="alert alert-danger" style="margin-bottom:0" role="alert"><%= alert %></div>
+            <% end %>
         </div>
         <div class="modal-body">
             <%= form_for(resource, as: resource_name, url: session_path(resource_name), :html => {:class => "form center-block"}) do |f| %>

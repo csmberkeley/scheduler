@@ -1,27 +1,39 @@
 <div class="home">
   <h2><i class="fa fa-tachometer"></i> Dashboard</h2>
-  <h3> Your sections</h3> 
+  
   <div class = "switch-sections">
+  <% if @enrolls.size > 0%>
+    <h3> Your sections</h3> 
+    <% @enrolls.each do |enroll| %>
+      <% curr_course = Course.find(enroll.course_id) %>
+      <div class="panel panel-primary">
+        <div class="panel-heading">
+          <h3 class="panel-title"><i class="fa fa-book"></i> <%= curr_course.course_name %> 
+          
+          <%= link_to "<i class='fa fa-remove'></i>".html_safe, enrollment_path(enroll), :method => :delete, class: "delete-course", data: { confirm: "Are you sure you want to drop #{curr_course.course_name}?"}%>
+           
+          </h3>
 
-  <% @enrolls.each do |enroll| %>
-    <% curr_course = Course.find(enroll.course_id) %>
-    <div class="panel panel-primary">
-      <div class="panel-heading">
-        <h3 class="panel-title"><i class="fa fa-book"></i> <%= curr_course.course_name %></h3>
+        </div>
+        <div class="panel-body">
+          <% if not enroll.section_id.nil? %>
+            <% curr_section = Section.find(enroll.section_id) %>
+            <h4>  <%= link_to curr_section.name, section_path(curr_section) %></h4>
+            <%= link_to '<i class="fa fa-exchange"></i> Switch Sections'.html_safe, switch_section_path(enroll), class: "btn btn-warning" %>
+            <%= link_to '<i class="fa fa-trash-o"></i> Drop Section'.html_safe, drop_section_path(enroll_id: enroll.id), class: "btn btn-warning" %>
+          <% else %>
+            <%= link_to "Add section", edit_enrollment_path(enroll),  class: "btn btn-success"%>
+          <% end %>
+        </div>
       </div>
-      <div class="panel-body">
-        <% if not enroll.section_id.nil? %>
-          <% curr_section = Section.find(enroll.section_id) %>
-          <h4>  <%= link_to curr_section.name, section_path(curr_section) %></h4>
-          <%= link_to '<i class="fa fa-exchange"></i> Switch Sections'.html_safe, switch_section_path(enroll), class: "btn btn-warning" %>
-          <%= link_to '<i class="fa fa-trash-o"></i> Drop Section'.html_safe, drop_section_path(enroll_id: enroll.id), class: "btn btn-warning" %>
-        <% else %>
-          <%= link_to "Add section", edit_enrollment_path(enroll),  class: "btn btn-success"%>
-        <% end %>
-      </div>
-    </div>
-  <% end %> 
-  <%= link_to '<i class="fa fa-plus"></i> Add Course'.html_safe, new_enrollment_path,   class: "btn btn-success"%>
+    <% end %>
+    <%= link_to '<i class="fa fa-plus"></i> Add Course'.html_safe, new_enrollment_path,   class: "btn btn-success"%>
+  <% else %>
+  <div class="well">
+  <h4>You're not enrolled in any courses. </h4>
+  <%= link_to '<i class="fa fa-plus"></i> Add Course'.html_safe, new_enrollment_path,   class: "btn btn-lg btn-success"%>
+  </div>
+  <% end %>  
 
   </div>
 </div>  

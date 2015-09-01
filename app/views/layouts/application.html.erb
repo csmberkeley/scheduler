@@ -24,10 +24,12 @@
     </nav>
   <% end %>
 
-    <div class="row">
+    <div class="row main-container">
       <% if current_user %>
       <div class="col-md-2 sidebar-container">
-      <div class="sidebar-logo"></div>
+      <div class="sidebar-logo">
+        <img src="http://i.imgur.com/CMg4rGP.jpg">
+      </div>
       <div class="sidebar">
         <ul class="nav nav-pills nav-stacked">
           <%= nav_link '<i class="fa fa-home"></i> Home'.html_safe, root_path%>
@@ -68,12 +70,7 @@
      </div>
      <% else %>
       <div class="col-md-12">
-        <% if notice %>
-          <div class="alert alert-info" role="alert"><%= notice %></div>
-        <% end %>
-        <% if alert %>
-          <div class="alert alert-danger" role="alert"><%= alert %></div>
-        <% end %>
+
       <%= yield %>
      </div>
      <% end %>
