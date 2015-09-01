@@ -31,28 +31,28 @@
       <div class="sidebar">
         <ul class="nav nav-pills nav-stacked">
           <%= nav_link '<i class="fa fa-home"></i> Home'.html_safe, root_path%>
-          <li role="presentation" class="active"><%= link_to '<i class="fa fa-home"></i> Home'.html_safe, root_path%></li>
-          
-          <li><%= link_to '<i class="fa fa-users"></i> Sections'.html_safe, sections_path %></li>
-          <li><%= link_to '<i class="fa fa-book"></i> Courses'.html_safe, courses_path %></li>
+
+          <%= nav_link '<i class="fa fa-users"></i> Sections'.html_safe, sections_path %>
+          <%= nav_link '<i class="fa fa-book"></i> Courses'.html_safe, courses_path %>
         </ul>
         <% if current_user and current_user.admin %>
         <h4>Admin Settings</h4>
         <hr />
         <ul class="nav nav-pills nav-stacked">
-        <li><%= link_to "Admin Settings", settings_path %></li>
-        <li><%= link_to "Manage Sections", manage_sections_path %></li>
-        <li><%= link_to "Manage Students", students_index_path %></li>
-        <li><%= link_to "Manage Courses", admin_course_index_path %></li>
+        <%= nav_link "Admin Settings", settings_path %>
+        <%= nav_link "Manage Sections", manage_sections_path %>
+        <%= nav_link "Manage Students", students_index_path %>
+        <%= nav_link "Manage Courses", admin_course_index_path %>
         </ul>
         <% end %>
         <% if current_user %>
         <h4>Account</h4>
         <hr />
         <ul class="nav nav-pills nav-stacked">
-        <li> <%= link_to '<i class="fa fa-user"></i> '.html_safe + current_user.name, root_path %> </li>
-        <li> <%= link_to '<i class="fa fa-pencil"></i> Edit account'.html_safe, edit_user_registration_path %> </li>
-        <li> <%= link_to '<i class="fa fa-sign-out"></i> Sign out'.html_safe, destroy_user_session_path, :method => :delete %> </li>
+         <%= nav_link '<i class="fa fa-user"></i> '.html_safe + current_user.name, edit_user_registration_path %> 
+         
+          <li> <%= link_to '<i class="fa fa-sign-out"></i> Sign out'.html_safe, destroy_user_session_path, :method => :delete %> </li>
+ 
         </ul>
         <% end %>
         </div>
