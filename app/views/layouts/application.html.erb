@@ -6,9 +6,9 @@
   <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
   <%= csrf_meta_tags %>
 </head>
-<body>
+<body <% if not current_user %> style="background-size:cover; background-image:url('http://www.cs.berkeley.edu/~sequin/soda/NewPhotos/SodaHallS.JPG')"<%end%>>
 
-  <% if user_signed_in? %>
+  <% if false %>
     <nav class="navbar navbar-default navbar-fixed-top">
         <a class="navbar-brand"> <%= link_to (image_tag "csm_logo.jpg", :style => "width: 100px; height: 50px;"), root_path %> </a>
       <ul class="nav navbar-nav navbar-right">
@@ -24,15 +24,61 @@
     </nav>
   <% end %>
 
-  <div class="content">
-    <% if notice %>
-    <div class="alert alert-info" role="alert"><%= notice %></div>
-    <% end %>
-    <% if alert %>
-    <div class="alert alert-danger" role="alert"><%= alert %></div>
-    <% end %>
-    <%= yield %>
-  </div>
+    <div class="row">
+      <% if current_user %>
+      <div class="col-md-2 sidebar-container">
+      <div class="sidebar-logo"></div>
+      <div class="sidebar">
+        <ul class="nav nav-pills nav-stacked">
+          <%= nav_link '<i class="fa fa-home"></i> Home'.html_safe, root_path%>
+          <li role="presentation" class="active"><%= link_to '<i class="fa fa-home"></i> Home'.html_safe, root_path%></li>
+          
+          <li><%= link_to '<i class="fa fa-users"></i> Sections'.html_safe, sections_path %></li>
+          <li><%= link_to '<i class="fa fa-book"></i> Courses'.html_safe, courses_path %></li>
+        </ul>
+        <% if current_user and current_user.admin %>
+        <h4>Admin Settings</h4>
+        <hr />
+        <ul class="nav nav-pills nav-stacked">
+        <li><%= link_to "Admin Settings", settings_path %></li>
+        <li><%= link_to "Manage Sections", manage_sections_path %></li>
+        <li><%= link_to "Manage Students", students_index_path %></li>
+        <li><%= link_to "Manage Courses", admin_course_index_path %></li>
+        </ul>
+        <% end %>
+        <% if current_user %>
+        <h4>Account</h4>
+        <hr />
+        <ul class="nav nav-pills nav-stacked">
+        <li> <%= link_to '<i class="fa fa-user"></i> '.html_safe + current_user.name, root_path %> </li>
+        <li> <%= link_to '<i class="fa fa-pencil"></i> Edit account'.html_safe, edit_user_registration_path %> </li>
+        <li> <%= link_to '<i class="fa fa-sign-out"></i> Sign out'.html_safe, destroy_user_session_path, :method => :delete %> </li>
+        </ul>
+        <% end %>
+        </div>
+      </div>
+      <div class="col-md-9">
+        <% if notice %>
+          <div class="alert alert-info" role="alert"><%= notice %></div>
+        <% end %>
+        <% if alert %>
+          <div class="alert alert-danger" role="alert"><%= alert %></div>
+        <% end %>
+      <%= yield %>
+     </div>
+     <% else %>
+      <div class="col-md-12">
+        <% if notice %>
+          <div class="alert alert-info" role="alert"><%= notice %></div>
+        <% end %>
+        <% if alert %>
+          <div class="alert alert-danger" role="alert"><%= alert %></div>
+        <% end %>
+      <%= yield %>
+     </div>
+     <% end %>
+    </div>
+  
 
 </body>
 </html>
