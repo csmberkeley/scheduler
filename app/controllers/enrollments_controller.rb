@@ -107,6 +107,16 @@ class EnrollmentsController < ApplicationController
     redirect_to root_path
   end
 
+  def destroy_admin
+    @enroll = Enroll.find(params[:id])
+    @user = User.find(@enroll.user_id)
+    @course = Course.find(@enroll.course_id)
+    @enroll.destroy
+    flash[:notice] = "#{@user.name} has been dropped from #{@course.course_name}"
+    redirect_to students_index_path
+  end
+
+
   #**************************************************************************
   #before_filters
   private
@@ -126,6 +136,4 @@ class EnrollmentsController < ApplicationController
       redirect_to root_path
     end
   end
-
-
 end

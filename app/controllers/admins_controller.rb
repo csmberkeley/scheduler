@@ -1,8 +1,21 @@
 class AdminsController < ApplicationController
   before_filter :check_admin
   def index
-    @students = User.all      
+    @students = User.all
+
+    @courses = Course.all
   end
+
+def edit_student
+    @student = User.find(params[:id])
+end
+def update_student
+    student = User.find(params[:id])
+ #   student.update!(params[:user])
+    flash[:notice] = "#{student.name} updated."
+    student.update!(student_params)
+    redirect_to students_index_path
+end
 
   def manage_sections
     # final product
@@ -30,5 +43,16 @@ class AdminsController < ApplicationController
       end
     end
   end
+  def add_course
+    @user = User.find(params[:user_id])
+    @course = Course.find(params[:course].values[0][:name].to_i)
+    Enroll.create(:user_id => params[:user_id], :course_id => params[:course].values[0][:name].to_i)
+    flash[:notice] = "Added #{@user.name} to #{@course.course_name}" 
+    redirect_to students_index_path
+  end
+  private
+  def student_params
+      params.require(:user).permit(:name, :nickname, :admin, :email)
+    end
 
 end
