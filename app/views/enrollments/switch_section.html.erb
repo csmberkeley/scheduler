@@ -1,7 +1,7 @@
-<ul class="nav nav-tabs">
+<ul class="nav nav-tabs nav-justified" style = "padding-top: 50px">
   <li class="active"><a data-toggle="tab" href="#open-sections">Open Sections</a></li>
-  <li><a data-toggle="tab" href="#trade-section">Trade</a></li>
-  <li><a data-toggle="tab" href="#transactions">Transactions</a></li>
+  <li><a data-toggle="tab" href="#trade-section"><i class = "fa fa-arrows-h"></i> Trade</a></li>
+  <li><a data-toggle="tab" href="#transactions"><i class = "fa fa-money"></i> Transactions</a></li>
 </ul>
 
 <div class="tab-content">
@@ -47,26 +47,55 @@
 
 
   <div id="trade-section" class="tab-pane fade">
+  	<br>
   	<!-- trade section -->
-	<div class = "your-offer">
-		<h2>Your offer for section <%= @section.name %>:</h2>
-		<% if @offer %>
-			<%= link_to "View Offer", offer_path(@offer) %> | <%= link_to "Cancel Offer", delete_offer_path(@enrollment), method: :delete %>
-		<% else %>
-			<h4>No offer exists. <%= link_to "Create One?", new_offer_path(enroll_id: @enrollment.id)%></h4>
-		<% end %>
-	</div>
-	<h1>OR</h1>
-	<div class = "other-offers">
-		<h2>See available trading offers:</h2>
-		<% @compatable_offers.each do |offer|%>
-			<% section = Section.find(offer.section_id) %>
-			<%= link_to "Offer for " << section.name, offer_path(offer) %>
-		<% end %>
-		<% if @compatable_offers.length == 0 %>
-			<h5>Sorry. No offers exist that want <%= @section.name %></h5>
-		<% end %>
-	</div>
+  	<div class = "row">
+  		<div class = "your-offer col-xs-12">
+  			<div class="panel panel-info" style = "text-align:center">
+			  <div class="panel-heading">
+			    <h1 class="panel-title">Your Offer for Section <%= @section.name %></h1>
+			  </div>
+			  <div class="panel-body">
+			  	<% if @offer %>
+					<%= link_to "View Offer", offer_path(@offer), :class => "btn btn-primary" %>
+					<%= link_to "Cancel Offer", delete_offer_path(@enrollment), method: :delete, :class => "btn btn-warning"  %>
+				<% else %>
+					<label>No offer exists.</label><br>
+					<%= link_to "Create One?", new_offer_path(enroll_id: @enrollment.id), :class => "btn btn-success"%>
+				<% end %>
+			  </div>
+			</div>
+		</div>
+  	</div>
+  	<div class = "row">
+  		<div class = "other-offers col-xs-12">
+  			<div class="panel panel-success">
+			  <!-- Default panel contents -->
+			  <div class="panel-heading" style = "text-align:center"><h1 class="panel-title">See Other Available Trading Offers</h1></div>
+			  <div class="panel-body" style = "text-align:center; padding-bottom:0px">
+			    <div class="alert alert-info" role="alert">
+				  <i class="fa fa-exclamation"></i>
+				  <span class="sr-only">Notice:</span>
+				  You can leave a comment on any of these offers, or ask to switch. Note that only offers that want your section will appear.
+				</div>
+			    <% if @compatable_offers.length == 0 %>
+					<label>Sorry. No offers exist that want <%= @section.name %></label>
+				<% end %>
+			  </div>
+
+			  <!-- List group -->
+				<div class="list-group">
+					<% @compatable_offers.each do |offer|%>
+						<% section = Section.find(offer.section_id) %>
+						<% html = "<span class='badge'>" + offer.created_at.strftime("%I:%M:%S %p on %b. %d, %Y") + "</span><h4 class='list-group-item-heading'>Offer for " << section.name + "</h4><p class='list-group-item-text'>" + offer.body + "</p>" %>
+						<%= link_to raw(html), offer_path(offer), :class => "list-group-item" %>
+					<% end %>
+				</div>
+
+			</div>
+  		</div>
+  		
+  	</div>
   </div>
   <div id="transactions" class="tab-pane fade">
   	<h2>Transactions</h2>
