@@ -1,34 +1,26 @@
 <div class="home">
-  <h3> This is the home page! </h3>
-    <%= link_to "View Courses", "/courses" %>
-  <br>
-    <%= link_to "Add Course", new_enrollment_path %>
-  <br>
-  <%= link_to "View Sections", "/sections" %>
-  <br />
-  <% if current_user.admin %>
-  <%= link_to "Admin Settings", settings_path %>
-  <br />
-  <%= link_to "Manage Sections", manage_sections_path %>
-  <br />
-  <%= link_to "Manage Students", students_index_path %>
-  <br />
-  <%= link_to "Manager Courses", admin_course_index_path %>
-  <% end %>
+  <h2><i class="fa fa-tachometer"></i> Dashboard</h2>
+  <h3> Your sections</h3> 
   <div class = "switch-sections">
 
   <% @enrolls.each do |enroll| %>
     <% curr_course = Course.find(enroll.course_id) %>
-    <h4> <%= curr_course.course_name %> </h4>
-
-    <% if not enroll.section_id.nil? %>
-      <% curr_section = Section.find(enroll.section_id) %>
-      <h5> Current Section: <%= curr_section.name %></h5>
-      <%= link_to "Switch Section", switch_section_path(enroll) %>
-    <% else %>
-      <%= link_to "Add section", edit_enrollment_path(enroll) %>
-    <% end %>
+    <div class="panel panel-primary">
+      <div class="panel-heading">
+        <h3 class="panel-title"><i class="fa fa-book"></i> <%= curr_course.course_name %></h3>
+      </div>
+      <div class="panel-body">
+        <% if not enroll.section_id.nil? %>
+          <% curr_section = Section.find(enroll.section_id) %>
+          <h4>  <%= link_to curr_section.name, section_path(curr_section) %></h4>
+          <%= link_to '<i class="fa fa-arrows-h"></i> Switch Sections'.html_safe, switch_section_path(enroll), class: "btn btn-warning" %>
+        <% else %>
+          <%= link_to "Add section", edit_enrollment_path(enroll),  class: "btn btn-success"%>
+        <% end %>
+      </div>
+    </div>
   <% end %> 
+  <%= link_to '<i class="fa fa-plus"></i> Add Course'.html_safe, new_enrollment_path,   class: "btn btn-success"%>
 
   </div>
 </div>  
