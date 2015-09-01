@@ -1,0 +1,81 @@
+<% @sections.keys.each do | key | %>
+  <% course = @sections[key] %>
+  <h2> <%= key %> </h2>
+
+  <table class="table_sections table">
+    <thead>
+    </thead>
+    <tbody>
+    <tr>
+      <td> <h3> Monday </h3> </td>  
+      <% course["Monday"].each do | section | %>
+        <td> 
+          <strong> <%= section.name %> </strong> <br>
+          <%= section.mentor %> <br>
+          <%= section.location %> <br>
+          <strong> Students </strong> <br>
+          <% section.enrolls.each do |enroll| %>
+            <%= User.find(enroll.user_id).name %> <br>
+          <% end %>
+        </td>
+      <% end %>
+    </tr>
+    <tr>
+      <td> <h3> Tuesday </h3>  </td>  
+      <% course["Tuesday"].each do | section | %>   
+        <td> 
+          <strong> <%= section.name %> </strong> <br>
+          <%= section.mentor %> <br>
+          <%= section.location %> <br>
+          <strong> Students </strong> <br>
+          <% section.enrolls.each do |enroll| %>
+            <%= User.find(enroll.user_id).name %> <br>
+          <% end %>
+        </td>
+      <% end %>
+    </tr>
+    <tr>
+      <td> <h3> Wednesday </h3>  </td>  
+      <% course["Wednesday"].each do | section | %>
+        <td> 
+          <strong> <%= section.name %> </strong> <br>
+          <%= section.mentor %> <br>
+          <%= section.location %> <br>
+          <strong> Students </strong> <br>
+          <% section.enrolls.each do |enroll| %>
+            <%= User.find(enroll.user_id).name %> <br>
+          <% end %>
+        </td>
+      <% end %>
+    </tr>
+    <tr>
+      <td> <h3> Thursday </h3>  </td>  
+      <% course["Thursday"].each do | section | %>
+        <td> 
+          <strong> <%= section.name %> </strong> <br>
+          <%= section.mentor %> <br>
+          <%= section.location %> <br>
+          <strong> Students </strong> <br>
+          <% section.enrolls.each do |enroll| %>
+            <%= User.find(enroll.user_id).name %> <br>
+          <% end %>
+        </td>
+      <% end %>
+    </tr>
+    <tr>
+      <td> <h3> Friday </h3> </td>  
+      <% course["Friday"].each do | section | %> 
+        <td> 
+          <strong> <%= section.name %> </strong> <br>
+          <%= section.mentor %> <br>
+          <%= section.location %> <br>
+          <strong> Students </strong> <br>
+          <% section.enrolls.each do |enroll| %>
+            <%= User.find(enroll.user_id).name %> <br>
+          <% end %>
+        </td>
+      <% end %>
+    </tr>
+    </tbody>
+  </table>
+<% end %>

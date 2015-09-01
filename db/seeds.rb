@@ -54,28 +54,36 @@ mike2_cs61b_enr = Enroll.create! :user_id => mike2.id,
 mike.enrolls << mike_cs61b_enr
 mike2.enrolls << mike2_cs61b_enr
 
-mike_cs61a_section1 = Section.create! :name => "Section 1022", 
+mike_cs61a_section1 = Section.create! :name => "Section 1000", 
       :course_id => cs61a.id, :empty => true,
       :mentor => "TBD", :location => "TBD"
 
-mike_cs61a_section2 = Section.create! :name => "Section 1023", 
+mike_cs61a_section2 = Section.create! :name => "Section 1100", 
       :course_id => cs61a.id, :empty => true,
       :mentor => "TBD", :location => "TBD"
 
-mike_cs61a_section3 = Section.create! :name => "Section 1026", 
+mike_cs61a_section3 = Section.create! :name => "Section 1200", 
       :course_id => cs61a.id, :empty => true,
       :mentor => "TBD", :location => "TBD"
 
-mike_cs61b_section1 = Section.create! :name => "Section 1024", 
+mike_cs61b_section1 = Section.create! :name => "Section 2000", 
       :course_id => cs61b.id, :empty => true,
       :mentor => "TBD", :location => "TBD"
 
-mike_cs61b_section2 = Section.create! :name => "Section 1025", 
+mike_cs61b_section2 = Section.create! :name => "Section 2100", 
       :course_id => cs61b.id, :empty => true,
       :mentor => "TBD", :location => "TBD"
 
-mike_cs61b_section3 = Section.create! :name => "Section 1027", 
+mike_cs61b_section3 = Section.create! :name => "Section 2200", 
       :course_id => cs61b.id, :empty => true,
+      :mentor => "TBD", :location => "TBD"
+
+Section.create! :name => "Section 1001", 
+      :course_id => cs61a.id, :empty => true,
+      :mentor => "TBD", :location => "TBD"
+
+Section.create! :name => "Section 1002", 
+      :course_id => cs61a.id, :empty => true,
       :mentor => "TBD", :location => "TBD"
 
 # These actually don't save for some reason. -Allan

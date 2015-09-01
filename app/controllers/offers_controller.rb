@@ -1,5 +1,9 @@
 class OffersController < ApplicationController
-	before_filter :check_comment, :only => [:create_response]
+	before_filter :check_create_response, :only => [:create_response]
+	before_filter :check_show, :only => [:show]
+	before_filter :check_new, :only => [:new]
+	before_filter :check_create, :only => [:create]
+	before_filter :check_destroy, :only => [:destroy]
 	def show
 		@offer = Offer.find(params[:id])
 		@offerer = User.find(@offer.user_id)
@@ -92,9 +96,130 @@ class OffersController < ApplicationController
 			end
 		end
 	end
+	def error
+		respond_to do |format|
+		    format.js
+		end
+	end
 
 	private
 	def offer_params
 		params.require(:offer).permit(:body, :enroll_id)
 	end
+
+	#**************************************************************************
+  #before_filters
+  private
+  def check_show
+  	#check if offer exists
+  	correct_offer = false
+  	if params[:id] and Offer.exists?(params[:id])
+  		correct_offer = true
+  	end
+  	if correct_offer
+  		#check if he is enrolled in the correct course
+  		offer = Offer.find(params[:id])
+		offerer = User.find(offer.user_id)
+		section = Section.find(offer.section_id)
+		course = Course.find(section.course_id)
+		enroll = current_user.getEnrollmentInCourse(course)
+		if check_enrollment(enroll)
+			return
+		end
+  	end
+    flash[:notice] = "You are not allowed access to that page."
+    redirect_to root_path
+  end
+
+  private
+  def check_new
+  	notice = "You are not allowed access to that page."
+  	if params[:enroll_id] and Enroll.exists?(params[:enroll_id]) and check_enrollment(enroll = Enroll.find(params[:enroll_id]))
+  		if enroll.hasSection
+  			puts enroll.offer
+  			if not enroll.offer
+  				return
+  			else 
+  				notice = "You already have an offer."
+  			end
+  		end
+  	end
+  	flash[:notice] = notice
+    redirect_to root_path
+  end
+  private
+  def check_new
+  	notice = "You are not allowed access to that page."
+  	if params[:enroll_id] and Enroll.exists?(params[:enroll_id]) and check_enrollment(enroll = Enroll.find(params[:enroll_id]))
+  		if enroll.hasSection
+  			if not enroll.offer
+  				return
+  			else 
+  				notice = "You already have an offer."
+  			end
+  		end
+  	end
+  	flash[:notice] = notice
+    redirect_to root_path
+  end
+  private
+  def check_create
+  	notice = "You are not allowed to access that page."
+  	path = root_path
+  	if section_ids = params[:offer] and offer = Offer.new(offer_params)
+  		if offer.enroll_id and check_enrollment(enroll = offer.getEnrollmentOfOfferer)
+  			if params[:section_ids]
+  				if not enroll.offer
+	  				return
+	  			end
+  				notice = "You already have an offer."
+  			else
+	  			notice = "You need to choose a section you want in your offer."
+	  			path = new_offer_path(enroll_id: enroll.id)
+  			end
+  				
+  		end
+  	end
+  	flash[:notice] = notice
+  	redirect_to path
+  end
+  private
+  def check_destroy
+  	if not(params[:id] and Enroll.exists?(params[:id]) and check_enrollment(Enroll.find(params[:id])))
+  		flash[:notice] = "You are not allowed to access that page."
+  		redirect_to root_path
+  	end
+  end
+
+  private
+  def check_create_response
+  	@notice = "You cannot create a comment."
+  	if params[:offer_id] and params[:enroll_id]
+  		if Offer.exists?(eval(params[:offer_id])[:value]) and Enroll.exists?(eval(params[:enroll_id])[:value])
+  			offer = Offer.find(eval(params[:offer_id])[:value])
+  			enroll = Enroll.find(eval(params[:enroll_id])[:value])
+  			if check_enrollment(enroll)
+  				if params[:switch]
+  					if offer.hasReplyFrom(enroll)
+  						@notice = "You have already made a reply to this offer."
+  					else
+  						if params[:body] == ""
+  							@notice = "You cannot create a blank reply."
+  						else
+  							return
+  						end	
+  					end
+  				else
+  					if params[:body] == ""
+						@notice = "You cannot create a blank comment."
+					else 
+						return
+					end		
+  				end
+  			end
+  		end
+  	end
+  	render "error"
+  end
+
 end

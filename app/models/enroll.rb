@@ -10,9 +10,7 @@ class Enroll < ActiveRecord::Base
   		return false
   	end
   	section.enrolls << self
-    user = User.find(self.user_id)
-  	section.users << user
-  	if section.users.length >= 6
+  	if section.enrolls.length >= 6
   		section.empty = false
   	end
   	return true
@@ -21,7 +19,6 @@ class Enroll < ActiveRecord::Base
   def unenrollUserInSection()
     user = User.find(self.user_id)
     section = Section.find(self.section_id)
-  	section.users.delete(user)
   	if self.offer
   		self.offer.destroy
   	end
@@ -51,6 +48,13 @@ class Enroll < ActiveRecord::Base
 
   def getTransactionsInReverseOrder()
     return self.transactions.order(:created_at).reverse_order
+  end
+
+  def hasSection()
+    if self.section_id and Section.exists?(self.section_id)
+      return true
+    end
+    return false
   end
 
 end

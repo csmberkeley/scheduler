@@ -1,4 +1,6 @@
 class EnrollmentsController < ApplicationController
+  before_filter :check_switch_section, :only => [:switch_section]
+
 	def switch_section
 		#enrollment works here
 		@enrollment = Enroll.find(params[:id])
@@ -105,13 +107,25 @@ class EnrollmentsController < ApplicationController
     redirect_to root_path
   end
 
-  def destroy_admin
-    @enroll = Enroll.find(params[:id])
-    @user = User.find(@enroll.user_id)
-    @course = Course.find(@enroll.course_id)
-    @enroll.destroy
-    flash[:notice] = "#{@user.name} has been dropped from #{@course.course_name}"
-    redirect_to students_index_path
+  #**************************************************************************
+  #before_filters
+  private
+  def check_switch_section
+    #check if enrollment is fine
+    correct_enrollment = false
+    if params[:id] and Enroll.exists?(params[:id]) and check_enrollment(enroll = Enroll.find(params[:id]))
+      correct_enrollment = true
+    end
+    #checks if section is fine
+    correct = false
+    if correct_enrollment and enroll.hasSection
+      correct = true
+    end
+    if not correct
+      flash[:notice] = "You are not allowed access to that page."
+      redirect_to root_path
+    end
   end
+
 
 end
