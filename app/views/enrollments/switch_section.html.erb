@@ -7,16 +7,45 @@
 <div class="tab-content">
   <div id="open-sections" class="tab-pane fade in active">
   	<!-- open sections section -->
-    <h2>Open Sections</h2>
-	<ul>
-		<% @open_sections.each do |section|%>
-			<li><%= section.name %> <%= link_to "Switch", make_switch_path(old_id: @enrollment.section_id, new_id: section.id, enroll_id: @enrollment.id) %></li>
-		<% end %>
-	</ul>
+    
+	<h2>Open Sections</h2>
+  	<div class = "row">
+  		<div class = "col-xs-6">
+			<div class="panel-group" id="accordion">
+				<% @open_sections.each_with_index do |section, index|%>
+					<div class="panel panel-default">
+						<div class="panel-heading">
+							<h4 class="panel-title">
+								<a data-toggle="collapse" data-parent="#accordion" href="#collapse<%=index%>"><%= section.name %></a>
+							</h4>
+						</div>
+						<div id="collapse<%=index%>" class="panel-collapse collapse">
+							<div class="panel-body">
+								<div class="progress">
+								  <div class="progress-bar" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: <%= (section.getStudentCount * 20)%>%;">
+								  	<% if section.getStudentCount > 0 %>
+								    	<%=section.getStudentCount%>/5
+								    <% end %>
+								  </div>
+								</div>
+								<% if section.getStudentCount == 0 %>
+									Empty Section<br><br>
+								<% end %>
+								<%= link_to "See Section", section_path(section), :class =>"btn btn-primary" %>
+								<%= link_to "Switch", make_switch_path(old_id: @enrollment.section_id, new_id: section.id, enroll_id: @enrollment.id), :class =>"btn btn-success" %>
+							</div>
+						</div>
+					</div>
+				<% end %>
+			</div>
+		</div>
+	</div>
 	<% if @open_sections.length == 0 %>
 		<h4>No open sections for this course.</h4>
 	<% end %>
   </div>
+
+
   <div id="trade-section" class="tab-pane fade">
   	<!-- trade section -->
 	<div class = "your-offer">

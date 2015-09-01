@@ -17,5 +17,8 @@ class Section < ActiveRecord::Base
   def getAllOtherSections()
     return Section.where(course_id: self.course_id).where.not(id: self.id)
   end
+  def getStudentCount()
+    return self.enrolls.length
+  end
 
 end
