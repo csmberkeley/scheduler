@@ -22,7 +22,8 @@
             <%= link_to '<i class="fa fa-exchange"></i> Switch Sections'.html_safe, switch_section_path(enroll), class: "btn btn-warning" %>
             <%= link_to '<i class="fa fa-trash-o"></i> Drop Section'.html_safe, drop_section_path(enroll_id: enroll.id), class: "btn btn-danger" %>
           <% else %>
-            <%= link_to "Add section", edit_enrollment_path(enroll),  class: "btn btn-success"%>
+            <h4>You're not enrolled in a section. </h4>
+            <%= link_to '<i class="fa fa-plus"></i> Add Section'.html_safe, edit_enrollment_path(enroll),  class: "btn btn-success"%>
           <% end %>
         </div>
       </div>
