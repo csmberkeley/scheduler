@@ -1,5 +1,5 @@
 <ul class="nav nav-tabs nav-justified" style = "padding-top: 50px">
-  <li class="active"><a data-toggle="tab" href="#open-sections">Open Sections</a></li>
+  <li class="active"><a data-toggle="tab" href="#open-sections"><i class = "fa fa-cart-plus"></i> Open Sections</a></li>
   <li><a data-toggle="tab" href="#trade-section"><i class = "fa fa-arrows-h"></i> Trade</a></li>
   <li><a data-toggle="tab" href="#transactions"><i class = "fa fa-money"></i> Transactions</a></li>
 </ul>
@@ -10,33 +10,25 @@
     
 	<h2>Open Sections</h2>
   	<div class = "row">
-  		<div class = "col-xs-6">
+  		<div class = "col-md-12">
 			<div class="panel-group" id="accordion">
-				<% @open_sections.each_with_index do |section, index|%>
-					<div class="panel panel-default">
-						<div class="panel-heading">
-							<h4 class="panel-title">
-								<a data-toggle="collapse" data-parent="#accordion" href="#collapse<%=index%>"><%= section.name %></a>
-							</h4>
-						</div>
-						<div id="collapse<%=index%>" class="panel-collapse collapse">
-							<div class="panel-body">
-								<div class="progress">
-								  <div class="progress-bar" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: <%= (section.getStudentCount * 20)%>%;">
-								  	<% if section.getStudentCount > 0 %>
-								    	<%=section.getStudentCount%>/5
-								    <% end %>
-								  </div>
-								</div>
-								<% if section.getStudentCount == 0 %>
-									Empty Section<br><br>
-								<% end %>
-								<%= link_to "See Section", section_path(section), :class =>"btn btn-primary" %>
-								<%= link_to "Switch", make_switch_path(old_id: @enrollment.section_id, new_id: section.id, enroll_id: @enrollment.id), :class =>"btn btn-success" %>
+				<div class="list-group">
+					<% @open_sections.each_with_index do |section, index|%>
+						<% studentCount = section.getStudentCount %>
+						  <div class="list-group-item">
+						    <h4 class="list-group-item-heading"><%= section.name %></h4>
+						    <div class="progress">
+							  <div class="progress-bar" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: <%= (studentCount * 20)%>%;">
+							  	<% if studentCount >= 0 %>
+							    	<%=studentCount%>/5
+							    <% end %>
+							  </div>
 							</div>
-						</div>
-					</div>
-				<% end %>
+							<%= link_to "See Section", section_path(section), :class =>"btn btn-primary" %>
+							<%= link_to "Switch", make_switch_path(old_id: @enrollment.section_id, new_id: section.id, enroll_id: @enrollment.id), :class =>"btn btn-success" %>
+						  </div>
+					<% end %>
+				</div>
 			</div>
 		</div>
 	</div>
@@ -50,16 +42,24 @@
   	<br>
   	<!-- trade section -->
   	<div class = "row">
-  		<div class = "your-offer col-xs-12">
-  			<div class="panel panel-info" style = "text-align:center">
+  		<div class = "your-offer col-md-12">
+  			<div class="panel panel-primary" style = "text-align:center">
 			  <div class="panel-heading">
 			    <h1 class="panel-title">Your Offer for Section <%= @section.name %></h1>
 			  </div>
 			  <div class="panel-body">
 			  	<% if @offer %>
-					<%= link_to "View Offer", offer_path(@offer), :class => "btn btn-primary" %>
-					<%= link_to "Cancel Offer", delete_offer_path(@enrollment), method: :delete, :class => "btn btn-warning"  %>
+			  		<div class="alert alert-info" role="alert" style = "margin-top: 0px">
+					  <span class="sr-only">Notice:</span>
+					  View your offer to see if anyone with the sections you want is willing to switch.
+					</div>
+					<%= link_to "View Offer", offer_path(@offer), :class => "btn btn-info" %>
+					<%= link_to "Cancel Offer", delete_offer_path(@enrollment), method: :delete, :class => "btn btn-danger"  %>
 				<% else %>
+					<div class="alert alert-info" role="alert" style = "margin-top: 0px">
+					  <span class="sr-only">Notice:</span>
+					  Create an offer an specify any sections you would want in return.
+					</div>
 					<label>No offer exists.</label><br>
 					<%= link_to "Create One?", new_offer_path(enroll_id: @enrollment.id), :class => "btn btn-success"%>
 				<% end %>
@@ -68,18 +68,17 @@
 		</div>
   	</div>
   	<div class = "row">
-  		<div class = "other-offers col-xs-12">
+  		<div class = "other-offers col-md-12">
   			<div class="panel panel-success">
 			  <!-- Default panel contents -->
 			  <div class="panel-heading" style = "text-align:center"><h1 class="panel-title">See Other Available Trading Offers</h1></div>
 			  <div class="panel-body" style = "text-align:center; padding-bottom:0px">
-			    <div class="alert alert-info" role="alert">
-				  <i class="fa fa-exclamation"></i>
+			    <div class="alert alert-info" role="alert" style = "margin-top: 0px">
 				  <span class="sr-only">Notice:</span>
-				  You can leave a comment on any of these offers, or ask to switch. Note that only offers that want your section will appear.
+				  You can leave a comment on any of these offers, or ask to switch.Note that only offers that want your section will appear.
 				</div>
 			    <% if @compatable_offers.length == 0 %>
-					<label>Sorry. No offers exist that want <%= @section.name %></label>
+					<label>No offers exist that want your section.</label>
 				<% end %>
 			  </div>
 
@@ -100,15 +99,12 @@
   <div id="transactions" class="tab-pane fade">
   	<h2>Transactions</h2>
   	<% @transactions.each do |t| %>
-  		<div class = "row container">
-	  		<div class = "col-sm-4 col-xs-5" style = "border: #eee solid 2px; border-radius: 4px;">
-	  			<h4>
-	  				<small><%= t.created_at.strftime("%I:%M:%S %p on %b. %d, %Y") %></small>
-	  				<br>
-	  				<%=t.body%>
-	  			</h4>
-	  		</div>
-	  	</div>
+	  	<div class="panel panel-default">
+		  <div class="panel-body">
+		    <%=t.body%>
+		  </div>
+		  <div class="panel-footer"><%= t.created_at.strftime("%I:%M:%S %p on %b. %d, %Y")%></div>
+		</div>
   	<% end %>
   	<% if @transactions.length == 0 %>
   		<h4>No transactions.</h4>

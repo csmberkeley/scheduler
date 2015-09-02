@@ -54,7 +54,7 @@ class OffersController < ApplicationController
 		else
 			flash[:notice] = "You don't have an offer to cancel."
 		end
-		redirect_to "/"
+		redirect_to switch_section_path(@enroll)
 	end
 
 	def create_response
