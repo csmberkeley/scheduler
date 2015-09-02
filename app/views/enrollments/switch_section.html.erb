@@ -1,5 +1,5 @@
 <ul class="nav nav-tabs nav-justified" style = "padding-top: 50px">
-  <li class="active"><a data-toggle="tab" href="#open-sections">Open Sections</a></li>
+  <li class="active"><a data-toggle="tab" href="#open-sections"><i class = "fa fa-cart-plus"></i> Open Sections</a></li>
   <li><a data-toggle="tab" href="#trade-section"><i class = "fa fa-arrows-h"></i> Trade</a></li>
   <li><a data-toggle="tab" href="#transactions"><i class = "fa fa-money"></i> Transactions</a></li>
 </ul>
@@ -10,16 +10,17 @@
     
 	<h2>Open Sections</h2>
   	<div class = "row">
-  		<div class = "col-xs-12">
+  		<div class = "col-md-12">
 			<div class="panel-group" id="accordion">
 				<div class="list-group">
 					<% @open_sections.each_with_index do |section, index|%>
+						<% studentCount = section.getStudentCount %>
 						  <div class="list-group-item">
 						    <h4 class="list-group-item-heading"><%= section.name %></h4>
 						    <div class="progress">
-							  <div class="progress-bar" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: <%= (section.getStudentCount * 20)%>%;">
-							  	<% if section.getStudentCount >= 0 %>
-							    	<%=section.getStudentCount%>/5
+							  <div class="progress-bar" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: <%= (studentCount * 20)%>%;">
+							  	<% if studentCount >= 0 %>
+							    	<%=studentCount%>/5
 							    <% end %>
 							  </div>
 							</div>
@@ -41,7 +42,7 @@
   	<br>
   	<!-- trade section -->
   	<div class = "row">
-  		<div class = "your-offer col-xs-12">
+  		<div class = "your-offer col-md-12">
   			<div class="panel panel-primary" style = "text-align:center">
 			  <div class="panel-heading">
 			    <h1 class="panel-title">Your Offer for Section <%= @section.name %></h1>
@@ -67,7 +68,7 @@
 		</div>
   	</div>
   	<div class = "row">
-  		<div class = "other-offers col-xs-12">
+  		<div class = "other-offers col-md-12">
   			<div class="panel panel-success">
 			  <!-- Default panel contents -->
 			  <div class="panel-heading" style = "text-align:center"><h1 class="panel-title">See Other Available Trading Offers</h1></div>
@@ -77,7 +78,7 @@
 				  You can leave a comment on any of these offers, or ask to switch.Note that only offers that want your section will appear.
 				</div>
 			    <% if @compatable_offers.length == 0 %>
-					<label>Sorry. No offers exist that want <%= @section.name %></label>
+					<label>No offers exist that want your section.</label>
 				<% end %>
 			  </div>
 
@@ -98,14 +99,12 @@
   <div id="transactions" class="tab-pane fade">
   	<h2>Transactions</h2>
   	<% @transactions.each do |t| %>
-  		<div class = "row">
-  			<div class = "col-xs-offset-3 col-xs-6">
-	  			<div class="alert alert-info" style = "margin-bottom:0px">
-				  <strong><%= t.created_at.strftime("%I:%M:%S %p on %b. %d, %Y") %></strong> 
-				  <br><%=t.body%>
-				</div>
-			</div>
-	  	</div>
+	  	<div class="panel panel-default">
+		  <div class="panel-body">
+		    <%=t.body%>
+		  </div>
+		  <div class="panel-footer"><%= t.created_at.strftime("%I:%M:%S %p on %b. %d, %Y")%></div>
+		</div>
   	<% end %>
   	<% if @transactions.length == 0 %>
   		<h4>No transactions.</h4>
