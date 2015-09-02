@@ -173,6 +173,7 @@ class OffersController < ApplicationController
 	  				return
 	  			end
   				notice = "You already have an offer."
+  				path = offer_path(enroll.offer)
   			else
 	  			notice = "You need to choose a section you want in your offer."
 	  			path = new_offer_path(enroll_id: enroll.id)
