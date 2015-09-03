@@ -1,21 +1,25 @@
-<div class = "container">
-	<%= form_for(@new_offer) do |f| %>
-		<div class = "field">
-			<h2>Offer For Section <%= @section.name %></h2>
-			<h4>Which Sections Are Okay To Switch With?</h4>
-			<div class = "wanted-sections">
-				<% @other_sections.each do |section| %>
-					<h5><%= section.name %> <%= check_box_tag 'section_ids[]', section.id %></h5>
+<div class = "row" style = "padding-top: 50px">
+	<div class = "col-md-12">
+		<div class="panel panel-default">
+		    <div class="panel-heading">Offer For Section <%= @section.name %></div>
+		    <div class="panel-body">
+		    <%= form_for @new_offer do |f|%>
+		        <div class="form-group">
+		        <label>Which Sections Are Okay To Switch With?</label>
+		        <% @other_sections.each do |section| %>
+					<label class = "checkbox-inline" ><%= check_box_tag 'section_ids[]', section.id %><%= section.name %></label>
 				<% end %>
-			</div>
-			<h4>Anything to add?</h4>
-			<div class = "extra-info">
-				<%= f.text_area :body, :style => "width: 400px; height:100px" %>
-			</div>
-			<%= f.hidden_field :enroll_id, :value => @enrollment.id %>
+		        </div>
+		        <div class="form-group">
+		        <label>Anything to add?</label>
+		        <%= f.text_area :body, :class => "form-control", :rows => 5 %>
+		        </div>
+		        <%= f.hidden_field :enroll_id, :value => @enrollment.id %>
+		        <div class = "actions">
+					<%= f.submit "Create Offer", class: "btn btn-default" %>
+				</div>
+		    <% end %>
+		    </div>
 		</div>
-		<div class = "actions">
-			<%= f.submit "Create Offer" %>
-		</div>
-	<% end %>
+	</div>
 </div>
