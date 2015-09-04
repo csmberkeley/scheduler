@@ -1,4 +1,16 @@
-<%= form_tag new_student_to_section_path do |f| %>
+<h2>Settings</h2>
+<div class="panel panel-default">
+<div class="panel-heading">Add student to <%= @section.name %></div>
+<div class="panel-body">
+<div class="form">
+    <%= form_tag new_student_to_section_path do %>
+      <%= select_tag :student, options_for_select(@students) %>
+      <%= hidden_field_tag :section, @section.id %>
 
+      <%= submit_tag "Submit" %>
+    <% end %>
+</div>
 
-<% end %>
+</div>
+</div>
+
