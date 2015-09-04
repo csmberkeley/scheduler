@@ -4,6 +4,30 @@ class AdminsController < ApplicationController
     @students = User.all      
   end
 
+  def new_student_to_section
+    @section = Section.find(enroll.section_id)
+    course = Course.find(@section.course_id)
+    @enrolls = Enroll.where(:course_id => @section.course_id)
+  end
+
+  def add_student_to_section
+
+  end
+
+  def drop_student_from_section
+    enroll = Enroll.find(params[:id])
+    student = User.find(enroll.user_id)
+    section = Section.find(enroll.section_id)
+    enroll.section_id = nil
+    if enroll.save!
+      flash[:notice] = "Dropped #{student.name} from #{section.name}"
+      redirect_to manage_sections_path
+    else
+      flash[:alert] = "Could not drop #{student.name} from #{section.name}"
+      redirect_to manage_sections_path
+    end
+  end
+
   def manage_sections
     # final product
     @sections = {} 
