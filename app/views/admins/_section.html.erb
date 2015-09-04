@@ -1,4 +1,6 @@
-<strong> <%= section.name %> </strong> <br>
+<strong> <%= section.name %> </strong>
+<%= link_to "Edit", edit_section_path(section) %>
+<%= link_to "Delete", section_path(section), :method => :delete %> <br>
 <%= section.mentor %> <br>
 <%= section.location %> <br>
 <strong> Students </strong> <%= link_to "Add", new_student_to_section_path(section) %><br>

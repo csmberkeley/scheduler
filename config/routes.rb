@@ -7,8 +7,9 @@ Rails.application.routes.draw do
   #get "/courses/:id" => "courses#show", as: :course
   resources :courses
 
-  get "/sections" => "sections#index"
-  get "/sections/:id" => "sections#show", as: :section
+  # get "/sections" => "sections#index"
+  # get "/sections/:id" => "sections#show", as: :section
+  resources :sections
   get "/sections/make-switch/:old_id/:new_id" => "sections#make_switch", as: :make_switch
   get "/sections/drop/:enroll_id" => "sections#drop", as: :drop_section
 
