@@ -1,7 +1,7 @@
 class Section < ActiveRecord::Base
 
 
-  has_many :enrolls, dependent: :destroy
+  has_many :enrolls
   has_many :requests, dependent: :destroy
   # has_many :users  <- This causes complications because there is no belongs_to in user model?
   # Trying to do section.users << current_user will not save. See seed file
@@ -16,6 +16,9 @@ class Section < ActiveRecord::Base
 
   def getAllOtherSections()
     return Section.where(course_id: self.course_id).where.not(id: self.id)
+  end
+  def getStudentCount()
+    return self.enrolls.length
   end
 
 end

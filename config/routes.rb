@@ -3,18 +3,20 @@ Rails.application.routes.draw do
   devise_for :users
   #Set root to ensure devise works
   root "homes#index"
-  get "/courses" => "courses#index"
-  get "/courses/:id" => "courses#show", as: :course
+  #get "/courses" => "courses#index"
+  #get "/courses/:id" => "courses#show", as: :course
+  resources :courses
 
   get "/sections" => "sections#index"
   get "/sections/:id" => "sections#show", as: :section
   get "/sections/make-switch/:old_id/:new_id" => "sections#make_switch", as: :make_switch
+  get "/sections/drop/:enroll_id" => "sections#drop", as: :drop_section
 
   #enrolling into a course and section
   resources :enrollments
   post "/enrollments/new" => "enrollments#create"
   patch "/enrollments/:id/edit" => "enrollments#update"
-
+  delete "/enrollments/delete/:id" => "enrollments#destroy_admin", as: :admin_destroy_enroll
   get "/offers/:id" => "offers#show", as: :offer
   get "/new_offer" => "offers#new", as: :new_offer
   post "/offers" => "offers#create"
@@ -29,7 +31,12 @@ Rails.application.routes.draw do
 
   #admin stuff
   get "/admin/students" => "admins#index", as: :students_index
-  resources :settings, only:[:index, :update]
+  get "/admin/students/:id" => "admins#edit_student", as: :admin_edit_student
+  patch "/admin/students/:id" => "admins#update_student", as: :admin_update_student
+  post "/admin/students/add_course/:user_id" => "admins#add_course", as: :admin_add_course
+  get "/admin/courses" => "courses#admin_index", as: :admin_course_index
+  #resources :settings, only:[:index, :update]
+  get "/settings" => "settings#index",  as: :settings
   post "/settings" => "settings#update"
   get "/admin/manage_sections" => "admins#manage_sections", as: :manage_sections
   match 'users/:id' => 'users#destroy', :via => :delete, :as => :admin_destroy_user

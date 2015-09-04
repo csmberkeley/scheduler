@@ -1,6 +1,7 @@
 class SectionsController < ApplicationController
 	before_filter :check_make_switch, :only => [:make_switch]
 	before_filter :check_admin, :only => [:new, :create, :edit, :update, :destroy]
+	before_filter :check_drop, :only => [:drop]
 	def index
 		@sections = Section.all
 	end
@@ -27,6 +28,14 @@ class SectionsController < ApplicationController
 
 	def destroy
 		@section = Section.find(params[:id])
+	end
+
+	def drop
+		@enroll = Enroll.find(params[:enroll_id])
+		@section = Section.find(@enroll.section_id)
+		@section.enrolls.delete(@enroll)
+		flash[:notice] = "You have successfully dropped " << @section.name
+		redirect_to root_path
 	end
 	
 	def make_switch
@@ -59,5 +68,18 @@ class SectionsController < ApplicationController
 		flash[:alert] = notice
 		redirect_to root_path
 		
+	end
+	private
+	def check_drop
+		notice = "You do not have permission to access that page."
+		if params[:enroll_id] and Enroll.exists?(params[:enroll_id]) and check_enrollment(enroll = Enroll.find(params[:enroll_id]))
+			if enroll.section_id and Section.exists?(enroll.section_id)
+				return
+			else
+				notice = "You do not have a section to drop."
+			end
+		end
+		flash[:alert] = notice
+		redirect_to root_path
 	end
 end

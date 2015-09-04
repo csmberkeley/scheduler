@@ -1,0 +1,24 @@
+<div class="panel panel-default">
+    <div class="panel-heading">Update user</div>
+    <div class="panel-body">
+    <%= form_for @student, url: admin_update_student_path do |f|%>
+        <div class="form-group">
+        <%= f.label :name %>
+        <%= f.text_field(:name, class:"form-control") %> 
+        </div>
+     <div class="form-group">
+        <%= f.label :nickname %>
+        <%= f.text_field(:nickname, class:"form-control") %> 
+        </div>
+     <div class="form-group">
+        <%= f.label :email %>
+        <%= f.text_field(:email, class:"form-control") %> 
+    </div>
+        <div class="form-group">
+        <%= f.check_box :admin %>
+        <%= f.label :admin %>
+        </div>
+        <%= f.submit class: "btn btn-default" %>
+    <% end %>
+    </div>
+</div>

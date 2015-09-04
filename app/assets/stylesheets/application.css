@@ -12,4 +12,96 @@
  *
  *= require_tree .
  *= require_self
+
  */
+
+/*look up best practice for this...*/
+
+body {
+    height:100%;
+}
+html {
+    height:100%;
+}
+body > .row {
+    height:100%;
+}
+.main-container {
+    padding-left:15px;
+    padding-right:15px;
+}
+.sidebar-container {
+    
+    padding-right:15px;
+}
+
+@media (min-width: 992px) {
+    .sidebar-container {
+        height:100%;   
+        box-shadow:0 0 1px rgba(100,100,100,.05);
+    }
+    .main-container {
+    padding-left:0;
+    padding-right:0;
+    }
+    .sidebar-container {
+    padding-right:0;
+    }
+}
+
+
+.sidebar {
+    background-color:white;
+    position:relative;
+    
+    
+}
+.sidebar > h4 {
+    padding-left:10px;
+    margin-bottom:0;
+}
+.sidebar>.nav>li {
+    margin-top:0;
+}
+.sidebar>.nav>li>a {
+    border-radius:0;
+    color:black;
+}
+.sidebar>.nav>li.active>a {
+    border-radius:0;
+    color:white;
+}
+.sidebar>.nav>li>a:hover {
+    border-radius:0;
+    color:#428bca;
+}
+
+.sidebar>.nav>li.active>a:hover {
+    border-radius:0;
+    color:white;
+}
+.sidebar-logo {
+    /*background:url('http://i.imgur.com/CMg4rGP.jpg') no-repeat center;*/
+    /*height:80px;*/
+    /*background-size:80%;*/
+    background-color:white;
+    padding-bottom:10px;
+    padding-top:10px;
+}
+.sidebar-logo > img {
+    max-width:80%;
+    margin-left:auto;
+    margin-right:auto;
+    display:block;
+}
+.sidebar hr {
+    margin-top:10px;
+    margin-bottom:0px;
+}
+.alert {
+    margin-top:20px;
+}
+.delete-course {
+    display:block;
+    float:right;
+}

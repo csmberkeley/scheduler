@@ -1,9 +1,12 @@
 <h2>Settings</h2>
+<div class="panel panel-default">
+<div class="panel-heading">Update user</div>
+<div class="panel-body">
 <div class="form">
     <%= form_tag settings_path do %>
         <% @settings.each do |setting| %>
         <%= fields_for "setting[]", setting do |f| %>
-            <div class="field">
+            <div class="field form-group">
                 <%= f.label setting.setting_name %>
                 <%= f.check_box :enabled %>
             </div>
@@ -11,9 +14,10 @@
             <% end %>
     
         <% end %>
-        <%= submit_tag "Save" %>
+        <%= submit_tag "Save", class: "btn btn-success" %>
     <% end %>
 </div>
 
-
+</div>
+</div>
 

@@ -1,5 +1,5 @@
 class OffersController < ApplicationController
-	before_filter :check_comment, :only => [:create_response]
+	before_filter :check_create_response, :only => [:create_response]
 	before_filter :check_show, :only => [:show]
 	before_filter :check_new, :only => [:new]
 	before_filter :check_create, :only => [:create]
@@ -54,7 +54,7 @@ class OffersController < ApplicationController
 		else
 			flash[:notice] = "You don't have an offer to cancel."
 		end
-		redirect_to "/"
+		redirect_to switch_section_path(@enroll)
 	end
 
 	def create_response
@@ -94,6 +94,11 @@ class OffersController < ApplicationController
 			      # format.json { render json: @user.errors, status: :unprocessable_entity }
 			    end
 			end
+		end
+	end
+	def error
+		respond_to do |format|
+		    format.js
 		end
 	end
 
@@ -168,6 +173,7 @@ class OffersController < ApplicationController
 	  				return
 	  			end
   				notice = "You already have an offer."
+  				path = offer_path(enroll.offer)
   			else
 	  			notice = "You need to choose a section you want in your offer."
 	  			path = new_offer_path(enroll_id: enroll.id)
@@ -185,4 +191,36 @@ class OffersController < ApplicationController
   		redirect_to root_path
   	end
   end
+
+  private
+  def check_create_response
+  	@notice = "You cannot create a comment."
+  	if params[:offer_id] and params[:enroll_id]
+  		if Offer.exists?(eval(params[:offer_id])[:value]) and Enroll.exists?(eval(params[:enroll_id])[:value])
+  			offer = Offer.find(eval(params[:offer_id])[:value])
+  			enroll = Enroll.find(eval(params[:enroll_id])[:value])
+  			if check_enrollment(enroll)
+  				if params[:switch]
+  					if offer.hasReplyFrom(enroll)
+  						@notice = "You have already made a reply to this offer."
+  					else
+  						if params[:body] == ""
+  							@notice = "You cannot create a blank reply."
+  						else
+  							return
+  						end	
+  					end
+  				else
+  					if params[:body] == ""
+						@notice = "You cannot create a blank comment."
+					else 
+						return
+					end		
+  				end
+  			end
+  		end
+  	end
+  	render "error"
+  end
+
 end

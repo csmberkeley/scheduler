@@ -56,35 +56,35 @@ mike2.enrolls << mike2_cs61b_enr
 
 mike_cs61a_section1 = Section.create! :name => "Section 1000", 
       :course_id => cs61a.id, :empty => true,
-      :mentor => "TBD", :location => "TBD"
+      :mentor => "Hue Hue", :location => "Soda 341A"
 
 mike_cs61a_section2 = Section.create! :name => "Section 1100", 
       :course_id => cs61a.id, :empty => true,
-      :mentor => "TBD", :location => "TBD"
+      :mentor => "Randy Johnson", :location => "Soda 341B"
 
 mike_cs61a_section3 = Section.create! :name => "Section 1200", 
       :course_id => cs61a.id, :empty => true,
-      :mentor => "TBD", :location => "TBD"
+      :mentor => "George Patel", :location => "Soda 341C"
 
 mike_cs61b_section1 = Section.create! :name => "Section 2000", 
       :course_id => cs61b.id, :empty => true,
-      :mentor => "TBD", :location => "TBD"
+      :mentor => "Arangatang", :location => ""
 
 mike_cs61b_section2 = Section.create! :name => "Section 2100", 
       :course_id => cs61b.id, :empty => true,
-      :mentor => "TBD", :location => "TBD"
+      :mentor => "This My Name", :location => "Soda 341D"
 
 mike_cs61b_section3 = Section.create! :name => "Section 2200", 
       :course_id => cs61b.id, :empty => true,
-      :mentor => "TBD", :location => "TBD"
+      :mentor => "Alex Zhang", :location => "Soda 341E"
 
 Section.create! :name => "Section 1001", 
       :course_id => cs61a.id, :empty => true,
-      :mentor => "TBD", :location => "TBD"
+      :mentor => "Mike Aboody", :location => "Soda 341F"
 
 Section.create! :name => "Section 1002", 
       :course_id => cs61a.id, :empty => true,
-      :mentor => "TBD", :location => "TBD"
+      :mentor => "Mike Aboody 8", :location => "Soda 341H"
 
 # These actually don't save for some reason. -Allan
 # Removed direct relation between section and users. Use enrollment table. See section.rb
