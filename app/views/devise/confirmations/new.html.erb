@@ -1,18 +1,48 @@
-<div class="dform">
-  <h2>Resend confirmation instructions</h2>
-
-  <%= form_for(resource, as: resource_name, url: confirmation_path(resource_name), html: { method: :post }) do |f| %>
-    <%= devise_error_messages! %>
-
-    <div class="field">
-      <%= f.label :email %><br />
-      <%= f.email_field :email, autofocus: true, value: (resource.pending_reconfirmation? ? resource.unconfirmed_email : resource.email) %> 
+<div id="loginModal" class="modal show" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+    <div class="modal-header">
+        <img src="http://i.imgur.com/CMg4rGP.jpg" style=" display: block;
+margin-left: auto;
+margin-right: auto;">
+        <% if notice %>
+          <div class="alert alert-info" style="margin-bottom:0" role="alert"><%= notice %></div>
+        <% end %>
+        <% if alert %>
+          <div class="alert alert-danger" style="margin-bottom:0" role="alert"><%= alert %></div>
+        <% end %>
     </div>
+    <div class="modal-body">
 
-    <div class="actions">
-      <%= f.submit "Resend confirmation instructions" %>
+
+      <h2>Resend confirmation instructions</h2>
+
+      <%= form_for(resource, as: resource_name, url: confirmation_path(resource_name), html: { method: :post, :class => "form center-block"}) do |f| %>
+        <%= devise_error_messages! %>
+
+        <div class = "form-group">
+          <div class="field">
+            <%= f.label :email %><br />
+            <%= f.email_field :email, autofocus: true, value: (resource.pending_reconfirmation? ? resource.unconfirmed_email : resource.email), :class => "form-control input-lg" %> 
+          </div>
+        </div>
+
+        <div class = "form-group">
+          <div class="actions" style="margin-bottom: 10px;">
+            <%= f.submit "Resend confirmation instructions" %>
+          </div>
+          <%= render "devise/shared/links" %>
+        </div>
+      <% end %>
     </div>
-  <% end %>
-
-  <%= render "devise/shared/links" %>
+    <div class="modal-footer">
+      <div class <div class="col-md-12">
+      </div>  
+    </div>
+    </div>
+  </div>
 </div>
+
+
+  
+
