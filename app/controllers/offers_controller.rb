@@ -112,11 +112,13 @@ class OffersController < ApplicationController
   private
   def check_show
   	#check if offer exists
+  	notice = "The offer you are trying to view may have closed or does not exist."
   	correct_offer = false
   	if params[:id] and Offer.exists?(params[:id])
   		correct_offer = true
   	end
   	if correct_offer
+  		notice = "You are not allowed access to that page."
   		#check if he is enrolled in the correct course
   		offer = Offer.find(params[:id])
 		offerer = User.find(offer.user_id)
@@ -127,7 +129,7 @@ class OffersController < ApplicationController
 			return
 		end
   	end
-    flash[:notice] = "You are not allowed access to that page."
+    flash[:notice] = notice
     redirect_to root_path
   end
 
