@@ -43,6 +43,7 @@ group :development, :test do
   gem "better_errors"
   gem "binding_of_caller"
   gem 'sqlite3'
+  gem 'mailcatcher'
 end
 
 group :production do
@@ -53,4 +54,4 @@ end
 gem "twitter-bootstrap-rails"
 gem 'devise'
 gem 'font-awesome-sass'
-gem 'mailcatcher'
+
