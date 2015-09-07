@@ -8,7 +8,11 @@
         <%= fields_for "setting[]", setting do |f| %>
             <div class="field form-group">
                 <%= f.label setting.setting_name %>
-                <%= f.check_box :enabled %>
+                <% if setting.setting_type == 'boolean' %>
+                    <%= f.check_box :value %>
+                <% else %>
+                    <%= f.text_field :value %>
+                <%end%>
             </div>
             
             <% end %>

@@ -1,14 +1,15 @@
 <% comments.each do |comment|%>
 	<div class = "media" style = "border: #ccc solid 1px; padding: 5px; border-radius: 3px;">
-		<div class="pull-right">
-			<%= image_tag "anon_user.png", :style => "width: 36px; height: 36px;"%>
-		</div>
+		<% if current_user.id == comment.user_id %>
+			<div class="pull-right">
+				<%= link_to "<i class='fa fa-remove' style = 'color:grey;'></i>".html_safe, delete_comment_path(comment), method: :delete, :remote => true, data: {confirm:"Are you sure you want to delete your comment?"} %>
+			</div>
+		<% end %>
+		
 		<div class="media-body">
 			<h4 class="media-heading"><%= User.find(comment.user_id).name %><br><small><%= comment.created_at.strftime("%I:%M:%S %p on %b. %d, %Y") %></small></h4>
 		    <%= comment.body %>
-		    <% if current_user.id == comment.user_id %>
-				<%= button_to "Delete", delete_comment_path(comment), method: :delete, :remote => true %>
-			<% end %>
+		   
 		</div>
 	</div>
 <% end %>		

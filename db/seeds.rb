@@ -29,12 +29,16 @@ mike2 = User.create! :name => "Mike Aboody2",
 cs61a = Course.create! :course_name => "CS61A",
 			:semester => "Fall",
 			:year => 2015,
-			:password => "pass"
+			:password => "pass",
+                  :description => "A course for computer science",
+                  :instructor => "John Denero"
 
 cs61b = Course.create! :course_name => "CS61B",
 			:semester => "Fall",
 			:year => 2015,
-			:password => "pass"
+			:password => "pass",
+                  :description => "A course for computer science2",
+                  :instructor => "Josh Hug"
 
 
 
@@ -160,6 +164,8 @@ allan5_cs61a_enr = Enroll.create! :user_id => allan5.id,
 
 allan5.enrolls << allan5_cs61a_enr
 
-Setting.create! :setting_name => "Enable Comments" , :enabled => true, :name => "comments"
+Setting.create! :setting_name => "Enable Comments", :setting_type => "boolean", :value => "1", :name => "comments"
 
-Setting.create! :setting_name => "Enable Section Switching" , :enabled => true, :name => "section"
+Setting.create! :setting_name => "Enable Section Switching", :setting_type => "boolean", :value => "1", :name => "section"
+
+Setting.create! :setting_name => "Section Limit", :setting_type => "int", :value => "5", :name => "limit"

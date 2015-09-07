@@ -20,7 +20,7 @@ class ApplicationController < ActionController::Base
   end
   private
   def check_comment
-    if not Setting.find_by(name: 'comments').enabled
+    if not Setting.find_by(name: 'comments').value == "1"
         flash[:alert] = "Commenting has been disabled"
         redirect_to root_path
     end

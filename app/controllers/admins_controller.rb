@@ -50,6 +50,7 @@ class AdminsController < ApplicationController
     student = User.find(enroll.user_id)
     section = Section.find(enroll.section_id)
     enroll.section_id = nil
+    enroll.removeAllReplies
     if enroll.save!
       flash[:notice] = "Dropped #{student.name} from #{section.name}"
       redirect_to manage_sections_path

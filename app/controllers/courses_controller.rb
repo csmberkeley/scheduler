@@ -12,6 +12,7 @@ class CoursesController < ApplicationController
 	end
 	def show
 		@course = Course.find(params[:id])
+		@number_of_people = @course.enrolls.length
 	end
 	def new
 		@course = Course.new
@@ -32,6 +33,9 @@ class CoursesController < ApplicationController
 	end
 	def destroy
 		@course = Course.find(params[:id])
+		@course.enrolls.each do |e|
+			e.removeAllReplies
+		end
 		if @course.destroy
 			flash[:notice] = "#{@course.course_name} successfully deleted."
 		else
