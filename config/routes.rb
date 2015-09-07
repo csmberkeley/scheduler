@@ -7,8 +7,10 @@ Rails.application.routes.draw do
   #get "/courses/:id" => "courses#show", as: :course
   resources :courses
 
-  get "/sections" => "sections#index"
-  get "/sections/:id" => "sections#show", as: :section
+  # get "/sections" => "sections#index"
+  # get "/sections/:id" => "sections#show", as: :section
+  resources :sections
+  get "/sections/make-switch/:old_id/:new_id" => "sections#make_switch", as: :make_switch
   get "/sections/drop/:enroll_id" => "sections#drop", as: :drop_section
 
   #enrolling into a course and section
@@ -22,7 +24,6 @@ Rails.application.routes.draw do
   delete "/offers/delete/enrollment/:id" => "offers#destroy", as: :delete_offer
   post "/create_response" => "offers#create_response", as: :create_response
   get "/enrollments/:id/switch-section" => "enrollments#switch_section", as: :switch_section
-  get "/sections/make-switch/:old_id/:new_id" => "sections#make_switch", as: :make_switch
 
   delete "/comments/:id" => "comments#destroy", as: :delete_comment
   delete "/replies/:id" => "replies#destroy", as: :delete_reply
@@ -40,6 +41,10 @@ Rails.application.routes.draw do
   post "/settings" => "settings#update"
   get "/admin/manage_sections" => "admins#manage_sections", as: :manage_sections
   match 'users/:id' => 'users#destroy', :via => :delete, :as => :admin_destroy_user
+  
+  get "/admin/manage_section/add/:id" => "admins#new_student_to_section", as: :new_student_to_section
+  post "/admin/manage_section/add/:id" => "admins#add_student_to_section"
+  post "/admin/manage_sections/drop/:id" => "admins#drop_student_from_section", as: :drop_student_from_section
 
 
   # The priority is based upon order of creation: first created -> highest priority.

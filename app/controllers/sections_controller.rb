@@ -1,5 +1,6 @@
 class SectionsController < ApplicationController
 	before_filter :check_make_switch, :only => [:make_switch]
+	before_filter :check_admin, :only => [:new, :create, :edit, :update, :destroy]
 	before_filter :check_drop, :only => [:drop]
 	def index
 		@sections = Section.all
@@ -7,6 +8,57 @@ class SectionsController < ApplicationController
 
 	def show
 		@section = Section.find(params[:id]);
+	end
+
+	def load_course_names
+    names = []
+    Course.all.each do |course|
+      names << course.course_name
+    end
+    return names
+  end
+
+	def new
+		@section = Section.new
+		@courses = load_course_names
+	end
+
+	def create
+		course = Course.find_by_course_name(params[:section][:course_id])
+		params[:section][:course_id] = course.id
+		section = Section.new(section_params)
+		if section.save
+			flash[:notice] = "Made #{section.name}"
+			redirect_to manage_sections_path
+		else
+			render :action => 'new'
+		end
+	end
+
+	def edit
+		@section = Section.find(params[:id])
+		@courses = load_course_names
+		@e_course = Course.find(@section.course_id)
+	end
+
+	def update
+		section = Section.find_by_name(params[:section][:name])
+		course = Course.find_by_course_name(params[:section][:course_id])
+		params[:section][:course_id] = course.id
+		if section.update_attributes(section_params)
+			flash[:notice] = "Edited #{section.name}"
+			redirect_to manage_sections_path
+		else
+			render :action => 'edit'
+		end
+
+	end
+
+	def destroy
+		section = Section.find(params[:id])
+		flash[:notice] = "Deleted #{section.name}"
+		section.destroy
+		redirect_to manage_sections_path
 	end
 
 	def drop
@@ -48,6 +100,7 @@ class SectionsController < ApplicationController
 		redirect_to root_path
 		
 	end
+
 	private
 	def check_drop
 		notice = "You do not have permission to access that page."
@@ -60,5 +113,10 @@ class SectionsController < ApplicationController
 		end
 		flash[:alert] = notice
 		redirect_to root_path
+	end
+
+	private
+	def section_params
+		params.require(:section).permit(:name, :start, :end, :empty, :course_id, :mentor, :location)
 	end
 end

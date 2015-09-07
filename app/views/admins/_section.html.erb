@@ -1,0 +1,10 @@
+<strong> <%= section.name %> </strong>
+<%= link_to "Edit", edit_section_path(section) %>
+<%= link_to "Delete", section_path(section), :method => :delete %> <br>
+<%= section.mentor %> <br>
+<%= section.location %> <br>
+<strong> Students </strong> <%= link_to "Add", new_student_to_section_path(section) %><br>
+<% section.enrolls.each do |enroll| %>
+  <%= User.find(enroll.user.id).name %>
+  <%= link_to "Drop", drop_student_from_section_path(enroll), :method => :post %> <br>
+<% end %>
