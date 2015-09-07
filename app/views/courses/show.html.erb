@@ -1,12 +1,13 @@
-<div class = "col-xs-12" style = "padding-top:10px">
-	<div class="panel panel-success">
+	<div class="panel panel-primary" style="margin-top:20px;">
 	  <div class="panel-heading">
-	    <h1><%= @course.course_name %> <%= @course.semester %> <%= @course.year %></h1>
+	    <h3 class="panel-title"><%= @course.course_name %> <%= @course.semester %> <%= @course.year %></h3>
 	  </div>
 	  <div class="panel-body">
-	  	<p><b>Instructor:</b> <%= @course.instructor %></p>
-	  	<p><b>Course Description:</b> <%= @course.description %></p>
-	  	<p><b>Current Enrollment:</b> <%= @number_of_people %></p>
+	  	<h3 style="margin-top:0">Instructor</h3>
+	  	 <%= @course.instructor %>
+	  	<h3>Course Description</h3>
+	  	 <%= @course.description %>
+	  	<h3>Current Enrollment</h3>
+	  	 <%= @number_of_people %> <%= "person".pluralize(@number_of_people) %>
 	  </div>
 	</div>
-</div>

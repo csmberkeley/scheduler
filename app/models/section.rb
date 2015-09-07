@@ -20,5 +20,25 @@ class Section < ActiveRecord::Base
   def getStudentCount()
     return self.enrolls.length
   end
+  def getDay()
+      number = self.name.split.last.to_i
+      day_of_the_week = number / 100 % 10
+      day = ''
+      case day_of_the_week
+      when 0
+        day = 'Monday'
+      when 1
+        day = 'Tuesday'
+      when 2
+        day = 'Wednesday'
+      when 3
+        day = 'Thursday'
+      when 4
+        day = 'Friday'
+      else
+        day = 'N/A'
+      end
+      return day
+  end
 
 end

@@ -1,3 +1,20 @@
-<div class = "container">
-	<h1>Section: <%= @section.name%> </h1>
+<div class="panel panel-primary" style="margin-top:20px;">
+  <div class="panel-heading">
+    <h3 class="panel-title"><%= @section.name%></h3>
+  </div>
+  <div class="panel-body">
+    <h3 style="margin-top:0px">Mentor</h3>
+    <%= @section.mentor %>
+    <h3>Location</h3>
+    <%= @section.location %>
+    <h3>Time</h3>
+    <%= @section.getDay  %> 
+    <% if @section.start %>
+    <%= @section.start.strftime("%I:%M %p")%>
+    <% end %>
+     <% if @section.end %>
+      to 
+    <%= @section.end.strftime("%I:%M %p")%>
+    <% end %>
+  </div>
 </div>

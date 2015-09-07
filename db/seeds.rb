@@ -60,11 +60,11 @@ mike2.enrolls << mike2_cs61b_enr
 
 mike_cs61a_section1 = Section.create! :name => "Section 1000", 
       :course_id => cs61a.id, :empty => true,
-      :mentor => "Hue Hue", :location => "Soda 341A"
+      :mentor => "Hue Hue", :location => "Soda 341A", :start => Time.new(2008,6,21, 13,30,0, "+09:00"),:end => Time.new(2008,6,21, 13,30,0, "+10:00")
 
 mike_cs61a_section2 = Section.create! :name => "Section 1100", 
       :course_id => cs61a.id, :empty => true,
-      :mentor => "Randy Johnson", :location => "Soda 341B"
+      :mentor => "Randy Johnson", :location => "Soda 341B", :start => Time.new(2008,6,21, 13,30,0, "+10:00")
 
 mike_cs61a_section3 = Section.create! :name => "Section 1200", 
       :course_id => cs61a.id, :empty => true,
