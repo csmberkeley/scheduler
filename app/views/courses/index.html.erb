@@ -1,10 +1,13 @@
-<div class = "container">
-	<h1>Your Courses </h1>
-	<hr>
-	<div class = "courses">
-		<% @courses.each do |course| %>
-			<h2><%=link_to course.course_name, course_path(course)%></h2>
-			<hr>
-		<% end %>
-	</div>
+<h1>Your Courses </h1>
+<hr>
+<div class = "courses">
+	<% @courses.each do |course| %>
+		<div class = "col-xs-12" style = "padding-top:10px">
+			<div class="panel panel-success">
+			  <div class="panel-heading">
+			  	<h4><%=link_to "#{course.course_name} #{course.semester} #{course.year}" , course_path(course)%></h4>
+			  </div>
+			</div>
+		</div>
+	<% end %>
 </div>

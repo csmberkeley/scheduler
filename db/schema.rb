@@ -26,6 +26,8 @@ ActiveRecord::Schema.define(version: 20150826043420) do
     t.string   "semester"
     t.integer  "year"
     t.string   "password"
+    t.string   "description"
+    t.string   "instructor"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
