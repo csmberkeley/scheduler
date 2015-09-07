@@ -104,6 +104,7 @@ class EnrollmentsController < ApplicationController
     @enrollment = Enroll.find(params[:id])
     @course = Course.find(@enrollment.course_id)
     flash[:notice] = "You have been dropped from #{@course.course_name}"
+    @enrollment.removeAllReplies
     @enrollment.destroy
     redirect_to root_path
   end

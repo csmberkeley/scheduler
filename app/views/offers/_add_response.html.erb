@@ -1,18 +1,18 @@
 <%= form_tag(create_response_path, :remote => true) do |f| %>
 	<div class = "field">
-		<h4>Add Comment</h4>
-		<div class = "row container">
-			<%= text_area_tag :body, nil, :class => "col-sm-5 col-xs-12", :style => "height:100px" %>
+		<h4>Add Response</h4>
+		<div class = "form-group">
+			<%= text_area_tag :body, nil, :class => "form-control", :style => "height:100px" %>
 		</div>
 		<% if current_user.id != @offerer.id %>
-			<div class = "row container">
-				Want to switch? <%= check_box_tag "switch" %>
-			</div>
+			Want to switch? Check to add a reply! <%= check_box_tag "switch" %>
 		<% end %>
 		<%= hidden_field_tag :offer_id, :value => offer.id %>
 		<%= hidden_field_tag :enroll_id, :value => enroll.id %>
 	</div>
-	<div class = "actions">
-		<%= submit_tag "Add" %>
+	<div class = "actions" style = "margin-top: 10px">
+		<%= button_tag(type: 'submit', class: "btn btn-success") do %>
+		 <i class='fa fa-plus'></i> Add
+		<% end %>
 	</div>
 <% end %>

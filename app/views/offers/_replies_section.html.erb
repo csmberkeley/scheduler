@@ -1,19 +1,19 @@
 <% replies.each do |reply|%>
 	<div class = "media" style = "border: #ccc solid 1px; padding: 5px; border-radius: 3px; background-color: #F0F8FF;">
-		<div class="pull-right">
-			<%= image_tag "anon_user.png", :style => "width: 36px; height: 36px;"%>
-		</div>
+		<% if current_user.id == reply.user_id %>
+			<div class="pull-right">
+				<%= link_to "<i class='fa fa-remove' style = 'color:grey;'></i>".html_safe, delete_reply_path(reply), method: :delete, :remote => true, data: {confirm:"Are you sure you want to delete your reply?"} %>
+			</div>
+		<% end %>
+		
 		<div class="media-body">
-			<h4 class="media-heading"><%= User.find(reply.user_id).name %><br><small><%= reply.created_at.strftime("%I:%M:%S %p on %b. %d, %Y") %> | <%= Section.find(reply.getEnrollmentOfReplier.section_id).name %>
-			</small></h4>
+			<h4 class="media-heading"><%= User.find(reply.user_id).name %><br><small><%= reply.created_at.strftime("%I:%M:%S %p on %b. %d, %Y") %> | <%= Section.find(reply.getEnrollmentOfReplier.section_id).name %></small></h4>
 		    <%= reply.body %>
-		    <% if current_user.id == Offer.find(reply.offer_id).user_id %>
-		    	<%= button_to "Accept Reply", accept_reply_path(reply)%>
-		    	<%= button_to "Deny Reply", deny_reply_path(reply) %>
+		   	<% if current_user.id == Offer.find(reply.offer_id).user_id %>
+		   		<div style = "margin-top: 10px">
+		    		<%= link_to "<i class='fa fa-check'></i> Accept Reply".html_safe, accept_reply_path(reply), :class => "btn btn-success", method: "post", data: {confirm:"Are you sure you want to accept this reply? This will trade your section!"} %> <%= link_to "<i class='fa fa-ban'></i> Deny Reply".html_safe, deny_reply_path(reply), :class => "btn btn-danger", method: "post", data: {confirm:"Are you sure you want to decline this reply?"} %>
+		    	</div>
 		    <% end %>
-		    <% if current_user.id == reply.user_id %>
-				<%= button_to "Delete", delete_reply_path(reply), method: :delete, :remote => true %>
-			<% end %>
 		</div>
 	</div>
-<% end %>		
+<% end %>	
