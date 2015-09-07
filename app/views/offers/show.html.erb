@@ -1,43 +1,43 @@
-<div class = "container">
-	<div class = "header">
-		<h1>Offer For <%=  @section.name %></h1>
-		<i>
-			<h5>Wants:</h5> 
-			|<% @wanted_sections.each do |section| %>
-				<%= section.name %> | 
-			<% end %>
-		</i>
-	</div>
+<div class = "header col-xs-9 col-xs-offset-1">
+	<h1>Offer For <%=  @section.name %></h1>
+	<div class="panel panel-primary">
+	  <div class="panel-heading">
+	    <h3 class="panel-title"><%= User.find(@offer.user_id).name %> wants one of the following sections:</h3>
+	  </div>
+	  <ul class="list-group">
+	  	<% @wanted_sections.each do |section| %>
+	    	<li class="list-group-item"><%= section.name %></li>
+	    <% end %>
+	  </ul>
+	  <div class="panel-body">
+	  	<h3 style = "margin-top:0px;">Additional Info</h3>
+	  	<div class = "body">
+	  		<%= @offer.body %>
+	  	</div>
+	  </div>
 
-	<h2>Additional Info</h2>
-	<div class = "body">
-		<%= @offer.body %>
 	</div>
-	<hr />
-	<div class = "row">
-
-		<div class = "col-sm-6 col-xs-12" id = "add-response">
-			
-			<% if @comments_allowed %>
+	<div id = "add-response">
+		
+		<% if @comments_allowed %>
 			<%= render partial: "add_response.html", locals: {offer: @offer, enroll: @enroll} %>
-			<% else %>
+		<% else %>
 			<h4>Adding comments is currently disabled.</h4>
-			<% end %>
-		</div>
+		<% end %>
 	</div>
-	
-	
-	<div class = "row">
-		<h2 class = "col-sm-6 col-xs-12" >Comments</h2>
-		<h2 class = "col-sm-6 col-xs-12" >Replies</h2>
+</div>
+
+
+<div class = "row">
+	<h2 class = "col-sm-6 col-xs-12" >Comments</h2>
+	<h2 class = "col-sm-6 col-xs-12" >Replies</h2>
+</div>
+<hr>
+<div class = "row">
+	<div class = "col-sm-6 col-xs-12" id = "comments">
+		<%= render partial: "comments_section.html", locals: {comments: @comments}%>
 	</div>
-	<hr>
-	<div class = "row">
-		<div class = "col-sm-6 col-xs-12" id = "comments">
-			<%= render partial: "comments_section.html", locals: {comments: @comments}%>
-		</div>
-		<div class = "col-sm-6 col-xs-12" id = "replies">
-			<%= render partial: "replies_section.html", locals: {replies: @replies}%>
-		</div>
+	<div class = "col-sm-6 col-xs-12" id = "replies">
+		<%= render partial: "replies_section.html", locals: {replies: @replies}%>
 	</div>
 </div>
