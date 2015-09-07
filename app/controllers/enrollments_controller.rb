@@ -55,7 +55,7 @@ class EnrollmentsController < ApplicationController
 
     course = Course.find(@enrollment.course_id)
     @sections = course.sections
-
+    @section_limit = Setting.find_by(name: 'limit').value.to_i
   end
 
   def update
