@@ -18,9 +18,9 @@
 						  <div class="list-group-item">
 						    <h4 class="list-group-item-heading"><%= section.name %></h4>
 						    <div class="progress">
-							  <div class="progress-bar" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: <%= (studentCount * 20)%>%;">
+							  <div class="progress-bar" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: <%= (studentCount * (100/@section_limit))%>%;">
 							  	<% if studentCount >= 0 %>
-							    	<%=studentCount%>/5
+							    	<%=studentCount%>/<%= @section_limit%>
 							    <% end %>
 							  </div>
 							</div>

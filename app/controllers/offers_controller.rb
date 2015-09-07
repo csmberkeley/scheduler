@@ -15,7 +15,7 @@ class OffersController < ApplicationController
 		@new_comment = Comment.new
 		@replies = @offer.replies.order(:created_at)
 		@new_reply = Reply.new
-		@comments_allowed = Setting.find_by(name: 'comments').enabled
+		@comments_allowed = Setting.find_by(name: 'comments').value == "1"
 	end
 	def new
 		#needs to check whether or not user has an offer

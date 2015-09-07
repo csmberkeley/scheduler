@@ -10,7 +10,7 @@ class Enroll < ActiveRecord::Base
   		return false
   	end
   	section.enrolls << self
-  	if section.enrolls.length >= 6
+  	if section.enrolls.length >= Setting.find_by(name: 'limit').value.to_i
   		section.empty = false
   	end
   	return true

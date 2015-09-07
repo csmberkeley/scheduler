@@ -10,6 +10,7 @@ class EnrollmentsController < ApplicationController
 		@offer = @enrollment.offer
 		@compatable_offers = Offer.getCompatableOffers(@section)
 		@transactions = @enrollment.getTransactionsInReverseOrder
+    @section_limit = Setting.find_by(name: 'limit').value.to_i
 	end
 
   def new
@@ -62,7 +63,7 @@ class EnrollmentsController < ApplicationController
     enrollment = Enroll.find(params[:id])
 
     #check if section isn't full
-    if section.enrolls.size >= 5
+    if section.enrolls.size >= Setting.find_by(name: 'limit').value.to_i
       flash[:notice] = "Current section you selected has been filled up."
       redirect_to edit_enrollment_path(params[:id])
       return

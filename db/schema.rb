@@ -77,7 +77,8 @@ ActiveRecord::Schema.define(version: 20150826043420) do
 
   create_table "settings", force: true do |t|
     t.string   "setting_name"
-    t.boolean  "enabled"
+    t.string   "setting_type"
+    t.string   "value"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "name"
