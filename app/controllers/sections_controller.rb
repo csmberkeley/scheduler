@@ -88,7 +88,7 @@ class SectionsController < ApplicationController
 	def check_make_switch
 		notice = "Cannot make the switch at this time."
 		if params[:old_id] and Section.exists?(params[:old_id]) and params[:new_id] and Section.exists?(params[:new_id])
-			if Setting.find_by(name: 'section').enabled
+			if Setting.find_by(name: 'section').value == "1"
 	       		if params[:enroll_id] and Enroll.exists?(params[:enroll_id]) and check_enrollment(enroll = Enroll.find(params[:enroll_id]))
 	       			return
 	       		end
