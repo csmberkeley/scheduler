@@ -1,11 +1,8 @@
 class CoursesController < ApplicationController
+	before_filter :check_logged_in
 	before_filter :check_admin, :except => [:index, :show]
 	def index
-		@courses = []
-		current_user.enrolls.each do |e|
-			curr_course = Course.find(e.course_id)
-			@courses << curr_course
-		end
+		@courses = Course.all
 	end
 	def admin_index
 		@courses = Course.all
@@ -45,6 +42,6 @@ class CoursesController < ApplicationController
 	end
 	private
 	def course_params
-      params.require(:course).permit(:course_name, :semester, :year, :password)
+      params.require(:course).permit(:course_name, :semester, :year, :password, :instructor, :description)
     end
 end

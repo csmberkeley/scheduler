@@ -1,4 +1,5 @@
 class SectionsController < ApplicationController
+	before_filter :check_logged_in
 	before_filter :check_make_switch, :only => [:make_switch]
 	before_filter :check_admin, :only => [:new, :create, :edit, :update, :destroy]
 	before_filter :check_drop, :only => [:drop]

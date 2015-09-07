@@ -67,8 +67,8 @@ ActiveRecord::Schema.define(version: 20150826043420) do
 
   create_table "sections", force: true do |t|
     t.string   "name"
-    t.datetime "start"
-    t.datetime "end"
+    t.time     "start"
+    t.time     "end"
     t.boolean  "empty"
     t.integer  "course_id"
     t.string   "mentor"
