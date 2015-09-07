@@ -12,6 +12,7 @@ class CoursesController < ApplicationController
 	end
 	def show
 		@course = Course.find(params[:id])
+		@number_of_people = @course.enrolls.length
 	end
 	def new
 		@course = Course.new

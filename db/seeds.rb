@@ -29,12 +29,16 @@ mike2 = User.create! :name => "Mike Aboody2",
 cs61a = Course.create! :course_name => "CS61A",
 			:semester => "Fall",
 			:year => 2015,
-			:password => "pass"
+			:password => "pass",
+                  :description => "A course for computer science",
+                  :instructor => "John Denero"
 
 cs61b = Course.create! :course_name => "CS61B",
 			:semester => "Fall",
 			:year => 2015,
-			:password => "pass"
+			:password => "pass",
+                  :description => "A course for computer science2",
+                  :instructor => "Josh Hug"
 
 
 
