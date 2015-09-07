@@ -32,6 +32,9 @@ class CoursesController < ApplicationController
 	end
 	def destroy
 		@course = Course.find(params[:id])
+		@course.enrolls.each do |e|
+			e.removeAllReplies
+		end
 		if @course.destroy
 			flash[:notice] = "#{@course.course_name} successfully deleted."
 		else

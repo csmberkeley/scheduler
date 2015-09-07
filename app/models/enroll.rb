@@ -22,6 +22,7 @@ class Enroll < ActiveRecord::Base
   	if self.offer
   		self.offer.destroy
   	end
+    self.removeAllReplies
   end
 
   def switchSection(new_section)
@@ -37,6 +38,7 @@ class Enroll < ActiveRecord::Base
     other_user_section = Section.find(other_enrollment.section_id)
     self.switchSection(other_user_section)
     other_enrollment.switchSection(this_user_section)
+    self.removeAllReplies
   end
 
   def createTransaction(body)
@@ -55,6 +57,18 @@ class Enroll < ActiveRecord::Base
       return true
     end
     return false
+  end
+  def removeAllReplies()
+    course = Course.find(self.course_id)
+    course.sections.each do |section|
+      section.offers.each do |offer|
+        reply = offer.getReplyFrom(self)
+        if reply
+          reply.destroy
+        end
+      end
+    end
+
   end
 
 end

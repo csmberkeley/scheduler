@@ -56,6 +56,9 @@ class SectionsController < ApplicationController
 
 	def destroy
 		section = Section.find(params[:id])
+		section.enrolls do |e|
+			e.removeAllReplies
+		end
 		flash[:notice] = "Deleted #{section.name}"
 		section.destroy
 		redirect_to manage_sections_path
@@ -64,6 +67,7 @@ class SectionsController < ApplicationController
 	def drop
 		@enroll = Enroll.find(params[:enroll_id])
 		@section = Section.find(@enroll.section_id)
+		@enroll.removeAllReplies
 		@section.enrolls.delete(@enroll)
 		flash[:notice] = "You have successfully dropped " << @section.name
 		redirect_to root_path
