@@ -1,17 +1,6 @@
 <div id="loginModal" class="modal show" tabindex="-1" role="dialog" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
-        <div class="modal-header">
-            <img src="http://i.imgur.com/CMg4rGP.jpg" style=" display: block;
-    margin-left: auto;
-    margin-right: auto;">
-            <% if notice %>
-              <div class="alert alert-info" style="margin-bottom:0" role="alert"><%= notice %></div>
-            <% end %>
-            <% if alert %>
-              <div class="alert alert-danger" style="margin-bottom:0" role="alert"><%= alert %></div>
-            <% end %>
-        </div>
         <div class="modal-body">
           <h2>Sign up</h2>
 
@@ -20,11 +9,17 @@
 
             <div class = "form-group">
               <div class="field">
+                <%= f.label :name %><br />
+                <%= f.text_field :name, autofocus: true, :class => "form-control input-lg" %>
+              </div>
+            </div>
+
+            <div class = "form-group">
+              <div class="field">
                 <%= f.label :email %><br />
                 <%= f.email_field :email, autofocus: true, :class => "form-control input-lg" %>
               </div>
             </div>
-
 
             <div class = "form-group">
               <div class="field">
@@ -45,7 +40,7 @@
 
             <div class = "form-group">
               <div class="actions">
-                <%= f.submit "Sign up" %>
+                <%= f.submit "Sign up", :class => "form-control" %>
               </div>
             </div>
           <% end %>

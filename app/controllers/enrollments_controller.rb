@@ -53,8 +53,19 @@ class EnrollmentsController < ApplicationController
       return
     end
 
+    @sections = { "Monday" => [], "Tuesday" => [], "Wednesday" => [], 
+        "Thursday" => [], "Friday" => [] }
     course = Course.find(@enrollment.course_id)
-    @sections = course.sections
+
+    course.sections.each do | section |
+      @sections[section.getDay] << section
+    end
+    @sections["Monday"].sort!{|a,b| a.start && b.start ? a.start <=> b.start : a.start ? -1 : 1 }
+    @sections["Tuesday"].sort!{|a,b| a.start && b.start ? a.start <=> b.start : a.start ? -1 : 1 }
+    @sections["Wednesday"].sort!{|a,b| a.start && b.start ? a.start <=> b.start : a.start ? -1 : 1 }
+    @sections["Thursday"].sort!{|a,b| a.start && b.start ? a.start <=> b.start : a.start ? -1 : 1 }
+    @sections["Friday"].sort!{|a,b| a.start && b.start ? a.start <=> b.start : a.start ? -1 : 1 } 
+
     @section_limit = Setting.find_by(name: 'limit').value.to_i
   end
 

@@ -3,6 +3,10 @@
 <%= link_to "Delete", section_path(section), :method => :delete %> <br>
 <%= section.mentor %> <br>
 <%= section.location %> <br>
+<% if section.start and section.end %>
+      <%= section.start.strftime("%I:%M %p") %>-<%= section.end.strftime("%I:%M %p") %> <br>
+     <% end %>
+
 <strong> Students </strong> <%= link_to "Add", new_student_to_section_path(section) %><br>
 <% section.enrolls.each do |enroll| %>
   <%= User.find(enroll.user.id).name %>
