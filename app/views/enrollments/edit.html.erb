@@ -1,34 +1,39 @@
 <h3>Choose a section</h3>
 <%= form_for @enrollment, url: edit_enrollment_path do |f| %>
-    <table class="table">
-      <thead>
-        <tr>
-          <th>  </th>
-          <th> Section # </th>
-          <th> # Enrolled </th>
-          <th> Mentor </th>
-          <th> Time </th>
-          <th> Location </th>
-        </tr>
-      </thead>
-      <tbody>
-        <% @sections.each do |section| %>
+
+      <table class="table">
+        <thead>
           <tr>
-            <% if section.enrolls.size >= @section_limit %>
-              <td> <%= f.radio_button :section_id, section.name, :disabled => true %> </td>
-            <% else %>
-              <td> <%= f.radio_button :section_id, section.name %> </td>
-            <% end %>
-            <td> <%= section.name %> </td>
-            <td> <%= section.enrolls.size %> out of <%= @section_limit%> </td>
-            <td> <%= section.mentor %> </td>
-            <td> <% if section.start and section.end %>
-                  <%= section.start.strftime("%I:%M %p") %>-<%= section.end.strftime("%I:%M %p") %>
-                 <% end %> </td>
-            <td> <%= section.location %> </td>
+            <th>  </th>
+            <th> Section # </th>
+            <th> Day </th>
+            <th> Time </th>
+            <th> # Enrolled </th>
+            <th> Mentor </th>
+            <th> Location </th>
           </tr>
-        <% end %>
-      </tbody>
-    </table>
+        </thead>
+        <tbody>
+          <% @sections.each do | day, sections |%>
+            <% sections.each do |section| %>
+              <tr>
+                <% if section.enrolls.size >= @section_limit %>
+                  <td> <%= f.radio_button :section_id, section.name, :disabled => true %> </td>
+                <% else %>
+                  <td> <%= f.radio_button :section_id, section.name %> </td>
+                <% end %>
+                <td> <%= section.name %> </td>
+                <td> <%= section.date %> </td>
+                <td> <% if section.start and section.end %>
+                  <%= section.start.strftime("%I:%M %p") %>-<%= section.end.strftime("%I:%M %p") %>
+                  <% end %> </td>
+                <td> <%= section.enrolls.size %> out of <%= @section_limit%> </td>
+                <td> <%= section.mentor %> </td>
+                <td> <%= section.location %> </td>
+              </tr>
+            <% end %>
+          <% end %>
+        </tbody>
+      </table>
   <%= f.submit "Add section", class: "btn btn-success" %>
 <% end %>

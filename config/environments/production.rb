@@ -8,14 +8,13 @@ Rails.application.configure do
 
   config.action_mailer.smtp_settings = {
     :enable_starttls_auto => true,
-    :address => "smtp.gmail.com",
+    :address => "smtp.sendgrid.net",
     :port => 587,
-    :domain => "gmail.com",
+    :domain => "sendgrid.com",
     :authentication => :login,
-    :user_name => "csmberkeley",
-    :password => "csmentorsmentors"
-  }
-
+    :user_name => "zhanger",
+    :password => "4JGbd!HYa{L[9J`H"
+  } 
   # Code is not reloaded between requests.
   config.cache_classes = true
 
@@ -90,6 +89,4 @@ Rails.application.configure do
 
   # Do not dump schema after migrations.
   config.active_record.dump_schema_after_migration = false
-
-  config.force_ssl = true
 end

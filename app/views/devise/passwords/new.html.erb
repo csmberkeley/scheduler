@@ -1,18 +1,46 @@
-<div class="dform>">
-  <h2>Forgot your password?</h2>
+<div id="loginModal" class="modal show" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+          <img src="http://i.imgur.com/CMg4rGP.jpg" style=" display: block;
+  margin-left: auto;
+  margin-right: auto;">
+          <% if notice %>
+            <div class="alert alert-info" style="margin-bottom:0" role="alert"><%= notice %></div>
+          <% end %>
+          <% if alert %>
+            <div class="alert alert-danger" style="margin-bottom:0" role="alert"><%= alert %></div>
+          <% end %>
+      </div>
+      <div class="modal-body">
 
-  <%= form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :post }) do |f| %>
-    <%= devise_error_messages! %>
+        <h2>Forgot your password?</h2>
 
-    <div class="field">
-      <%= f.label :email %><br />
-      <%= f.email_field :email, autofocus: true %>
+        <%= form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :post }) do |f| %>
+          <%= devise_error_messages! %>
+
+          <div class = "form-group">
+            <div class="field">
+              <%= f.label :email %><br />
+              <%= f.email_field :email, autofocus: true, :class => "form-control input-lg" %>
+            </div>
+          </div>
+
+          <div class = "form-group">
+            <div class="actions">
+              <%= f.submit "Send me reset password instructions", :class => "form-control", :style => "margin-bottom: 10px" %>
+            </div>
+            <%= render "devise/shared/links" %>
+          </div>
+        <% end %>
+
+        
+      </div>
+      <div class="modal-footer">
+        <div class <div class="col-md-12">
+        </div>
+      </div>  
     </div>
-
-    <div class="actions">
-      <%= f.submit "Send me reset password instructions" %>
-    </div>
-  <% end %>
-
-  <%= render "devise/shared/links" %>
+  </div>
 </div>
+

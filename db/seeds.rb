@@ -27,7 +27,8 @@ mike = User.create! :name => "Mike Aboody",
 			:email => "mikeaboody@berkeley.edu",
             :password => "mikespass",
             :password_confirmation => "mikespass",
-            :confirmed_at => "2015-09-09 02:50:19"
+            :confirmed_at => "2015-09-09 02:50:19",
+            :admin => "true"
 
 cs61a = Course.create! :course_name => "CS61A",
 			:semester => "Fall",
@@ -45,26 +46,26 @@ cs61b = Course.create! :course_name => "CS61B",
 
 #cs61a
 days = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"]
-count = 0
+count = 1
 days.each do |d|
       times = [10, 11, 12, 13, 14, 15, 16, 17]
       times.each do |t|
             Section.create! :name => "Section #{count}", 
       :course_id => cs61a.id, :start => Time.new(2015,9,9, t,0,0, "+00:00"),:end => Time.new(2015,9,9, t+1,0,0, "+00:00"),
-      :date => d
+      :date => d, :mentor => "TBD", :location => "TBD"
             count += 1
       end 
 end
 
 #cs61b
 days = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"]
-count = 0
+count = 1
 days.each do |d|
      times = [11, 12, 13, 14, 15]
      times.each do |t|
            Section.create! :name => "Section #{count}", 
-     :course_id => cs61a.id, :start => Time.new(2015,9,9, t,0,0, "+00:00"),:end => Time.new(2015,9,9, t+1,0,0, "+00:00"),
-     :date => d
+     :course_id => cs61b.id, :start => Time.new(2015,9,9, t,0,0, "+00:00"),:end => Time.new(2015,9,9, t+1,0,0, "+00:00"),
+     :date => d, :mentor => "TBD", :location => "TBD"
            count += 1
      end 
 end

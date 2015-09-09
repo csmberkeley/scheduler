@@ -4,7 +4,19 @@ class SectionsController < ApplicationController
 	before_filter :check_admin, :only => [:new, :create, :edit, :update, :destroy]
 	before_filter :check_drop, :only => [:drop]
 	def index
-		@sections = Section.all
+		@sections = {} 
+    Course.all.each do | course |
+      @sections[course.course_name] = { "Monday" => [], "Tuesday" => [], "Wednesday" => [], 
+        "Thursday" => [], "Friday" => [] }
+      course.sections.each do | section |
+        @sections[course.course_name][section.getDay] << section
+      end
+      @sections[course.course_name]["Monday"].sort!{|a,b| a.start && b.start ? a.start <=> b.start : a.start ? -1 : 1 }
+      @sections[course.course_name]["Tuesday"].sort!{|a,b| a.start && b.start ? a.start <=> b.start : a.start ? -1 : 1 }
+      @sections[course.course_name]["Wednesday"].sort!{|a,b| a.start && b.start ? a.start <=> b.start : a.start ? -1 : 1 }
+      @sections[course.course_name]["Thursday"].sort!{|a,b| a.start && b.start ? a.start <=> b.start : a.start ? -1 : 1 }
+      @sections[course.course_name]["Friday"].sort!{|a,b| a.start && b.start ? a.start <=> b.start : a.start ? -1 : 1 }
+    end
 	end
 
 	def show
@@ -123,6 +135,6 @@ class SectionsController < ApplicationController
 
 	private
 	def section_params
-		params.require(:section).permit(:name, :start, :end, :empty, :course_id, :mentor, :location)
+		params.require(:section).permit(:name, :start, :end, :empty, :course_id, :mentor, :location, :date)
 	end
 end
