@@ -5,6 +5,20 @@ class AdminsController < ApplicationController
     @courses = Course.all
   end
 
+  def new_student
+    @student = User.new
+  end
+
+  def create_student
+    @student = User.new(student_params)
+    @student.confirmed_at = "2015-09-09 02:50:19"
+    if @student.save!
+       flash[:notice] = "Created user #{@student.name}!"
+       redirect_to students_index_path
+    end
+   
+  end
+
   def new_student_to_section
     # list out all students that can add this section
     # need to filter out students who aren't enrolled in this class
@@ -94,7 +108,7 @@ class AdminsController < ApplicationController
   private
 
   def student_params
-    params.require(:user).permit(:name, :nickname, :admin, :email)
+    params.require(:user).permit(:name, :nickname, :admin, :email, :password)
   end
 
 end
