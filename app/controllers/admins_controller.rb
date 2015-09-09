@@ -11,7 +11,6 @@ class AdminsController < ApplicationController
 
   def create_student
     @student = User.new(student_params)
-    @student.password = "passpass"
     @student.confirmed_at = "2015-09-09 02:50:19"
     if @student.save!
        flash[:notice] = "Created user #{@student.name}!"
@@ -109,7 +108,7 @@ class AdminsController < ApplicationController
   private
 
   def student_params
-    params.require(:user).permit(:name, :nickname, :admin, :email)
+    params.require(:user).permit(:name, :nickname, :admin, :email, :password)
   end
 
 end
