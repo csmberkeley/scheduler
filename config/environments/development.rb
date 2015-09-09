@@ -11,12 +11,12 @@ Rails.application.configure do
 
   config.action_mailer.smtp_settings = {
     :enable_starttls_auto => true,
-    :address => "smtp.gmail.com",
+    :address => "smtp.mandrillapp.com",
     :port => 587,
-    :domain => "gmail.com",
+    :domain => "mandrillapp.com",
     :authentication => :login,
-    :user_name => "csmberkeley",
-    :password => "csmentorsmentors"
+    :user_name => "alexzhangh@gmail.com",
+    :password => "fHFopdLypEuJXDeCQx3uDw"
   }  
 
   config.cache_classes = false
