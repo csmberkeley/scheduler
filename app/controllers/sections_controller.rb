@@ -9,6 +9,7 @@ class SectionsController < ApplicationController
 
 	def show
 		@section = Section.find(params[:id]);
+		@section_limit = Setting.find_by(name: 'limit').value.to_i
 	end
 
 	def load_course_names
