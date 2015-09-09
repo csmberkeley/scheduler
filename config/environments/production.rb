@@ -9,7 +9,7 @@ Rails.application.configure do
   config.action_mailer.smtp_settings = {
     :enable_starttls_auto => true,
     :address => "smtp.gmail.com",
-    :port => 25,
+    :port => 587,
     :domain => "gmail.com",
     :authentication => :login,
     :user_name => "csmberkeley",
@@ -90,4 +90,6 @@ Rails.application.configure do
 
   # Do not dump schema after migrations.
   config.active_record.dump_schema_after_migration = false
+
+  config.force_ssl = true
 end
