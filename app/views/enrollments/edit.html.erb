@@ -7,6 +7,7 @@
           <th> Section # </th>
           <th> # Enrolled </th>
           <th> Mentor </th>
+          <th> Time </th>
           <th> Location </th>
         </tr>
       </thead>
@@ -21,6 +22,9 @@
             <td> <%= section.name %> </td>
             <td> <%= section.enrolls.size %> out of <%= @section_limit%> </td>
             <td> <%= section.mentor %> </td>
+            <td> <% if section.start and section.end %>
+                  <%= section.start.strftime("%I:%M %p") %>-<%= section.end.strftime("%I:%M %p") %>
+                 <% end %> </td>
             <td> <%= section.location %> </td>
           </tr>
         <% end %>
