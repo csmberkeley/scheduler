@@ -69,6 +69,7 @@ ActiveRecord::Schema.define(version: 20150826043420) do
     t.string   "name"
     t.time     "start"
     t.time     "end"
+    t.string   "date"
     t.boolean  "empty"
     t.integer  "course_id"
     t.string   "mentor"

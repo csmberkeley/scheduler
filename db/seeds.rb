@@ -60,35 +60,43 @@ mike2.enrolls << mike2_cs61b_enr
 
 mike_cs61a_section1 = Section.create! :name => "Section 1000", 
       :course_id => cs61a.id, :empty => true,
-      :mentor => "Hue Hue", :location => "Soda 341A", :start => Time.new(2008,6,21, 13,30,0, "+09:00"),:end => Time.new(2008,6,21, 13,30,0, "+10:00")
+      :mentor => "Hue Hue", :location => "Soda 341A", :start => Time.new(2008,6,21, 13,30,0, "+09:00"),:end => Time.new(2008,6,21, 13,30,0, "+10:00"),
+      :date => "Monday"
 
 mike_cs61a_section2 = Section.create! :name => "Section 1100", 
       :course_id => cs61a.id, :empty => true,
-      :mentor => "Randy Johnson", :location => "Soda 341B", :start => Time.new(2008,6,21, 13,30,0, "+10:00")
+      :mentor => "Randy Johnson", :location => "Soda 341B", :start => Time.new(2008,6,21, 13,30,0, "+10:00"),
+      :date => "Tuesday"
 
 mike_cs61a_section3 = Section.create! :name => "Section 1200", 
       :course_id => cs61a.id, :empty => true,
-      :mentor => "George Patel", :location => "Soda 341C"
+      :mentor => "George Patel", :location => "Soda 341C",
+      :date => "Wednesday"
 
 mike_cs61b_section1 = Section.create! :name => "Section 2000", 
       :course_id => cs61b.id, :empty => true,
-      :mentor => "Arangatang", :location => ""
+      :mentor => "Arangatang", :location => "", 
+      :date => "Monday"
 
 mike_cs61b_section2 = Section.create! :name => "Section 2100", 
       :course_id => cs61b.id, :empty => true,
-      :mentor => "This My Name", :location => "Soda 341D"
+      :mentor => "This My Name", :location => "Soda 341D",
+      :date => "Tuesday"
 
 mike_cs61b_section3 = Section.create! :name => "Section 2200", 
       :course_id => cs61b.id, :empty => true,
-      :mentor => "Alex Zhang", :location => "Soda 341E"
+      :mentor => "Alex Zhang", :location => "Soda 341E",
+      :date => "Wednesday"
 
 Section.create! :name => "Section 1001", 
       :course_id => cs61a.id, :empty => true,
-      :mentor => "Mike Aboody", :location => "Soda 341F"
+      :mentor => "Mike Aboody", :location => "Soda 341F",
+      :date => "Monday"
 
 Section.create! :name => "Section 1002", 
       :course_id => cs61a.id, :empty => true,
-      :mentor => "Mike Aboody 8", :location => "Soda 341H"
+      :mentor => "Mike Aboody 8", :location => "Soda 341H",
+      :date => "Monday"
 
 # These actually don't save for some reason. -Allan
 # Removed direct relation between section and users. Use enrollment table. See section.rb
