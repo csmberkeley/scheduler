@@ -16,5 +16,7 @@
       to 
     <%= @section.end.strftime("%I:%M %p")%>
     <% end %>
+    <h3>Enrollment</h3>
+    <%= @section.getStudentCount %> out of <%= @section_limit %>
   </div>
 </div>

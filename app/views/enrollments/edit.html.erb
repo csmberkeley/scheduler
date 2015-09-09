@@ -13,13 +13,13 @@
       <tbody>
         <% @sections.each do |section| %>
           <tr>
-            <% if section.enrolls.size >= 5 %>
+            <% if section.enrolls.size >= @section_limit %>
               <td> <%= f.radio_button :section_id, section.name, :disabled => true %> </td>
             <% else %>
               <td> <%= f.radio_button :section_id, section.name %> </td>
             <% end %>
             <td> <%= section.name %> </td>
-            <td> <%= section.enrolls.size %> out of 5 </td>
+            <td> <%= section.enrolls.size %> out of <%= @section_limit%> </td>
             <td> <%= section.mentor %> </td>
             <td> <%= section.location %> </td>
           </tr>
