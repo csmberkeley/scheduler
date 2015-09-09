@@ -9,8 +9,8 @@
 admin = User.create! :name => "Admin",
 			 :email => "csmberkeley@gmail.com",
              :password => "el psy congroo",
-             :password_confirmation => "el psy congroo"
-
+             :password_confirmation => "el psy congroo",
+             :confirmed_at => "2015-09-09 02:50:19"
 admin.admin = true
 admin.save
 
