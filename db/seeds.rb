@@ -19,12 +19,14 @@ admin.save
 mike = User.create! :name => "Mike Aboody",
 			:email => "mikeaboody@berkeley.edu",
             :password => "mikespass",
-            :password_confirmation => "mikespass"
+            :password_confirmation => "mikespass",
+            :confirmed_at => "2015-09-09 02:50:19"
 
 mike2 = User.create! :name => "Mike Aboody2",
       :email => "mikeaboody@gmail.com",
             :password => "mikespass",
-            :password_confirmation => "mikespass"
+            :password_confirmation => "mikespass",
+            :confirmed_at => "2015-09-09 02:50:19"
 
 cs61a = Course.create! :course_name => "CS61A",
 			:semester => "Fall",
@@ -125,7 +127,8 @@ Want.create! :offer_id => mike_cs61a_offer.id,
 allan = User.create! :name => "Allan Tang",
             :email => "allan_tang@berkeley.edu",
             :password => "allanpass",
-            :password_confirmation => "allanpass"
+            :password_confirmation => "allanpass",
+            :confirmed_at => "2015-09-09 02:50:19"
 
 allan_cs61a_enr = Enroll.create! :user_id => allan.id,
                   :course_id => cs61a.id
@@ -135,7 +138,8 @@ allan.enrolls << allan_cs61a_enr
 allan2 = User.create! :name => "Allan Tang",
             :email => "allan_tang2@berkeley.edu",
             :password => "allanpass",
-            :password_confirmation => "allanpass"
+            :password_confirmation => "allanpass",
+            :confirmed_at => "2015-09-09 02:50:19"
 
 allan2_cs61a_enr = Enroll.create! :user_id => allan2.id,
                   :course_id => cs61a.id
@@ -145,7 +149,8 @@ allan2.enrolls << allan2_cs61a_enr
 allan3 = User.create! :name => "Allan Tang",
             :email => "allan_tang3@berkeley.edu",
             :password => "allanpass",
-            :password_confirmation => "allanpass"
+            :password_confirmation => "allanpass",
+            :confirmed_at => "2015-09-09 02:50:19"
 
 allan3_cs61a_enr = Enroll.create! :user_id => allan3.id,
                   :course_id => cs61a.id
@@ -155,7 +160,8 @@ allan3.enrolls << allan3_cs61a_enr
 allan4 = User.create! :name => "Allan Tang",
             :email => "allan_tang4@berkeley.edu",
             :password => "allanpass",
-            :password_confirmation => "allanpass"
+            :password_confirmation => "allanpass",
+            :confirmed_at => "2015-09-09 02:50:19"
 
 allan4_cs61a_enr = Enroll.create! :user_id => allan4.id,
                   :course_id => cs61a.id
@@ -165,7 +171,8 @@ allan4.enrolls << allan4_cs61a_enr
 allan5 = User.create! :name => "Allan Tang",
             :email => "allan_tang5@berkeley.edu",
             :password => "allanpass",
-            :password_confirmation => "allanpass"
+            :password_confirmation => "allanpass",
+            :confirmed_at => "2015-09-09 02:50:19"
 
 allan5_cs61a_enr = Enroll.create! :user_id => allan5.id,
                   :course_id => cs61a.id
