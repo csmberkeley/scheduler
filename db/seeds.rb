@@ -54,6 +54,10 @@ days.each do |d|
       :course_id => cs61a.id, :start => Time.new(2015,9,9, t,0,0, "+00:00"),:end => Time.new(2015,9,9, t+1,0,0, "+00:00"),
       :date => d, :mentor => "TBD", :location => "TBD"
             count += 1
+            Section.create! :name => "Section #{count}", 
+      :course_id => cs61a.id, :start => Time.new(2015,9,9, t,0,0, "+00:00"),:end => Time.new(2015,9,9, t+1,0,0, "+00:00"),
+      :date => d, :mentor => "TBD", :location => "TBD"
+            count += 1
       end 
 end
 
