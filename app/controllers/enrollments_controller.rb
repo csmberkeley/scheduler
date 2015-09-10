@@ -70,7 +70,7 @@ class EnrollmentsController < ApplicationController
   end
 
   def update
-    section = Section.find_by_name(params[:enroll][:section_id])
+    section = Section.find(params[:enroll][:section_id])
     enrollment = Enroll.find(params[:id])
 
     #check if section isn't full
