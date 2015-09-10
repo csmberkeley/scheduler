@@ -24,9 +24,27 @@
 							    <% end %>
 							  </div>
 							</div>
-							Where: <% @section.location %>
-							When: <%= @section.start.strftime("%I:%M %p")%> to <%= @section.end.strftime("%I:%M %p")%> on <%= @section.date%>
-							Mentor: <%= @section.mentor %>
+							<div>
+								Where: <% if section.location %>
+										<%=section.location %> 
+										<% else %>
+										TBD
+										<%end%>
+							</div>
+							<div>
+								When: <% if section.start and section.end and section.date%>
+											<%= section.start.strftime("%I:%M %p")%> to <%= section.end.strftime("%I:%M %p")%> on <%= section.date%>
+										<% else %>
+											TBD
+										<% end %>
+							</div>
+							<div>
+								Mentor: <% if section.mentor %> 
+											<%= section.mentor %>
+										<% else %>
+											TBD
+										<% end %>
+							</div>
 							<%= link_to "See Section", section_path(section), :class =>"btn btn-primary" %>
 							<%= link_to "Switch", make_switch_path(old_id: @enrollment.section_id, new_id: section.id, enroll_id: @enrollment.id), :class =>"btn btn-success" %>
 						  </div>
