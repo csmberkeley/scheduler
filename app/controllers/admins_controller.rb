@@ -5,6 +5,20 @@ class AdminsController < ApplicationController
     @courses = Course.all
   end
 
+  def new_student
+    @student = User.new
+  end
+
+  def create_student
+    @student = User.new(student_params)
+    @student.confirmed_at = "2015-09-09 02:50:19"
+    if @student.save!
+       flash[:notice] = "Created user #{@student.name}!"
+       redirect_to students_index_path
+    end
+   
+  end
+
   def new_student_to_section
     # list out all students that can add this section
     # need to filter out students who aren't enrolled in this class
@@ -50,6 +64,7 @@ class AdminsController < ApplicationController
     student = User.find(enroll.user_id)
     section = Section.find(enroll.section_id)
     enroll.section_id = nil
+    enroll.removeAllReplies
     if enroll.save!
       flash[:notice] = "Dropped #{student.name} from #{section.name}"
       redirect_to manage_sections_path
@@ -78,23 +93,13 @@ class AdminsController < ApplicationController
       @sections[course.course_name] = { "Monday" => [], "Tuesday" => [], "Wednesday" => [], 
         "Thursday" => [], "Friday" => [] }
       course.sections.each do | section |
-        number = section.name.split.last.to_i
-        day_of_the_week = number / 100 % 10
-        case day_of_the_week
-        when 0
-          @sections[course.course_name]["Monday"] << section
-        when 1
-          @sections[course.course_name]["Tuesday"] << section
-        when 2
-          @sections[course.course_name]["Wednesday"] << section
-        when 3
-          @sections[course.course_name]["Thursday"] << section
-        when 4
-          @sections[course.course_name]["Friday"] << section
-        else
-          next
-        end
+        @sections[course.course_name][section.getDay] << section
       end
+      @sections[course.course_name]["Monday"].sort!{|a,b| a.start && b.start ? a.start <=> b.start : a.start ? -1 : 1 }
+      @sections[course.course_name]["Tuesday"].sort!{|a,b| a.start && b.start ? a.start <=> b.start : a.start ? -1 : 1 }
+      @sections[course.course_name]["Wednesday"].sort!{|a,b| a.start && b.start ? a.start <=> b.start : a.start ? -1 : 1 }
+      @sections[course.course_name]["Thursday"].sort!{|a,b| a.start && b.start ? a.start <=> b.start : a.start ? -1 : 1 }
+      @sections[course.course_name]["Friday"].sort!{|a,b| a.start && b.start ? a.start <=> b.start : a.start ? -1 : 1 }
     end
   end
   def add_course
@@ -108,7 +113,7 @@ class AdminsController < ApplicationController
   private
 
   def student_params
-    params.require(:user).permit(:name, :nickname, :admin, :email)
+    params.require(:user).permit(:name, :nickname, :admin, :email, :password)
   end
 
 end

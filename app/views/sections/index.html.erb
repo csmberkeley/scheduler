@@ -1,10 +1,19 @@
-<div class = "container">
-	<h1>Sections</h1>
-	<hr>
-	<div class = "sections">
-		<% @sections.each do |section| %>
-			<h2><%=link_to section.name, section_path(section)%></h2>
-			<hr>
-		<% end %>
-	</div>
+<h1>Sections</h1>
+<hr>
+<div class = "">
+    <% @sections.each do |course, days| %>
+      <h3> <%= course %> </h3>
+      <% days.each do |day, sections| %>
+        <h4> <%= day %> </h4>
+        <% sections.each do |section| %>
+          <div class = "col-xs-12" style = "padding-top:10px">
+              <div class="panel panel-default">
+                <div class="panel-heading">
+                  <h4><%=link_to section.name, section_path(section)%></h4>
+                </div>
+              </div>
+          </div>
+        <% end %>
+      <% end %>
+    <% end %>
 </div>

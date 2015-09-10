@@ -1,3 +1,5 @@
+<%= link_to "Add Section", new_section_path, class: "btn btn-success", style: "margin-top: 30px;" %>
+
 <% @sections.keys.each do | key | %>
   <% course = @sections[key] %>
   <h2> <%= key %> </h2>

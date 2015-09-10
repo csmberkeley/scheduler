@@ -1,17 +1,15 @@
 class CoursesController < ApplicationController
+	before_filter :check_logged_in
 	before_filter :check_admin, :except => [:index, :show]
 	def index
-		@courses = []
-		current_user.enrolls.each do |e|
-			curr_course = Course.find(e.course_id)
-			@courses << curr_course
-		end
+		@courses = Course.all
 	end
 	def admin_index
 		@courses = Course.all
 	end
 	def show
 		@course = Course.find(params[:id])
+		@number_of_people = @course.enrolls.length
 	end
 	def new
 		@course = Course.new
@@ -32,6 +30,9 @@ class CoursesController < ApplicationController
 	end
 	def destroy
 		@course = Course.find(params[:id])
+		@course.enrolls.each do |e|
+			e.removeAllReplies
+		end
 		if @course.destroy
 			flash[:notice] = "#{@course.course_name} successfully deleted."
 		else
@@ -41,6 +42,6 @@ class CoursesController < ApplicationController
 	end
 	private
 	def course_params
-      params.require(:course).permit(:course_name, :semester, :year, :password)
+      params.require(:course).permit(:course_name, :semester, :year, :password, :instructor, :description)
     end
 end

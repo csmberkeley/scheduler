@@ -10,6 +10,7 @@ class EnrollmentsController < ApplicationController
 		@offer = @enrollment.offer
 		@compatable_offers = Offer.getCompatableOffers(@section)
 		@transactions = @enrollment.getTransactionsInReverseOrder
+    @section_limit = Setting.find_by(name: 'limit').value.to_i
 	end
 
   def new
@@ -52,17 +53,28 @@ class EnrollmentsController < ApplicationController
       return
     end
 
+    @sections = { "Monday" => [], "Tuesday" => [], "Wednesday" => [], 
+        "Thursday" => [], "Friday" => [] }
     course = Course.find(@enrollment.course_id)
-    @sections = course.sections
 
+    course.sections.each do | section |
+      @sections[section.getDay] << section
+    end
+    @sections["Monday"].sort!{|a,b| a.start && b.start ? a.start <=> b.start : a.start ? -1 : 1 }
+    @sections["Tuesday"].sort!{|a,b| a.start && b.start ? a.start <=> b.start : a.start ? -1 : 1 }
+    @sections["Wednesday"].sort!{|a,b| a.start && b.start ? a.start <=> b.start : a.start ? -1 : 1 }
+    @sections["Thursday"].sort!{|a,b| a.start && b.start ? a.start <=> b.start : a.start ? -1 : 1 }
+    @sections["Friday"].sort!{|a,b| a.start && b.start ? a.start <=> b.start : a.start ? -1 : 1 } 
+
+    @section_limit = Setting.find_by(name: 'limit').value.to_i
   end
 
   def update
-    section = Section.find_by_name(params[:enroll][:section_id])
+    section = Section.find(params[:enroll][:section_id])
     enrollment = Enroll.find(params[:id])
 
     #check if section isn't full
-    if section.enrolls.size >= 5
+    if section.enrolls.size >= Setting.find_by(name: 'limit').value.to_i
       flash[:notice] = "Current section you selected has been filled up."
       redirect_to edit_enrollment_path(params[:id])
       return
@@ -103,6 +115,7 @@ class EnrollmentsController < ApplicationController
     @enrollment = Enroll.find(params[:id])
     @course = Course.find(@enrollment.course_id)
     flash[:notice] = "You have been dropped from #{@course.course_name}"
+    @enrollment.removeAllReplies
     @enrollment.destroy
     redirect_to root_path
   end

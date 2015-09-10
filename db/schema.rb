@@ -26,6 +26,8 @@ ActiveRecord::Schema.define(version: 20150907024717) do
     t.string   "semester"
     t.integer  "year"
     t.string   "password"
+    t.string   "description"
+    t.string   "instructor"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -65,8 +67,9 @@ ActiveRecord::Schema.define(version: 20150907024717) do
 
   create_table "sections", force: true do |t|
     t.string   "name"
-    t.datetime "start"
-    t.datetime "end"
+    t.time     "start"
+    t.time     "end"
+    t.string   "date"
     t.boolean  "empty"
     t.integer  "course_id"
     t.string   "mentor"
@@ -77,7 +80,8 @@ ActiveRecord::Schema.define(version: 20150907024717) do
 
   create_table "settings", force: true do |t|
     t.string   "setting_name"
-    t.boolean  "enabled"
+    t.string   "setting_type"
+    t.string   "value"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "name"
@@ -96,6 +100,10 @@ ActiveRecord::Schema.define(version: 20150907024717) do
     t.string   "nickname"
     t.boolean  "admin"
     t.integer  "section_id"
+    t.string   "confirmation_token"
+    t.datetime "confirmed_at"
+    t.datetime "confirmation_sent_at"
+    t.string   "unconfirmed_email"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "email",                  default: "", null: false

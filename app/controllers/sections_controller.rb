@@ -1,38 +1,87 @@
 class SectionsController < ApplicationController
+	before_filter :check_logged_in
 	before_filter :check_make_switch, :only => [:make_switch]
 	before_filter :check_admin, :only => [:new, :create, :edit, :update, :destroy]
 	before_filter :check_drop, :only => [:drop]
 	def index
-		@sections = Section.all
+		@sections = {} 
+    Course.all.each do | course |
+      @sections[course.course_name] = { "Monday" => [], "Tuesday" => [], "Wednesday" => [], 
+        "Thursday" => [], "Friday" => [] }
+      course.sections.each do | section |
+        @sections[course.course_name][section.getDay] << section
+      end
+      @sections[course.course_name]["Monday"].sort!{|a,b| a.start && b.start ? a.start <=> b.start : a.start ? -1 : 1 }
+      @sections[course.course_name]["Tuesday"].sort!{|a,b| a.start && b.start ? a.start <=> b.start : a.start ? -1 : 1 }
+      @sections[course.course_name]["Wednesday"].sort!{|a,b| a.start && b.start ? a.start <=> b.start : a.start ? -1 : 1 }
+      @sections[course.course_name]["Thursday"].sort!{|a,b| a.start && b.start ? a.start <=> b.start : a.start ? -1 : 1 }
+      @sections[course.course_name]["Friday"].sort!{|a,b| a.start && b.start ? a.start <=> b.start : a.start ? -1 : 1 }
+    end
 	end
 
 	def show
 		@section = Section.find(params[:id]);
+		@section_limit = Setting.find_by(name: 'limit').value.to_i
 	end
+
+	def load_course_names
+    names = []
+    Course.all.each do |course|
+      names << course.course_name
+    end
+    return names
+  end
 
 	def new
 		@section = Section.new
+		@courses = load_course_names
 	end
 
 	def create
-		@section = Section.new
+		course = Course.find_by_course_name(params[:section][:course_id])
+		params[:section][:course_id] = course.id
+		section = Section.new(section_params)
+		if section.save
+			flash[:notice] = "Made #{section.name}"
+			redirect_to manage_sections_path
+		else
+			render :action => 'new'
+		end
 	end
 
 	def edit
 		@section = Section.find(params[:id])
+		@courses = load_course_names
+		@e_course = Course.find(@section.course_id)
 	end
 
 	def update
-		@section = Section.find(params[:id])
+		section = Section.find(params[:id])
+		course = Course.find_by_course_name(params[:section][:course_id])
+		params[:section][:course_id] = course.id
+		if section.update_attributes(section_params)
+			flash[:notice] = "Edited #{section.name}"
+			redirect_to manage_sections_path
+		else
+			render :action => 'edit'
+		end
+
 	end
 
 	def destroy
-		@section = Section.find(params[:id])
+		section = Section.find(params[:id])
+		section.enrolls do |e|
+			e.removeAllReplies
+		end
+		flash[:notice] = "Deleted #{section.name}"
+		section.destroy
+		redirect_to manage_sections_path
 	end
 
 	def drop
 		@enroll = Enroll.find(params[:enroll_id])
 		@section = Section.find(@enroll.section_id)
+		@enroll.removeAllReplies
 		@section.enrolls.delete(@enroll)
 		flash[:notice] = "You have successfully dropped " << @section.name
 		redirect_to root_path
@@ -57,7 +106,7 @@ class SectionsController < ApplicationController
 	def check_make_switch
 		notice = "Cannot make the switch at this time."
 		if params[:old_id] and Section.exists?(params[:old_id]) and params[:new_id] and Section.exists?(params[:new_id])
-			if Setting.find_by(name: 'section').enabled
+			if Setting.find_by(name: 'section').value == "1"
 	       		if params[:enroll_id] and Enroll.exists?(params[:enroll_id]) and check_enrollment(enroll = Enroll.find(params[:enroll_id]))
 	       			return
 	       		end
@@ -69,6 +118,7 @@ class SectionsController < ApplicationController
 		redirect_to root_path
 		
 	end
+
 	private
 	def check_drop
 		notice = "You do not have permission to access that page."
@@ -81,5 +131,10 @@ class SectionsController < ApplicationController
 		end
 		flash[:alert] = notice
 		redirect_to root_path
+	end
+
+	private
+	def section_params
+		params.require(:section).permit(:name, :start, :end, :empty, :course_id, :mentor, :location, :date)
 	end
 end

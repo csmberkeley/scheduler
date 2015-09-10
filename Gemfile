@@ -53,4 +53,3 @@ end
 gem "twitter-bootstrap-rails"
 gem 'devise'
 gem 'font-awesome-sass'
-gem 'devise_invitable'

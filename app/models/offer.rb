@@ -26,6 +26,14 @@ class Offer < ActiveRecord::Base
     end
     return false
   end
+  def getReplyFrom(enroll)
+    self.replies.each do |r|
+      if r.getEnrollmentOfReplier.id = enroll.id
+        return r
+      end
+    end
+    return nil
+  end
 
   def self.getCompatableOffers(current_section)
     compatable_offers = []
