@@ -3,7 +3,7 @@
     <div class="panel-body">
     <%= form_for @section do |f|%>
         <div class"form-group">
-            <%= f.hidden_field :id, @section.id %>
+            <%= hidden_field_tag :id, @section.id %>
         </div>
         <div class="form-group">
             <%= f.label :name %>

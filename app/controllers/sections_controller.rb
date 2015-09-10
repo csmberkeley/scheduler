@@ -56,7 +56,7 @@ class SectionsController < ApplicationController
 	end
 
 	def update
-		section = Section.find_by_name(params[:section][:id])
+		section = Section.find(params[:id])
 		course = Course.find_by_course_name(params[:section][:course_id])
 		params[:section][:course_id] = course.id
 		if section.update_attributes(section_params)
