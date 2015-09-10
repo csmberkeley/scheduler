@@ -16,6 +16,8 @@
         <tbody>
           <% @sections.each do | day, sections |%>
             <% sections.each do |section| %>
+              <%= f.hidden_field :id %>
+              <%= hidden_field_tag section.id%>
               <tr>
                 <% if section.enrolls.size >= @section_limit %>
                   <td> <%= f.radio_button :section_id, section.name, :disabled => true %> </td>
