@@ -42,7 +42,7 @@ cs61b = Course.create! :course_name => "CS61B",
 			:year => 2015,
 			:password => "pass",
                   :description => "Data Structures",
-                  :instructor => "Paul Hillfinger"
+                  :instructor => "Paul Hilfinger"
 
 #cs61a
 days = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"]
