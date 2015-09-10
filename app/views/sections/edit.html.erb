@@ -2,6 +2,9 @@
     <div class="panel-heading">Edit Section</div>
     <div class="panel-body">
     <%= form_for @section do |f|%>
+        <div class"form-group">
+            <%= hidden_field_tag :id, @section.id %>
+        </div>
         <div class="form-group">
             <%= f.label :name %>
             <%= f.text_field(:name, class:"form-control") %> 
