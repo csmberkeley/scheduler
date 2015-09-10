@@ -11,7 +11,14 @@ class Section < ActiveRecord::Base
   belongs_to :course
 
   def getOtherOpenSections()
-  	return Section.where(empty: true, course_id: self.course_id).where.not(id: self.id)
+    sections = Section.where(course_id: self.course_id).where.not(id: self.id)
+    open_sections = []
+    sections.each do |section|
+      if section.enrolls.size < Setting.find_by(name: 'limit').value.to_i
+        open_sections << section
+      end
+    end
+    return open_sections
   end
 
   def getAllOtherSections()
