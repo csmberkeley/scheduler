@@ -3,6 +3,14 @@ class AdminsController < ApplicationController
   def index
     @students = User.all
     @courses = Course.all
+    @total_course_enrollment = 0
+    @courses.each do |course|
+      @total_course_enrollment += course.enrolls.length
+    end
+    @total_section_enrollment = 0
+    Section.all.each do |section|
+      @total_section_enrollment += section.enrolls.length
+    end
   end
 
   def new_student
