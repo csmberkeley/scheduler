@@ -74,7 +74,7 @@
 					<%= link_to "View Offer", offer_path(@offer), :class => "btn btn-info" %>
 					<%= link_to "Cancel Offer", delete_offer_path(@enrollment), method: :delete, :class => "btn btn-danger"  %>
 				<% else %>
-					<div class="well well-sm">Create an offer an specify any sections you would want in return.</div>
+					<div class="well well-sm">Create an offer and specify any sections you would want in return.</div>
 					<label>No offer exists.</label><br>
 					<%= link_to "Create One?", new_offer_path(enroll_id: @enrollment.id), :class => "btn btn-success"%>
 				<% end %>
@@ -88,7 +88,7 @@
 			  <!-- Default panel contents -->
 			  <div class="panel-heading" style = "text-align:center"><h1 class="panel-title">See Other Available Trading Offers</h1></div>
 			  <div class="panel-body" style = "text-align:center; padding-bottom:0px">
-				<div class="well well-sm">You can leave a comment on any of these offers, or ask to switch.Note that only offers that want your section will appear.</div>
+				<div class="well well-sm">You can leave a comment on any of these offers, or ask to switch. Note that only offers that want your section will appear.</div>
 			    <% if @compatable_offers.length == 0 %>
 					<label>No offers exist that want your section.</label>
 				<% end %>
