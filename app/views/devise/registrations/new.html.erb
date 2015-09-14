@@ -1,40 +1,42 @@
-<div id="loginModal" class="modal show" tabindex="-1" role="dialog" aria-hidden="true">
+<div id="loginModal" class="modal show" style="position:relative; overflow:auto;">
   <div class="modal-dialog">
+  
     <div class="modal-content">
+        <div class="modal-header">
+          <%= link_to (image_tag "new-csm-logo.png", class: "img-responsive"),  new_user_session_path%>
+        </div>
         <div class="modal-body">
-          <h2>Sign up</h2>
+          
 
           <%= form_for(resource, as: resource_name, url: registration_path(resource_name), :html => {:class => "form center-block"}) do |f| %>
             <%= devise_error_messages! %>
 
             <div class = "form-group">
               <div class="field">
-                <%= f.label :name %><br />
-                <%= f.text_field :name, autofocus: true, :class => "form-control input-lg" %>
+                <%= f.text_field :name, autofocus: true, placeholder: "Name", :class => "form-control input-lg" %>
               </div>
             </div>
 
             <div class = "form-group">
               <div class="field">
-                <%= f.label :email %><br />
-                <%= f.email_field :email, autofocus: true, :class => "form-control input-lg" %>
+                <%= f.email_field :email, autofocus: true, placeholder:"Email", :class => "form-control input-lg" %>
               </div>
             </div>
 
             <div class = "form-group">
               <div class="field">
-                <%= f.label :password %>
-                <% if @minimum_password_length %>
-                <em>(<%= @minimum_password_length %> characters minimum)</em>
-                <% end %><br />
-                <%= f.password_field :password, autocomplete: "off", :class => "form-control input-lg" %>
+                <% if @minimum_password_length 
+                 @text = "(#{@minimum_password_length} characters minimum)"
+               else
+                  @text = ""
+                 end %>
+                <%= f.password_field :password, autocomplete: "off", placeholder: "Password " + @text, :class => "form-control input-lg" %>
               </div>
             </div>
 
             <div class = "form-group">
-              <div class="field">
-                <%= f.label :password_confirmation %><br />
-                <%= f.password_field :password_confirmation, autocomplete: "off", :class => "form-control input-lg" %>
+              <div class="field">              
+                <%= f.password_field :password_confirmation, autocomplete: "off", placeholder: "Password confirmation", :class => "form-control input-lg" %>
               </div>
             </div>
 
@@ -44,7 +46,7 @@
               </div>
             </div>
           <% end %>
-          <%= render "devise/shared/links" %>
+          
         </div>
 
         

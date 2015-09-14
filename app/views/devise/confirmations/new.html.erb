@@ -1,10 +1,8 @@
-<div id="loginModal" class="modal show" tabindex="-1" role="dialog" aria-hidden="true">
+<div id="loginModal" class="modal show" style="position:relative; overflow:auto;">
   <div class="modal-dialog">
     <div class="modal-content">
     <div class="modal-header">
-        <img src="http://i.imgur.com/CMg4rGP.jpg" style=" display: block;
-margin-left: auto;
-margin-right: auto;">
+        <%= link_to (image_tag "new-csm-logo.png", class: "img-responsive"),  new_user_session_path%>
         <% if notice %>
           <div class="alert alert-info" style="margin-bottom:0" role="alert"><%= notice %></div>
         <% end %>
@@ -22,8 +20,8 @@ margin-right: auto;">
 
         <div class = "form-group">
           <div class="field">
-            <%= f.label :email %><br />
-            <%= f.email_field :email, autofocus: true, value: (resource.pending_reconfirmation? ? resource.unconfirmed_email : resource.email), :class => "form-control input-lg" %> 
+            
+            <%= f.email_field :email, placeholder: "Email", autofocus: true, value: (resource.pending_reconfirmation? ? resource.unconfirmed_email : resource.email), :class => "form-control input-lg" %> 
           </div>
         </div>
 
