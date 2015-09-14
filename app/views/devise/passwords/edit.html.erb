@@ -39,9 +39,9 @@
 
           <div class = "form-group">
             <div class="actions">
-              <%= f.submit "Change my password", :class => "form-control" %>
+              <%= f.submit "Change my password", :class => "btn btn-lg btn-block btn-warning" %>
             </div>
-            <%= render "devise/shared/links" %>
+            <%= link_to "Didn't receive confirmation instructions?", new_confirmation_path(resource_name) %><br />
           </div>
         <% end %>
       </div>
