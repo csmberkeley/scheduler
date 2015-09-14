@@ -6,7 +6,7 @@
   <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
   <%= csrf_meta_tags %>
 </head>
-<body <% if not current_user %> style="background-size:cover; background-image:url('http://www.cs.berkeley.edu/~sequin/soda/NewPhotos/SodaHallS.JPG')"<%end%>>
+<body <% if not current_user %> style="background-size:cover; background-image:url(<%= asset_path 'soda_hall.jpg'%>)"<%end%>>
 
   <% if false %>
     <nav class="navbar navbar-default navbar-fixed-top">
