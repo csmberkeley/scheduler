@@ -1,14 +1,15 @@
 <strong> <%= section.name %> </strong>
-<%= link_to "Edit", edit_section_path(section) %>
-<%= link_to "Delete", section_path(section), :method => :delete %> <br>
-<%= section.mentor %> <br>
-<%= section.location %> <br>
+<%= link_to "<i class='fa fa-pencil'></i>".html_safe, edit_section_path(section) %>
+<%= link_to "<i class='fa fa-trash'></i>".html_safe, section_path(section), :method => :delete,data: { confirm: "Are you sure you want to delete the section?"} %> <br>
+<i class="fa fa-user"></i> <%= section.mentor %> <br>
+<i class="fa fa-map-marker"></i>  <%= section.location %> <br>
 <% if section.start and section.end %>
-      <%= section.start.strftime("%I:%M %p") %>-<%= section.end.strftime("%I:%M %p") %> <br>
-     <% end %>
+     <i class="fa fa-clock-o"></i> <%= section.start.strftime("%I:%M %p") %>-<%= section.end.strftime("%I:%M %p") %> <br>
+<% end %>
 
-<strong> Students </strong> <%= link_to "Add", new_student_to_section_path(section) %><br>
+<strong> Students </strong> <%= link_to "<i class='fa fa-plus'></i>".html_safe, new_student_to_section_path(section) %><br>
 <% section.enrolls.each do |enroll| %>
+  <%= link_to "<i class='fa fa-times'></i>".html_safe, drop_student_from_section_path(enroll), :method => :post,data: { confirm: "Are you sure you want to drop the student?"}%> 
   <%= User.find(enroll.user.id).name %>
-  <%= link_to "Drop", drop_student_from_section_path(enroll), :method => :post %> <br>
+<br>
 <% end %>
