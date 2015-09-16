@@ -8,7 +8,9 @@
 			Want to switch? Check to add a reply! <%= check_box_tag "switch" %>
 		<% end %>
 		<%= hidden_field_tag :offer_id, :value => offer.id %>
-		<%= hidden_field_tag :enroll_id, :value => enroll.id %>
+		<% if enroll %>
+			<%= hidden_field_tag :enroll_id, :value => enroll.id %>
+		<% end %>
 	</div>
 	<div class = "actions" style = "margin-top: 10px">
 		<%= button_tag(type: 'submit', class: "btn btn-success") do %>
