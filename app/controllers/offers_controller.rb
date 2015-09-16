@@ -125,7 +125,7 @@ class OffersController < ApplicationController
 		section = Section.find(offer.section_id)
 		course = Course.find(section.course_id)
 		enroll = current_user.getEnrollmentInCourse(course)
-		if check_enrollment(enroll)
+		if check_enrollment(enroll) or current_user.admin
 			return
 		end
   	end
