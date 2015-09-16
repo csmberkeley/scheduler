@@ -26,6 +26,10 @@
         <%= f.label :year %>
         <%= f.number_field(:year, class:"form-control") %> 
         </div>
+        <div class="form-group">
+        <%= f.label :limit %>
+        <%= f.number_field(:limit, class:"form-control", required: true) %> 
+        </div>
 
         <%= f.submit class: "btn btn-default" %>
     <% end %>

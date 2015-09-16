@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150826043420) do
+ActiveRecord::Schema.define(version: 20150916025631) do
 
   create_table "comments", force: true do |t|
     t.integer  "offer_id"
@@ -30,6 +30,7 @@ ActiveRecord::Schema.define(version: 20150826043420) do
     t.string   "instructor"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "limit"
   end
 
   create_table "enrolls", force: true do |t|
