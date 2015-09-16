@@ -117,7 +117,13 @@ class AdminsController < ApplicationController
     flash[:notice] = "Added #{@user.name} to #{@course.course_name}" 
     redirect_to students_index_path
   end
-
+  def send_email
+    Section.all.each do |section|
+      UserMailer.section_email(section).deliver
+    end
+    flash[:notice] = "emails sent"
+    redirect_to root_path
+  end
   private
 
   def student_params

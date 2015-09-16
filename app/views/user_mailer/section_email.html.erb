@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+  </head>
+  <body>
+    <h1>Section Information</h1>
+    Hello <%= @user.name%>! Here is your section information:
+    <ul>
+    <li><b>Section:</b> <%= @section.name %></li>
+    <li><b>Mentor:</b> <%= @section.mentor %> </li>
+    <li><b>Location:</b> <%= @section.location %> </li>
+    <li><b>Time:</b> <%= @section.start.strftime("%I:%M %p") %>-<%= @section.end.strftime("%I:%M %p") %> </li>
+    </ul>
+  </body>
+</html>

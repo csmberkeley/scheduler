@@ -38,6 +38,7 @@ Rails.application.routes.draw do
   patch "/admin/students/:id" => "admins#update_student", as: :admin_update_student
   post "/admin/students/add_course/:user_id" => "admins#add_course", as: :admin_add_course
   get "/admin/courses" => "courses#admin_index", as: :admin_course_index
+  post "/admin/send_email" => "admins#send_email", as: :admin_send_email
   #resources :settings, only:[:index, :update]
   get "/settings" => "settings#index",  as: :settings
   post "/settings" => "settings#update"
