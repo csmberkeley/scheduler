@@ -2,10 +2,10 @@ class CoursesController < ApplicationController
 	before_filter :check_logged_in
 	before_filter :check_admin, :except => [:index, :show]
 	def index
-		@courses = Course.all
+		@courses = Course.all.order(course_name: :asc) 
 	end
 	def admin_index
-		@courses = Course.all
+		@courses = Course.all.order(course_name: :asc) 
 	end
 	def show
 		@course = Course.find(params[:id])

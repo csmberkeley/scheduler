@@ -21,7 +21,7 @@ class SectionsController < ApplicationController
 
 	def show
 		@section = Section.find(params[:id]);
-		@section_limit = Setting.find_by(name: 'limit').value.to_i
+		@section_limit = @section.getLimit()
 	end
 
 	def load_course_names
@@ -135,6 +135,6 @@ class SectionsController < ApplicationController
 
 	private
 	def section_params
-		params.require(:section).permit(:name, :start, :end, :empty, :course_id, :mentor, :location, :date)
+		params.require(:section).permit(:name, :start, :end, :empty, :course_id, :mentor, :location, :date, :limit)
 	end
 end

@@ -6,7 +6,7 @@ class Enroll < ActiveRecord::Base
   has_one :offer, dependent: :destroy
 
   def enrollUserInSection(section)
-  	if section.enrolls.length >= Setting.find_by(name: 'limit').value.to_i
+  	if section.enrolls.length >= section.getLimit()
   		return false
   	else
       section.enrolls << self

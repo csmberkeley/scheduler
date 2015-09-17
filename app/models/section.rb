@@ -14,7 +14,7 @@ class Section < ActiveRecord::Base
     sections = Section.where(course_id: self.course_id).where.not(id: self.id)
     open_sections = []
     sections.each do |section|
-      if section.enrolls.size < Setting.find_by(name: 'limit').value.to_i
+      if section.enrolls.size < section.getLimit()
         open_sections << section
       end
     end
@@ -29,6 +29,16 @@ class Section < ActiveRecord::Base
   end
   def getDay()
       return self.date
+  end
+  def getLimit()
+    limit = 5
+    if self.limit
+      limit = self.limit
+    else
+      course = Course.find(self.course_id)
+      limit = course.limit
+    end
+    return limit
   end
 
 end

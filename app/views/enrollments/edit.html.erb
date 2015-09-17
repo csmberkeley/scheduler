@@ -16,8 +16,9 @@
         <tbody>
           <% @sections.each do | day, sections |%>
             <% sections.each do |section| %>
+              <% section_limit = section.getLimit() %>
               <tr>
-                <% if section.enrolls.size >= @section_limit %>
+                <% if section.enrolls.size >= section_limit %>
                   <td> <%= f.radio_button :section_id, section.id, :disabled => true %> </td>
                 <% else %>
                   <td> <%= f.radio_button :section_id, section.id %> </td>
@@ -27,7 +28,7 @@
                 <td> <% if section.start and section.end %>
                   <%= section.start.strftime("%I:%M %p") %>-<%= section.end.strftime("%I:%M %p") %>
                   <% end %> </td>
-                <td> <%= section.enrolls.size %> out of <%= @section_limit%> </td>
+                <td> <%= section.enrolls.size %> out of <%= section_limit %> </td>
                 <td> <%= section.mentor %> </td>
                 <td> <%= section.location %> </td>
               </tr>

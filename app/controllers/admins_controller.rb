@@ -96,8 +96,9 @@ class AdminsController < ApplicationController
 
   def manage_sections
     # final product
-    @sections = {} 
-    Course.all.each do | course |
+    @sections = {}
+    courses = Course.all.order(course_name: :asc) 
+    courses.each do | course |
       @sections[course.course_name] = { "Monday" => [], "Tuesday" => [], "Wednesday" => [], 
         "Thursday" => [], "Friday" => [] }
       course.sections.each do | section |
