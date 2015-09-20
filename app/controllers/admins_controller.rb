@@ -121,6 +121,7 @@ class AdminsController < ApplicationController
   def send_email
     Section.all.each do |section|
       UserMailer.section_email(section).deliver
+      UserMailer.mentor_email(section).deliver
     end
     flash[:notice] = "emails sent"
     redirect_to root_path

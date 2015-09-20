@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+  </head>
+  <body>
+    <h1>Your Section</h1>
+    Hello <%= @section.mentor %>! Here's some information about your section:
+
+    <h3><%= @section.name %></h3>
+    <ul>
+    <li><b>Location:</b> <%= @section.location %> </li>
+    <li><b>Time:</b> <%= @section.start.strftime("%I:%M %p") %>-<%= @section.end.strftime("%I:%M %p") %> </li>
+    </ul>
+    <h3>Your students</h3>
+    <ul>
+      <% @students.each do |student| %>
+        <li><%= student.name %> (<%= mail_to student.email%>)</li>
+      <% end %>
+    </ul>
+    Best, <br>
+    CSM
+  </body>
+</html>
