@@ -135,6 +135,6 @@ class SectionsController < ApplicationController
 
 	private
 	def section_params
-		params.require(:section).permit(:name, :start, :end, :empty, :course_id, :mentor, :location, :date, :limit)
+		params.require(:section).permit(:name, :start, :end, :empty, :course_id, :mentor, :location, :date, :limit, :mentor_email)
 	end
 end

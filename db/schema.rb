@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150916034137) do
+ActiveRecord::Schema.define(version: 20150920193010) do
 
   create_table "comments", force: true do |t|
     t.integer  "offer_id"
@@ -78,6 +78,7 @@ ActiveRecord::Schema.define(version: 20150916034137) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "limit"
+    t.string   "mentor_email"
   end
 
   create_table "settings", force: true do |t|
