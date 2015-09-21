@@ -8,7 +8,7 @@
     Hello! Here is your section information:
     <ul>
     <li><b>Section:</b> <%= @section.name %></li>
-    <li><b>Mentor:</b> <%= @section.mentor %> </li>
+    <li><b>Mentor:</b> <%= @section.mentor %> (<%= mail_to @section.mentor_email %>) </li>
     <li><b>Location:</b> <%= @section.location %> </li>
     <li><b>Time:</b> <%= @section.start.strftime("%I:%M %p") %>-<%= @section.end.strftime("%I:%M %p") %> </li>
     </ul>

@@ -2,7 +2,7 @@ Section Information
 ============================
 Hello! Here is your section information:
 Section: <%= @section.name %>
-Mentor: <%= @section.mentor %>
+Mentor: <%= @section.mentor %> (<%= mail_to @section.mentor_email %>)
 Location: <%= @section.location %>
 Time: <%= @section.start.strftime("%I:%M %p") %>-<%= @section.end.strftime("%I:%M %p") %>
 
