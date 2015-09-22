@@ -3,6 +3,7 @@ class UserMailer < ActionMailer::Base
   def section_email(section) 
     recipients = []
     @section = section
+    @course = Course.find(@section.course_id)
     Enroll.where(section_id: section.id).each do |enroll| 
       @user = User.find(enroll.user_id)
       recipients << @user.email
@@ -17,6 +18,7 @@ class UserMailer < ActionMailer::Base
     Enroll.where(section_id: section.id).each do |enroll| 
       @students << User.find(enroll.user_id)       
     end
+    @course = Course.find(@section.course_id)
     if @students.size > 0
       mail(to: @section.mentor_email, subject: "[CSM] About Your Section")
     end

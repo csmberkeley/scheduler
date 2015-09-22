@@ -9,14 +9,10 @@ Rails.application.configure do
   config.action_mailer.delivery_method = :smtp
   config.action_mailer.perform_deliveries = true
 
+  #Use mailcatcher
   config.action_mailer.smtp_settings = {
-    :enable_starttls_auto => true,
-    :address => "smtp.sendgrid.net",
-    :port => 587,
-    :domain => "sendgrid.com",
-    :authentication => :login,
-    :user_name => "zhanger",
-    :password => "4JGbd!HYa{L[9J`H"
+    :address => "localhost",
+    :port => 1025,
   }  
 
   config.cache_classes = false

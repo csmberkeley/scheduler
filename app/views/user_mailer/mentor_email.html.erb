@@ -9,6 +9,7 @@
 
     <h3><%= @section.name %></h3>
     <ul>
+    <li><b>Course:</b> <%= @course.course_name %></li>
     <li><b>Location:</b> <%= @section.location %> </li>
     <li><b>Time:</b> <%= @section.start.strftime("%I:%M %p") %>-<%= @section.end.strftime("%I:%M %p") %> </li>
     </ul>
