@@ -20,7 +20,9 @@ class Section < ActiveRecord::Base
     end
     return open_sections
   end
-
+  def isFull()
+    return self.enrolls.size >= self.getLimit()
+  end
   def getAllOtherSections()
     return Section.where(course_id: self.course_id).where.not(id: self.id)
   end
