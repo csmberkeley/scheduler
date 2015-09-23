@@ -1,19 +1,53 @@
-<h1>Sections</h1>
-<hr>
-<div class = "">
-    <% @sections.each do |course, days| %>
-      <h3> <%= course %> </h3>
-      <% days.each do |day, sections| %>
-        <h4> <%= day %> </h4>
-        <% sections.each do |section| %>
-          <div class = "col-xs-12" style = "padding-top:10px">
-              <div class="panel panel-default">
-                <div class="panel-heading">
-                  <h4><%=link_to section.name, section_path(section)%></h4>
-                </div>
-              </div>
-          </div>
-        <% end %>
+
+
+<% @sections.keys.each do | key | %>
+  <% course = @sections[key] %>
+  <h2> <%= key %> </h2>
+
+  <table class="table_sections table">
+    <thead>
+    </thead>
+    <tbody>
+    <tr>
+      <td> <h3> Monday </h3> </td>  
+      <% course["Monday"].each do |section| %>
+        <td> 
+          <%= render partial: "section.html", locals: {section: section} %>
+        </td>
       <% end %>
-    <% end %>
-</div>
+    </tr>
+    <tr>
+      <td> <h3> Tuesday </h3>  </td>  
+      <% course["Tuesday"].each do | section | %>   
+        <td>
+          <%= render partial: "section.html", locals: {section: section} %> 
+        </td>
+      <% end %>
+    </tr>
+    <tr>
+      <td> <h3> Wednesday </h3>  </td>  
+      <% course["Wednesday"].each do | section | %>
+        <td>
+          <%= render partial: "section.html", locals: {section: section} %> 
+        </td>
+      <% end %>
+    </tr>
+    <tr>
+      <td> <h3> Thursday </h3>  </td>  
+      <% course["Thursday"].each do | section | %>
+        <td>
+          <%= render partial: "section.html", locals: {section: section} %> 
+        </td>
+      <% end %>
+    </tr>
+    <tr>
+      <td> <h3> Friday </h3> </td>  
+      <% course["Friday"].each do | section | %> 
+        <td>
+          <%= render partial: "section.html", locals: {section: section} %> 
+        </td>
+      <% end %>
+    </tr>
+    </tbody>
+  </table>
+<% end %>

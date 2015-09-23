@@ -32,13 +32,16 @@ class Section < ActiveRecord::Base
   end
   def getLimit()
     limit = 5
+    course = Course.find(self.course_id)
+    setting = Setting.find_by(name:"limit")
     if self.limit
-      limit = self.limit
+      return self.limit
+    elsif course and course.limit
+      return course.limit
+    elsif setting and setting.value
+      return setting.value.to_i
     else
-      course = Course.find(self.course_id)
-      limit = course.limit
-    end
     return limit
+    end
   end
-
 end

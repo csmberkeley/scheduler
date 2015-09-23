@@ -1,0 +1,9 @@
+<strong> <%= section.name %> </strong> <br>
+
+<i class="fa fa-user"></i> <%= section.mentor %> <br>
+<i class="fa fa-map-marker"></i>  <%= section.location %> <br>
+<% if section.start and section.end %>
+     <i class="fa fa-clock-o"></i> <%= section.start.strftime("%I:%M %p") %>-<%= section.end.strftime("%I:%M %p") %> <br>
+<% end %>
+
+<%= section.enrolls.size %>/<%= section.getLimit %> enrolled
