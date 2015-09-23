@@ -3,11 +3,21 @@
 <div class = "courses">
 	<% @courses.each do |course| %>
 		<div class = "col-xs-12" style = "padding-top:10px">
-			<div class="panel panel-default">
-			  <div class="panel-heading">
-			  	<h4><%=link_to "#{course.course_name} #{course.semester} #{course.year}" , course_path(course)%></h4>
-			  </div>
-			</div>
+        <div class="panel panel-primary">
+          <div class="panel-heading">
+            <h3 class="panel-title"><%= course.course_name %></h3>
+          </div>
+          <div class="panel-body">
+            <h3 style="margin-top:0">Term</h3>
+            <%= course.semester %> <%= course.year %>
+            <h3 >Instructor</h3>
+             <%= course.instructor %>
+            <h3>Course Description</h3>
+             <%= course.description %>
+            <h3>Current Enrollment</h3>
+             <%= course.enrolls.length %> <%= "person".pluralize(course.enrolls.length) %>
+          </div>
+        </div>
 		</div>
 	<% end %>
 </div>
