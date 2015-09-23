@@ -41,6 +41,11 @@
           <% if not enroll.section_id.nil? %>
             <% curr_section = Section.find(enroll.section_id) %>
             <h4>  <%= link_to curr_section.name, section_path(curr_section) %></h4>
+            <ul class="list-unstyled">        
+            <li><b>Mentor:</b> <%= curr_section.mentor %> (<%= mail_to curr_section.mentor_email %>) </li>
+            <li><b>Location:</b> <%= curr_section.location %> </li>
+            <li><b>Time:</b> <%=curr_section.date %> <%= curr_section.start.strftime("%I:%M %p") %>-<%= curr_section.end.strftime("%I:%M %p") %> </li>
+            </ul>
             <%= link_to '<i class="fa fa-exchange"></i> Switch Sections'.html_safe, switch_section_path(enroll), class: "btn btn-warning" %>
             <%= link_to '<i class="fa fa-trash-o"></i> Drop Section'.html_safe, drop_section_path(enroll_id: enroll.id), class: "btn btn-danger", data: { confirm: "Are you sure you want to drop #{curr_section.name}?"}%>
           <% else %>
