@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+  </head>
+  <body>
+    <p>Hi <%= @student.name%>,
+    <p>
+    Thanks for your interest in CSM! We are letting you know that you've been added to a section. Details below.
+    <ul>
+    <li><b>Course:</b> <%= @course.course_name %></li>
+    <li><b>Section:</b> <%= @section.name %></li>
+    <li><b>Mentor:</b> <%= @section.mentor %> (<%= mail_to @section.mentor_email %>) </li>
+    <li><b>Location:</b> <%= @section.location %> </li>
+    <li><b>Time:</b> <%=@section.date %> <%= @section.start.strftime("%I:%M %p") %>-<%= @section.end.strftime("%I:%M %p") %> </li>
+    </ul>
+    Be sure that you are enrolled on either our <a href="https://piazza.com/berkeley/fall2015/csm61a">61A Piazza</a> or our <a href="https://piazza.com/berkeley/fall2015/csm61b">61B Piazza</a> for the most up to date information.
+    If you believe this is mistake, please feel free to email us at <a href="mailto:csmberkeley@gmail.com">csmberkeley@gmail.com</a>.
+    <p>
+    Best,<br>
+    CSM
+  </body>
+</html>

@@ -23,4 +23,16 @@ class UserMailer < ActionMailer::Base
       mail(to: @section.mentor_email, subject: "[CSM] About Your Section")
     end
   end
+  def drop_email(student, section)
+    @student = student
+    @section = section
+    @course = Course.find(@section.course_id)
+    mail(to: @student.email, subject: "[CSM] You have been dropped from your section")
+  end
+  def add_email(student, section)
+    @student = student
+    @section = section
+    @course = Course.find(@section.course_id)
+    mail(to: @student.email, subject: "[CSM] You have been added to " + @section.name)
+  end
 end

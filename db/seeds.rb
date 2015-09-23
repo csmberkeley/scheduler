@@ -79,3 +79,5 @@ Setting.create! :setting_name => "Enable Comments", :setting_type => "boolean", 
 Setting.create! :setting_name => "Enable Section Switching", :setting_type => "boolean", :value => "1", :name => "section"
 
 Setting.create! :setting_name => "Section Limit", :setting_type => "int", :value => "5", :name => "limit"
+
+Setting.create! :setting_name => "Silent Add/Drop", :setting_type => "boolean", :value => "0", :name => "silent"

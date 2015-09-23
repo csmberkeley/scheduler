@@ -54,6 +54,9 @@ class AdminsController < ApplicationController
           enroll.section_id = section.id
           enroll.save
           flash[:notice] = "Added student #{user.name} to #{section.name}"
+          if Setting.find_by(name: 'silent').value == "0"
+            UserMailer.add_email(user, section).deliver
+          end
           redirect_to manage_sections_path
           return
         else
@@ -61,9 +64,9 @@ class AdminsController < ApplicationController
           redirect_to manage_sections_path
         end
       end
-    rescue
-      flash[:alert] = "Error in enrolling student."
-      redirect_to manage_sections_path
+    #rescue
+    #  flash[:alert] = "Error in enrolling student."
+    #  redirect_to manage_sections_path
     end
   end
 
@@ -75,6 +78,9 @@ class AdminsController < ApplicationController
     enroll.removeAllReplies
     if enroll.save!
       flash[:notice] = "Dropped #{student.name} from #{section.name}"
+      if Setting.find_by(name: 'silent').value == "0"
+        UserMailer.drop_email(student, section).deliver
+      end
       redirect_to manage_sections_path
     else
       flash[:alert] = "Could not drop #{student.name} from #{section.name}"
