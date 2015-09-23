@@ -1,7 +1,7 @@
 <strong> <%= section.name %> </strong> <br>
 
 <i class="fa fa-user"></i> <%= section.mentor %> <br>
-<i class="fa fa-envelope"></i> <%= mail_to section.mentor_email %><br>
+<i class="fa fa-envelope"></i> <%= mail_to(section.mentor_email, (section.mentor_email ? section.mentor_email.truncate(23)  : "")) %><br>
 <i class="fa fa-map-marker"></i>  <%= section.location %> <br>
 <% if section.start and section.end %>
      <i class="fa fa-clock-o"></i> <%= section.start.strftime("%I:%M %p") %>-<%= section.end.strftime("%I:%M %p") %> <br>
