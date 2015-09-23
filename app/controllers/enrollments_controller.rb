@@ -68,6 +68,11 @@ class EnrollmentsController < ApplicationController
   end
 
   def update
+    if not params[:enroll]
+      flash[:notice] = "You need to select a section"
+      redirect_to edit_enrollment_path(params[:id])
+      return
+    end
     section = Section.find(params[:enroll][:section_id])
     enrollment = Enroll.find(params[:id])
 
