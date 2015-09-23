@@ -3,13 +3,16 @@
 <%= link_to "<i class='fa fa-trash'></i>".html_safe, section_path(section), :method => :delete,data: { confirm: "Are you sure you want to delete the section?"} %> <br>
 <i class="fa fa-user"></i> <%= section.mentor %> <br>
 <i class="fa fa-map-marker"></i>  <%= section.location %> <br>
+<i class="fa fa-envelope"></i> <%= mail_to section.mentor_email %><br>
 <% if section.start and section.end %>
      <i class="fa fa-clock-o"></i> <%= section.start.strftime("%I:%M %p") %>-<%= section.end.strftime("%I:%M %p") %> <br>
 <% end %>
 
 <strong> Students </strong> <%= link_to "<i class='fa fa-plus'></i>".html_safe, new_student_to_section_path(section) %><br>
+<%= section.enrolls.size %>/<%= section.getLimit %> enrolled <br>
 <% section.enrolls.each do |enroll| %>
   <%= link_to "<i class='fa fa-times'></i>".html_safe, drop_student_from_section_path(enroll), :method => :post,data: { confirm: "Are you sure you want to drop the student?"}%> 
   <%= User.find(enroll.user.id).name %>
 <br>
 <% end %>
+
