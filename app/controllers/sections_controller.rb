@@ -5,17 +5,19 @@ class SectionsController < ApplicationController
 	before_filter :check_drop, :only => [:drop]
 	def index
 		@sections = {} 
-    Course.all.each do | course |
+    courses = Course.all.order(course_name: :asc) 
+    courses.each do | course |
+    
       @sections[course.course_name] = { "Monday" => [], "Tuesday" => [], "Wednesday" => [], 
         "Thursday" => [], "Friday" => [] }
       course.sections.each do | section |
         @sections[course.course_name][section.getDay] << section
       end
-      @sections[course.course_name]["Monday"].sort!{|a,b| a.start && b.start ? a.start <=> b.start : a.start ? -1 : 1 }
-      @sections[course.course_name]["Tuesday"].sort!{|a,b| a.start && b.start ? a.start <=> b.start : a.start ? -1 : 1 }
-      @sections[course.course_name]["Wednesday"].sort!{|a,b| a.start && b.start ? a.start <=> b.start : a.start ? -1 : 1 }
-      @sections[course.course_name]["Thursday"].sort!{|a,b| a.start && b.start ? a.start <=> b.start : a.start ? -1 : 1 }
-      @sections[course.course_name]["Friday"].sort!{|a,b| a.start && b.start ? a.start <=> b.start : a.start ? -1 : 1 }
+      @sections[course.course_name]["Monday"].sort!{|a,b| a.start && b.start ? [a.start, a.name] <=> [b.start, b.name] : a.start ? -1 : 1 }
+      @sections[course.course_name]["Tuesday"].sort!{|a,b| a.start && b.start ? [a.start, a.name] <=> [b.start, b.name] : a.start ? -1 : 1 }
+      @sections[course.course_name]["Wednesday"].sort!{|a,b| a.start && b.start ? [a.start, a.name] <=> [b.start, b.name] : a.start ? -1 : 1 }
+      @sections[course.course_name]["Thursday"].sort!{|a,b| a.start && b.start ? [a.start, a.name] <=> [b.start, b.name] : a.start ? -1 : 1 }
+      @sections[course.course_name]["Friday"].sort!{|a,b| a.start && b.start ? [a.start, a.name] <=> [b.start, b.name] : a.start ? -1 : 1 }
     end
 	end
 
