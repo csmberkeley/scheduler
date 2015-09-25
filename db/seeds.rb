@@ -8,8 +8,8 @@
 
 admin = User.create! :name => "Admin",
 			 :email => "csmberkeley@gmail.com",
-             :password => "el psy congroo",
-             :password_confirmation => "el psy congroo",
+             :password => ENV["ADMIN_PASS"],
+             :password_confirmation => ENV["ADMIN_PASS"],
              :confirmed_at => "2015-09-09 02:50:19"
 admin.admin = true
 admin.save
@@ -18,15 +18,15 @@ admin.save
 
 allan = User.create! :name => "Allan Tang",
             :email => "allan_tang@berkeley.edu",
-            :password => "allanpass",
-            :password_confirmation => "allanpass",
+            :password => ENV["USER_ALLAN_PASS"],
+            :password_confirmation => ENV["USER_ALLAN_PASS"],
             :confirmed_at => "2015-09-09 02:50:19"
 
 
 mike = User.create! :name => "Mike Aboody",
 			:email => "mikeaboody@berkeley.edu",
-            :password => "mikespass",
-            :password_confirmation => "mikespass",
+            :password => ENV["USER_MIKE_PASS"],
+            :password_confirmation => ENV["USER_MIKE_PASS"],
             :confirmed_at => "2015-09-09 02:50:19",
             :admin => "true"
 

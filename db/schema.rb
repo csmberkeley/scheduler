@@ -77,8 +77,8 @@ ActiveRecord::Schema.define(version: 20150920193010) do
     t.string   "location"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "mentor_email"
     t.integer  "limit"
+    t.string   "mentor_email"
   end
 
   create_table "settings", force: true do |t|
