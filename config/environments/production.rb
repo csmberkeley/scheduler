@@ -12,8 +12,8 @@
     :port => 587,
     :domain => "sendgrid.com",
     :authentication => :login,
-    :user_name => "zhanger",
-    :password => "4JGbd!HYa{L[9J`H"
+    :user_name => ENV["USERNAME"],
+    :password => ENV["PASSWORD"]
   } 
   # Code is not reloaded between requests.
   config.cache_classes = true
