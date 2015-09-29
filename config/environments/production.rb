@@ -6,20 +6,11 @@
   config.action_mailer.perform_deliveries = true
   config.action_mailer.raise_delivery_errors = true
 
-  # config.action_mailer.smtp_settings = {
-  #   :enable_starttls_auto => true,
-  #   :address => "smtp.sendgrid.net",
-  #   :port => 587,
-  #   :domain => "sendgrid.com",
-  #   :authentication => :login,
-  #   :user_name => ENV["USERNAME"],
-  #   :password => ENV["PASSWORD"]
-  # } 
   config.action_mailer.smtp_settings = {
     :enable_starttls_auto => true,
-    :address => "smtp.mandrillapp.com",
+    :address => "smtp.sendgrid.net",
     :port => 587,
-    :domain => "mandrillapp.com",
+    :domain => "sendgrid.com",
     :authentication => :login,
     :user_name => ENV["USERNAME"],
     :password => ENV["PASSWORD"]
