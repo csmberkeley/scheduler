@@ -1,0 +1,2 @@
+class SenrollsController < ApplicationController
+end

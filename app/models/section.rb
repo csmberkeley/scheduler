@@ -9,6 +9,8 @@ class Section < ActiveRecord::Base
   has_many :offers, dependent: :destroy
   has_many :wants, dependent: :destroy
   belongs_to :course
+  has_one :jenroll
+  has_one :senroll
 
   def getOtherOpenSections()
     sections = Section.where(course_id: self.course_id).where.not(id: self.id)

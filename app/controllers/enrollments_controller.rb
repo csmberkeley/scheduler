@@ -1,6 +1,9 @@
 class EnrollmentsController < ApplicationController
   before_filter :check_switch_section, :only => [:switch_section]
 
+  # Creating an enrollment enrolls you into a class
+  # Editing an enrollment's section_id enroll you into a section
+
 	def switch_section
 		#enrollment works here
 		@enrollment = Enroll.find(params[:id])

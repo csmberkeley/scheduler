@@ -5,9 +5,8 @@ class SectionsController < ApplicationController
 	before_filter :check_drop, :only => [:drop]
 	def index
 		@sections = {} 
-    courses = Course.all.order(course_name: :asc) 
-    courses.each do | course |
-    
+  	courses = Course.all.order(course_name: :asc) 
+  	courses.each do | course |
       @sections[course.course_name] = { "Monday" => [], "Tuesday" => [], "Wednesday" => [], 
         "Thursday" => [], "Friday" => [] }
       course.sections.each do | section |

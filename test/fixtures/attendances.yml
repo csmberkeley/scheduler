@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  enroll_id: 1
+  status: 1
+  reason: MyString
+  week: 1
+
+two:
+  enroll_id: 1
+  status: 1
+  reason: MyString
+  week: 1

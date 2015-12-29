@@ -1,0 +1,2 @@
+class JenrollsController < ApplicationController
+end
