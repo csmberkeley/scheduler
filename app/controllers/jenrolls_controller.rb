@@ -47,6 +47,11 @@ class JenrollsController < ApplicationController
     	end
     end
 
+    def roster
+    	@jenroll = Jenroll.find(params[:id])
+    	@students = @jenroll.getStudents()
+    end
+
     private
 	def jenroll_params
 		params.require(:jenroll).permit(:section_id)

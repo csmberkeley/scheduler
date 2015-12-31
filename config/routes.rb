@@ -34,6 +34,7 @@ Rails.application.routes.draw do
   post "/jenrolls/mentorenroll" => "jenrolls#mentor_enroll", as: :mentor_enroll
   post "/jenrolls/new" => "jenrolls#create"
   patch "/jenrolls/:id/edit" => "jenrolls#update"
+  get "/jenrolls/:id/roster" => "jenrolls#roster", as: :roster
 
   #admin stuff
   get "/admin/students" => "admins#index", as: :students_index
