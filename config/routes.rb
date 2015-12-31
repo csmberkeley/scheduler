@@ -33,6 +33,7 @@ Rails.application.routes.draw do
   resources :jenrolls
   post "/jenrolls/mentorenroll" => "jenrolls#mentor_enroll", as: :mentor_enroll
   post "/jenrolls/new" => "jenrolls#create"
+  patch "/jenrolls/:id/edit" => "jenrolls#update"
 
   #admin stuff
   get "/admin/students" => "admins#index", as: :students_index

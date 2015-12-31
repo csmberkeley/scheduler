@@ -30,4 +30,25 @@ class JenrollsController < ApplicationController
     	flash[:notice] = "You are no longer mentoring that section."
     	redirect_to root_path
     end
+
+    def edit
+    	@jenroll = Jenroll.find(params[:id])
+    	@course = Course.find(@jenroll.course_id)
+		@sections = Section.getSectionsWithoutMentor(@course)
+    end
+    def update
+    	@jenroll = Jenroll.find(params[:id])
+    	if @jenroll.update_attributes(jenroll_params)
+    		flash[:notice] = "Switched the section you're mentoring for."
+    		redirect_to root_path
+    	else
+    		flash[:notice] = "Something went wrong. Please try again later."
+    		redirect_to root_path
+    	end
+    end
+
+    private
+	def jenroll_params
+		params.require(:jenroll).permit(:section_id)
+	end
 end
