@@ -68,6 +68,20 @@ class Section < ActiveRecord::Base
     return nil
   end
 
+  def getMentorName()
+    if self.getMentor() != nil
+      return User.find(self.getMentor().user_id).name
+    end
+    return "TBD"
+  end
+
+  def getMentorEmail()
+    if self.getMentor() != nil
+      return User.find(self.getMentor().user_id).email
+    end
+    return "TBD"
+  end
+
 
   def assignMentor(mentorenroll)
     if self.getMentor() != nil

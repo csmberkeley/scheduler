@@ -1,5 +1,6 @@
+<!-- student side -->
 <div class="home">
-  <h2><i class="fa fa-tachometer"></i> Dashboard</h2>
+  <h2><i class="fa fa-tachometer"></i> Student Dashboard</h2>
   
   <div class = "alert alert-info">
     <h2 style = "margin-top: 0px">
@@ -48,14 +49,88 @@
       </div>
     <% end %>
     <%= link_to '<i class="fa fa-plus"></i> Add Course'.html_safe, new_enrollment_path,   class: "btn btn-success"%>
-    <%= link_to "Enroll As Mentor", new_jenroll_path, :class => "btn btn-primary" %>
   <% else %>
   <div class="well">
   <h4>You're not enrolled in any courses. </h4>
   <%= link_to '<i class="fa fa-plus"></i> Add Course'.html_safe, new_enrollment_path,   class: "btn btn-lg btn-success"%>
-  <%= link_to "Enroll As Mentor", new_jenroll_path, :class => "btn btn-lg btn-primary" %>
+  </div>
+  <% end %>  
+
+  </div>
+</div>
+
+
+<!-- mentor side -->
+<div class="home">
+  <h2><i class="fa fa-tachometer"></i> Mentor Dashboard</h2>
+  <div class = "switch-sections">
+  <% if @jenrolls.size > 0 or @senrolls.size > 0%>
+    <h3> Your sections</h3>
+    <!-- senior mentor sections-->
+    <% @senrolls.each do |enroll| %>
+      <% curr_course = Course.find(enroll.course_id) %>
+      <div class="panel panel-primary">
+        <div class="panel-heading">
+          <h3 class="panel-title"><i class="fa fa-book"></i> <%= curr_course.course_name %> 
+          </h3>
+
+        </div>
+        <div class="panel-body">
+          <% if not enroll.section_id.nil? %>
+            <% curr_section = Section.find(enroll.section_id) %>
+            <h4>  <%= link_to curr_section.name, section_path(curr_section) %></h4>
+            <ul class="list-unstyled">        
+            <li><b>Mentor:</b> <%= curr_section.getMentorName() %> (<%= mail_to curr_section.getMentorEmail() %>) </li>
+            <li><b>Location:</b> <%= curr_section.location %> </li>
+            <li><b>Time:</b> <%=curr_section.date %> <%= curr_section.start.strftime("%I:%M %p") %>-<%= curr_section.end.strftime("%I:%M %p") %> </li>
+            </ul>
+            <%= link_to '<i class="fa fa-exchange"></i> Switch Sections'.html_safe, switch_section_path(enroll), class: "btn btn-warning" %>
+            <%= link_to '<i class="fa fa-trash-o"></i> Drop Section'.html_safe, drop_section_path(enroll_id: enroll.id), class: "btn btn-danger", data: { confirm: "Are you sure you want to drop #{curr_section.name}?"}%>
+          <% else %>
+            <h4>You're not enrolled in a section. </h4> 
+            <%= link_to '<i class="fa fa-plus"></i> Add Section'.html_safe, edit_enrollment_path(enroll),  class: "btn btn-success"%>
+          <% end %>
+        </div>
+      </div>
+    <% end %>
+    <!-- junior mentor sections-->
+    <% @jenrolls.each do |enroll| %>
+      <% curr_course = Course.find(enroll.course_id) %>
+      <div class="panel panel-primary">
+        <div class="panel-heading">
+          <h3 class="panel-title"><i class="fa fa-book"></i> <%= curr_course.course_name %> 
+          </h3>
+
+        </div>
+        <div class="panel-body">
+          <% if not enroll.section_id.nil? %>
+            <% curr_section = Section.find(enroll.section_id) %>
+            <h4>  <%= link_to curr_section.name, section_path(curr_section) %></h4>
+            <ul class="list-unstyled">        
+            <li><b>Mentor:</b> <%= curr_section.getMentorName() %> (<%= mail_to curr_section.getMentorEmail() %>) </li>
+            <li><b>Location:</b> <%= curr_section.location %> </li>
+            <li><b>Time:</b> <%=curr_section.date %> <%= curr_section.start.strftime("%I:%M %p") %>-<%= curr_section.end.strftime("%I:%M %p") %> </li>
+            </ul>
+            <%= link_to '<i class="fa fa-exchange"></i> Switch Sections'.html_safe, switch_section_path(enroll), class: "btn btn-warning" %>
+            <%= link_to '<i class="fa fa-trash-o"></i> Drop Section'.html_safe, drop_section_path(enroll_id: enroll.id), class: "btn btn-danger", data: { confirm: "Are you sure you want to drop #{curr_section.name}?"}%>
+          <% else %>
+            <h4>You're not enrolled in a section. </h4> 
+            <%= link_to '<i class="fa fa-plus"></i> Add Section'.html_safe, edit_enrollment_path(enroll),  class: "btn btn-success"%>
+          <% end %>
+        </div>
+      </div>
+    <% end %>
+
+    <%= link_to '<i class="fa fa-plus"></i> Enroll As Mentor'.html_safe, new_jenroll_path, :class => "btn btn-primary" %>
+  <% else %>
+  <div class="well">
+  <h4>You're not enrolled in any courses. </h4>
+  <%= link_to '<i class="fa fa-plus"></i> Enroll As Mentor'.html_safe, new_jenroll_path, :class => "btn btn-lg btn-primary" %>
   </div>
   <% end %>  
 
   </div>
 </div>  
+
+
+

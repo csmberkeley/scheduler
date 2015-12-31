@@ -14,6 +14,8 @@ class JenrollsController < ApplicationController
 	    @course = @section.course
 		if password == @course.password
 			@jenroll = Jenroll.new
+			current_user.jenrolls << @jenroll
+			@course.jenrolls << @jenroll
 			@section.assignMentor(@jenroll)
 			flash[:notice] = "You have been signed up as a mentor!"
 			redirect_to root_path

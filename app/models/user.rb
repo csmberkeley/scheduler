@@ -20,4 +20,19 @@ class User < ActiveRecord::Base
   	end
   	return nil
   end
+
+  def getMentorEnrollmentsInCourse(course)
+    enrolls = []
+    self.jenrolls.each do |j|
+      if j.course_id == course.id
+        enrolls << j
+      end
+    end
+    self.senrolls.each do |s|
+      if s.course_id == course.id
+        enrolls << s
+      end
+    end
+    return enrolls
+  end
 end
