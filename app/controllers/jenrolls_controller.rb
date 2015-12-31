@@ -50,6 +50,14 @@ class JenrollsController < ApplicationController
     def roster
     	@jenroll = Jenroll.find(params[:id])
     	@students = @jenroll.getStudents()
+        @email_list = ""
+        @students.each_with_index do |student, i| 
+            if i == 0
+                @email_list << student.email
+            else
+                @email_list << ", #{student.email}"
+            end
+        end
     end
 
     private
