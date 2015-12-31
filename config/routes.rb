@@ -30,6 +30,10 @@ Rails.application.routes.draw do
   post "/replies/accept/:id" => "replies#accept", as: :accept_reply
   post "/replies/deny/:id" => "replies#deny", as: :deny_reply
 
+  resources :jenrolls
+  post "/jenrolls/mentorenroll" => "jenrolls#mentor_enroll", as: :mentor_enroll
+  post "/jenrolls/new" => "jenrolls#create"
+
   #admin stuff
   get "/admin/students" => "admins#index", as: :students_index
   get "/admin/new-student" => "admins#new_student", as: :admin_new_student

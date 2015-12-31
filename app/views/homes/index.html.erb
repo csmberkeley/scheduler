@@ -48,10 +48,12 @@
       </div>
     <% end %>
     <%= link_to '<i class="fa fa-plus"></i> Add Course'.html_safe, new_enrollment_path,   class: "btn btn-success"%>
+    <%= link_to "Enroll As Mentor", new_jenroll_path, :class => "btn btn-primary" %>
   <% else %>
   <div class="well">
   <h4>You're not enrolled in any courses. </h4>
   <%= link_to '<i class="fa fa-plus"></i> Add Course'.html_safe, new_enrollment_path,   class: "btn btn-lg btn-success"%>
+  <%= link_to "Enroll As Mentor", new_jenroll_path, :class => "btn btn-lg btn-primary" %>
   </div>
   <% end %>  
 

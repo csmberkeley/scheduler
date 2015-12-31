@@ -1,0 +1,33 @@
+
+<h3>Choose an available section to mentor</h3>
+<%= form_tag(new_jenroll_path) do |f| %>
+
+  <table class="table">
+    <thead>
+      <tr>
+        <th>  </th>
+        <th> Section Name </th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @sections.each do |section| %>
+        <tr>
+          <td> <%= radio_button_tag :section_id, section.id %> </td>
+          <td> <%= section.name %> </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+  <div>
+  	hi<br>
+  	<%= text_field_tag :pass%>
+  </div>
+
+  <div class = "actions" style = "margin-top: 10px">
+    <%= button_tag(type: 'submit', class: "btn btn-success") do %>
+     <i class='fa fa-plus'></i> Add
+    <% end %>
+  </div>
+<% end %>
+
+
