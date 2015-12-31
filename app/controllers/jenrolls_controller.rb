@@ -23,6 +23,11 @@ class JenrollsController < ApplicationController
 	  		flash[:notice] = "Invalid mentor password!"
 	  		redirect_to root_path
 	  	end
-
+    end
+    def destroy
+    	@jenroll = Jenroll.find(params[:id])
+    	@jenroll.destroy
+    	flash[:notice] = "You are no longer mentoring that section."
+    	redirect_to root_path
     end
 end
