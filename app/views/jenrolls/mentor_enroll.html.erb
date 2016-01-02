@@ -1,9 +1,9 @@
 
 <h3>Choose an available section to mentor</h3>
 <%= form_tag(new_jenroll_path) do |f| %>
-  <div>
-	Password<br>
-	<%= text_field_tag :pass%>
+  <div class="form-group">
+    <label for="mentor-pass">Password</label>
+    <%= text_field_tag :pass, nil, :class=> "form-control", :id => "mentor-pass", :placeholder => "Mentor Password"%>
   </div>
 
   <table class="table">
