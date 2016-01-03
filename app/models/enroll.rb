@@ -4,6 +4,7 @@ class Enroll < ActiveRecord::Base
   belongs_to :section
   has_many :transactions, dependent: :destroy
   has_one :offer, dependent: :destroy
+  has_many :attendances, dependent: :destroy
 
   def enrollUserInSection(section)
   	if section.enrolls.length >= section.getLimit()
