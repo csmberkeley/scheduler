@@ -65,8 +65,10 @@
   <h2><i class="fa fa-tachometer"></i> Mentor Dashboard</h2>
   <div class = "switch-sections">
   <% if @jenrolls.size > 0 or @senrolls.size > 0%>
-    <h3> Your sections</h3>
     <!-- senior mentor sections-->
+      <% if @senrolls.size > 0 %>
+        <h4>Senior Mentor Sections</h4>
+      <% end %>
       <% @classes_to_senrolls.keys.each do |course_name| %>
       <div class="panel panel-primary">
         <div class="panel-heading">
@@ -83,15 +85,17 @@
           <li><b>Location:</b> <%= curr_section.location %> </li>
           <li><b>Time:</b> <%=curr_section.date %> <%= curr_section.start.strftime("%I:%M %p") %>-<%= curr_section.end.strftime("%I:%M %p") %> </li>
           </ul>
-          <%= link_to '<i class="fa fa-search"></i> View Roster'.html_safe, roster_path(enroll), :class => "btn btn-primary" %>
-          <%= link_to '<i class="fa fa-exchange"></i> Switch Sections'.html_safe, edit_jenroll_path(enroll.id), class: "btn btn-warning" %>
+          <%= link_to '<i class="fa fa-search"></i> View Roster'.html_safe, senroll_roster_path(enroll), :class => "btn btn-primary" %>
+          <%= link_to '<i class="fa fa-exchange"></i> Switch Sections'.html_safe, edit_senroll_path(enroll.id), class: "btn btn-warning" %>
           <%= link_to '<i class="fa fa-trash-o"></i> Drop Mentoring Section'.html_safe, enroll, class: "btn btn-danger", method: :delete, data: { confirm: "Are you sure you want to stop mentoring #{curr_section.name}?"}%>
            <% end %>
         </div>
       </div>
       <% end %>
     <!-- junior mentor sections-->
-    
+      <% if @jenrolls.size > 0 %>
+        <h4>Junior Mentor Sections</h4>
+      <% end %>
       <% @classes_to_jenrolls.keys.each do |course_name| %>
       <div class="panel panel-primary">
         <div class="panel-heading">
@@ -108,7 +112,7 @@
           <li><b>Location:</b> <%= curr_section.location %> </li>
           <li><b>Time:</b> <%=curr_section.date %> <%= curr_section.start.strftime("%I:%M %p") %>-<%= curr_section.end.strftime("%I:%M %p") %> </li>
           </ul>
-          <%= link_to '<i class="fa fa-search"></i> View Roster'.html_safe, roster_path(enroll), :class => "btn btn-primary" %>
+          <%= link_to '<i class="fa fa-search"></i> View Roster'.html_safe, jenroll_roster_path(enroll), :class => "btn btn-primary" %>
           <%= link_to '<i class="fa fa-exchange"></i> Switch Sections'.html_safe, edit_jenroll_path(enroll.id), class: "btn btn-warning" %>
           <%= link_to '<i class="fa fa-trash-o"></i> Drop Mentoring Section'.html_safe, enroll, class: "btn btn-danger", method: :delete, data: { confirm: "Are you sure you want to stop mentoring #{curr_section.name}?"}%>
            <% end %>

@@ -13,10 +13,17 @@ class JenrollsController < ApplicationController
 	    @section = Section.find(params[:section_id])
 	    @course = @section.course
 		if password == @course.password
-			@jenroll = Jenroll.new
-			current_user.jenrolls << @jenroll
-			@course.jenrolls << @jenroll
-			@section.assignMentor(@jenroll)
+            if params.has_key?("sm?")
+                @senroll = Senroll.new
+                current_user.senrolls << @senroll
+                @course.senrolls << @senroll
+                @section.assignMentor(@senroll)
+            else
+                @jenroll = Jenroll.new
+                current_user.jenrolls << @jenroll
+                @course.jenrolls << @jenroll
+                @section.assignMentor(@jenroll)
+            end
 			flash[:notice] = "You have been signed up as a mentor!"
 			redirect_to root_path
 		else 
