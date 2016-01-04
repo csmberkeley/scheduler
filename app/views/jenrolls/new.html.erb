@@ -1,0 +1,31 @@
+<h3>Choose a course</h3>
+<%= form_tag(mentor_enroll_path) do |f| %>
+
+  <table class="table">
+    <thead>
+      <tr>
+        <th>  </th>
+        <th> Course Name </th>
+        <th> Semester </th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @courses.each do |course| %>
+        <tr>
+          <td> <%= radio_button_tag :course_id, course.id %> </td>
+          <td> <%= course.course_name %> </td>
+          <td> <%= course.semester %> <%= course.year %> </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+  <div class = "actions" style = "margin-top: 10px">
+    <%= button_tag(type: 'submit', class: "btn btn-success") do %>
+     <i class='fa fa-plus'></i> Add
+    <% end %>
+  </div>
+
+<% end %>
+
+
+

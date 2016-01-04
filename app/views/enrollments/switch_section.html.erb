@@ -39,8 +39,8 @@
 										<% end %>
 							</div>
 							<div>
-								Mentor: <% if section.mentor %> 
-											<%= section.mentor %>
+								Mentor: <% if section.getMentor() %> 
+											<%= section.getMentorName() %>
 										<% else %>
 											TBD
 										<% end %>

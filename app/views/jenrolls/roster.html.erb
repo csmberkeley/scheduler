@@ -1,0 +1,22 @@
+<div class = "roster">
+	<% if @students.size > 0 %>
+		<h3>Your Students</h3>
+		<ul class="list-group">
+		<% @students.each do |student| %>
+		  <li class="list-group-item">
+		    <span class="badge"><%=student.email%></span>
+		    <%=student.name %>
+		  </li>
+		<% end %>
+		</ul>
+			
+				
+		<h3>Email List</h3>
+		<div class="input-group input-group-lg">
+		  <span class="input-group-addon" id="sizing-addon1"><i class="fa fa-envelope"></i></span>
+		  <input type="text" class="form-control" value="<%=@email_list%>" onclick="this.select()" aria-describedby="sizing-addon1">
+		</div>
+	<% else %>
+		<h3>No Students</h3>
+	<% end %>
+</div>

@@ -32,7 +32,7 @@
                     <%= section.start.strftime("%I:%M %p") %>-<%= section.end.strftime("%I:%M %p") %>
                     <% end %> </td>
                   <td> <%= section.enrolls.size %> out of <%= section_limit %> </td>
-                  <td> <%= section.mentor %> </td>
+                  <td> <%= section.getMentorName() %> </td>
                   <td> <%= section.location %> </td>
                 </tr>
                 <% end %>

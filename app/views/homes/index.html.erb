@@ -1,5 +1,6 @@
+<!-- student side -->
 <div class="home">
-  <h2><i class="fa fa-tachometer"></i> Dashboard</h2>
+  <h2><i class="fa fa-tachometer"></i> Student Dashboard</h2>
   
   <div class = "alert alert-info">
     <h2 style = "margin-top: 0px">
@@ -34,7 +35,7 @@
             <% curr_section = Section.find(enroll.section_id) %>
             <h4>  <%= link_to curr_section.name, section_path(curr_section) %></h4>
             <ul class="list-unstyled">        
-            <li><b>Mentor:</b> <%= curr_section.mentor %> (<%= mail_to curr_section.mentor_email %>) </li>
+            <li><b>Mentor:</b> <%= curr_section.getMentorName() %> (<%= mail_to curr_section.getMentorEmail() %>) </li>
             <li><b>Location:</b> <%= curr_section.location %> </li>
             <li><b>Time:</b> <%=curr_section.date %> <%= curr_section.start.strftime("%I:%M %p") %>-<%= curr_section.end.strftime("%I:%M %p") %> </li>
             </ul>
@@ -56,4 +57,79 @@
   <% end %>  
 
   </div>
+</div>
+
+
+<!-- mentor side -->
+<div class="home">
+  <h2><i class="fa fa-tachometer"></i> Mentor Dashboard</h2>
+  <div class = "switch-sections">
+  <% if @jenrolls.size > 0 or @senrolls.size > 0%>
+    <!-- senior mentor sections-->
+      <% if @senrolls.size > 0 %>
+        <h4>Senior Mentor Sections</h4>
+      <% end %>
+      <% @classes_to_senrolls.keys.each do |course_name| %>
+      <div class="panel panel-primary">
+        <div class="panel-heading">
+          <h3 class="panel-title"><i class="fa fa-book"></i> <%= course_name %> 
+          </h3>
+
+        </div>
+        <div class="panel-body">
+          <% @classes_to_senrolls[course_name].each do |enroll| %>
+          <% curr_section = Section.find(enroll.section_id) %>
+          <h4>  <%= link_to curr_section.name, section_path(curr_section) %></h4>
+          <ul class="list-unstyled">        
+          <li><b>Mentor:</b> <%= curr_section.getMentorName() %> (<%= mail_to curr_section.getMentorEmail() %>) </li>
+          <li><b>Location:</b> <%= curr_section.location %> </li>
+          <li><b>Time:</b> <%=curr_section.date %> <%= curr_section.start.strftime("%I:%M %p") %>-<%= curr_section.end.strftime("%I:%M %p") %> </li>
+          </ul>
+          <%= link_to '<i class="fa fa-search"></i> View Roster'.html_safe, senroll_roster_path(enroll), :class => "btn btn-primary" %>
+          <%= link_to '<i class="fa fa-exchange"></i> Switch Sections'.html_safe, edit_senroll_path(enroll.id), class: "btn btn-warning" %>
+          <%= link_to '<i class="fa fa-trash-o"></i> Drop Mentoring Section'.html_safe, enroll, class: "btn btn-danger", method: :delete, data: { confirm: "Are you sure you want to stop mentoring #{curr_section.name}?"}%>
+           <% end %>
+        </div>
+      </div>
+      <% end %>
+    <!-- junior mentor sections-->
+      <% if @jenrolls.size > 0 %>
+        <h4>Junior Mentor Sections</h4>
+      <% end %>
+      <% @classes_to_jenrolls.keys.each do |course_name| %>
+      <div class="panel panel-primary">
+        <div class="panel-heading">
+          <h3 class="panel-title"><i class="fa fa-book"></i> <%= course_name %> 
+          </h3>
+
+        </div>
+        <div class="panel-body">
+          <% @classes_to_jenrolls[course_name].each do |enroll| %>
+          <% curr_section = Section.find(enroll.section_id) %>
+          <h4>  <%= link_to curr_section.name, section_path(curr_section) %></h4>
+          <ul class="list-unstyled">        
+          <li><b>Mentor:</b> <%= curr_section.getMentorName() %> (<%= mail_to curr_section.getMentorEmail() %>) </li>
+          <li><b>Location:</b> <%= curr_section.location %> </li>
+          <li><b>Time:</b> <%=curr_section.date %> <%= curr_section.start.strftime("%I:%M %p") %>-<%= curr_section.end.strftime("%I:%M %p") %> </li>
+          </ul>
+          <%= link_to '<i class="fa fa-search"></i> View Roster'.html_safe, jenroll_roster_path(enroll), :class => "btn btn-primary" %>
+          <%= link_to '<i class="fa fa-exchange"></i> Switch Sections'.html_safe, edit_jenroll_path(enroll.id), class: "btn btn-warning" %>
+          <%= link_to '<i class="fa fa-trash-o"></i> Drop Mentoring Section'.html_safe, enroll, class: "btn btn-danger", method: :delete, data: { confirm: "Are you sure you want to stop mentoring #{curr_section.name}?"}%>
+           <% end %>
+        </div>
+      </div>
+      <% end %>
+
+    <%= link_to '<i class="fa fa-plus"></i> Enroll As Mentor'.html_safe, new_jenroll_path, :class => "btn btn-primary" %>
+  <% else %>
+  <div class="well">
+  <h4>You're not enrolled in any courses. </h4>
+  <%= link_to '<i class="fa fa-plus"></i> Enroll As Mentor'.html_safe, new_jenroll_path, :class => "btn btn-lg btn-primary" %>
+  </div>
+  <% end %>  
+
+  </div>
 </div>  
+
+
+

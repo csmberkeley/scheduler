@@ -22,6 +22,16 @@ class Section < ActiveRecord::Base
     end
     return open_sections
   end
+
+  def self.getSectionsWithoutMentor(course)
+    sections = []
+    course.sections.each do |section|
+      if section.getMentor() == nil
+        sections << section
+      end
+    end
+    return sections
+  end
   def isFull()
     return self.enrolls.size >= self.getLimit()
   end
@@ -47,5 +57,42 @@ class Section < ActiveRecord::Base
     else
     return limit
     end
+  end
+
+  def getMentor()
+    if self.senroll != nil
+      return self.senroll
+    elsif self.jenroll != nil
+      return self.jenroll
+    end
+    return nil
+  end
+
+  def getMentorName()
+    if self.getMentor() != nil
+      return User.find(self.getMentor().user_id).name
+    end
+    return "TBD"
+  end
+
+  def getMentorEmail()
+    if self.getMentor() != nil
+      return User.find(self.getMentor().user_id).email
+    end
+    return "TBD"
+  end
+
+
+  def assignMentor(mentorenroll)
+    if self.getMentor() != nil
+      return nil
+    end
+    if mentorenroll.is_a?(Senroll)
+      self.senroll = mentorenroll
+    else
+      self.jenroll = mentorenroll
+    end
+    mentorenroll.save
+    return mentorenroll
   end
 end
