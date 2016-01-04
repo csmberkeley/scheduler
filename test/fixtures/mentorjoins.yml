@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  jenroll_id: 1
+  senroll_id: 1
+  location: MyString
+  time: MyString
+
+two:
+  jenroll_id: 1
+  senroll_id: 1
+  location: MyString
+  time: MyString
