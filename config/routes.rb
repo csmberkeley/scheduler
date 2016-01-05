@@ -34,10 +34,14 @@ Rails.application.routes.draw do
   post "/jenrolls/mentorenroll" => "jenrolls#mentor_enroll", as: :mentor_enroll
   post "/jenrolls/new" => "jenrolls#create"
   patch "/jenrolls/:id/edit" => "jenrolls#update"
+  get "/jenrolls/:id/switch" => "jenrolls#switch", as: :jenroll_switch
+  patch "/jenrolls/:id/switch" => "jenrolls#update_switch", as: :jenroll_update_switch
   get "/jenrolls/:id/roster" => "jenrolls#roster", as: :jenroll_roster
 
   resources :senrolls
   patch "/senrolls/:id/edit" => "senrolls#update"
+  get "/senrolls/:id/switch" => "senrolls#switch", as: :senroll_switch
+  patch "/senrolls/:id/switch" => "senrolls#update_switch", as: :senroll_update_switch
   get "/senrolls/:id/roster" => "senrolls#roster", as: :senroll_roster
 
   #admin stuff

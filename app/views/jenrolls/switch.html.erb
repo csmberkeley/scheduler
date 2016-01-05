@@ -1,0 +1,43 @@
+<h3>Choose a section</h3>
+<%= form_for @jenroll, url: jenroll_update_switch_path(@jenroll.id) do |f| %>
+
+      <table class="table">
+        <thead>
+          <tr>
+            <th>  </th>
+            <th> Section # </th>
+            <th> Day </th>
+            <th> Time </th>
+            <th> # Enrolled </th>
+            <th> Location </th>
+          </tr>
+        </thead>
+        <tbody>
+        <% counter = 0%>
+          <% @sections.each do |section| %>
+            <% section_limit = section.getLimit() %>
+            <% counter += 1%>
+            <tr >
+              <% if section.getMentor() != nil %>
+                <td> <%= f.radio_button :section_id, section.id, :disabled => true %> </td>
+              <% else %>
+                <td> <%= f.radio_button :section_id, section.id %> </td>
+              <% end %>
+              <td> <%= section.name %> </td>
+              <td> <%= section.date %> </td>
+              <td> <% if section.start and section.end %>
+                <%= section.start.strftime("%I:%M %p") %>-<%= section.end.strftime("%I:%M %p") %>
+                <% end %> </td>
+              <td> <%= section.enrolls.size %> out of <%= section_limit %> </td>
+              <td> <%= section.location %> </td>
+            </tr>
+            <% end %>
+          <% if counter == 0 %>
+            There are no sections available. Check back tomorrow, and there might be room!
+          <% end %>
+        </tbody>
+      </table>
+  <% if counter > 0 %>
+  <%= f.submit "Switch section", class: "btn btn-success" %>
+  <% end %>
+<% end %>

@@ -7,11 +7,28 @@ class SenrollsController < ApplicationController
     end
 
     def edit
+  #   	@senroll = Senroll.find(params[:id])
+  #   	@course = Course.find(@senroll.course_id)
+		# @sections = Section.getSectionsWithoutMentor(@course)
+    end
+    def update
+    	# @senroll = Senroll.find(params[:id])
+    	# if @senroll.update_attributes(senroll_params)
+    	# 	flash[:notice] = "Switched the section you're mentoring for."
+    	# 	redirect_to root_path
+    	# else
+    	# 	flash[:notice] = "Something went wrong. Please try again later."
+    	# 	redirect_to root_path
+    	# end
+    end
+
+    def switch
     	@senroll = Senroll.find(params[:id])
     	@course = Course.find(@senroll.course_id)
 		@sections = Section.getSectionsWithoutMentor(@course)
     end
-    def update
+
+    def update_switch
     	@senroll = Senroll.find(params[:id])
     	if @senroll.update_attributes(senroll_params)
     		flash[:notice] = "Switched the section you're mentoring for."

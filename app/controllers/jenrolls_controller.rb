@@ -38,20 +38,39 @@ class JenrollsController < ApplicationController
     	redirect_to root_path
     end
 
+    def switch
+        @jenroll = Jenroll.find(params[:id])
+        @course = Course.find(@jenroll.course_id)
+        @sections = Section.getSectionsWithoutMentor(@course)
+    end
+
+    def update_switch
+        @jenroll = Jenroll.find(params[:id])
+        if @jenroll.update_attributes(jenroll_params)
+            flash[:notice] = "Switched the section you're mentoring for."
+            redirect_to root_path
+        else
+            flash[:notice] = "Something went wrong. Please try again later."
+            redirect_to root_path
+        end
+    end
+
     def edit
-    	@jenroll = Jenroll.find(params[:id])
-    	@course = Course.find(@jenroll.course_id)
-		@sections = Section.getSectionsWithoutMentor(@course)
+  #   	@jenroll = Jenroll.find(params[:id])
+  #   	@course = Course.find(@jenroll.course_id)
+		# @sections = Section.getSectionsWithoutMentor(@course)
+        asdf
     end
     def update
-    	@jenroll = Jenroll.find(params[:id])
-    	if @jenroll.update_attributes(jenroll_params)
-    		flash[:notice] = "Switched the section you're mentoring for."
-    		redirect_to root_path
-    	else
-    		flash[:notice] = "Something went wrong. Please try again later."
-    		redirect_to root_path
-    	end
+    	# @jenroll = Jenroll.find(params[:id])
+    	# if @jenroll.update_attributes(jenroll_params)
+    	# 	flash[:notice] = "Switched the section you're mentoring for."
+    	# 	redirect_to root_path
+    	# else
+    	# 	flash[:notice] = "Something went wrong. Please try again later."
+    	# 	redirect_to root_path
+    	# end
+        asdf
     end
 
     def roster
