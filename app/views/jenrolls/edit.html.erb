@@ -1,43 +1,28 @@
-<h3>Choose a section</h3>
-<%= form_for @jenroll, url: edit_jenroll_path(@jenroll.id) do |f| %>
+<div class="panel panel-default">
+    <div class="panel-heading">Mentor Settings For Section</div>
+    <div class="panel-body">
+    <%= form_for @section, url: edit_jenroll_path(@jenroll.id) do |f|%>
+        <div class"form-group">
+            <%= hidden_field_tag :id, @section.id %>
+        </div>
+        <div class="form-group">
+            <%= f.label :start %>
+            <%= f.time_field(:start, class:"form-control") %> 
+        </div>
+        <div class="form-group">
+            <%= f.label :end %>
+            <%= f.time_field(:end, class:"form-control") %> 
+        </div>
+        <div class="form-group">
+            <%= f.label :date, "Day of the week" %>
+            <%= f.text_field(:date, class:"form-control") %> 
+        </div>
+        <div class="form-group">
+            <%= f.label :location %>
+            <%= f.text_field(:location, class:"form-control") %> 
+        </div>
 
-      <table class="table">
-        <thead>
-          <tr>
-            <th>  </th>
-            <th> Section # </th>
-            <th> Day </th>
-            <th> Time </th>
-            <th> # Enrolled </th>
-            <th> Location </th>
-          </tr>
-        </thead>
-        <tbody>
-        <% counter = 0%>
-          <% @sections.each do |section| %>
-            <% section_limit = section.getLimit() %>
-            <% counter += 1%>
-            <tr >
-              <% if section.getMentor() != nil %>
-                <td> <%= f.radio_button :section_id, section.id, :disabled => true %> </td>
-              <% else %>
-                <td> <%= f.radio_button :section_id, section.id %> </td>
-              <% end %>
-              <td> <%= section.name %> </td>
-              <td> <%= section.date %> </td>
-              <td> <% if section.start and section.end %>
-                <%= section.start.strftime("%I:%M %p") %>-<%= section.end.strftime("%I:%M %p") %>
-                <% end %> </td>
-              <td> <%= section.enrolls.size %> out of <%= section_limit %> </td>
-              <td> <%= section.location %> </td>
-            </tr>
-            <% end %>
-          <% if counter == 0 %>
-            There are no sections available. Check back tomorrow, and there might be room!
-          <% end %>
-        </tbody>
-      </table>
-  <% if counter > 0 %>
-  <%= f.submit "Switch section", class: "btn btn-success" %>
-  <% end %>
-<% end %>
+        <%= f.submit class: "btn btn-default" %>
+    <% end %>
+    </div>
+</div>

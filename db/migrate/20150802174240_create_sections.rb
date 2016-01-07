@@ -7,7 +7,6 @@ class CreateSections < ActiveRecord::Migration
       t.string :date
       t.boolean :empty
       t.integer :course_id
-      t.string :mentor
       t.string :location
 
       t.timestamps

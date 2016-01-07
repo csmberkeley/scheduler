@@ -107,12 +107,10 @@ ActiveRecord::Schema.define(version: 20160103234118) do
     t.string   "date"
     t.boolean  "empty"
     t.integer  "course_id"
-    t.string   "mentor"
     t.string   "location"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "limit"
-    t.string   "mentor_email"
   end
 
   create_table "senrolls", force: true do |t|

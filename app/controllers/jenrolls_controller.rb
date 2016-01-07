@@ -56,21 +56,19 @@ class JenrollsController < ApplicationController
     end
 
     def edit
-  #   	@jenroll = Jenroll.find(params[:id])
-  #   	@course = Course.find(@jenroll.course_id)
-		# @sections = Section.getSectionsWithoutMentor(@course)
-        asdf
+    	@jenroll = Jenroll.find(params[:id])
+    	@section = Section.find(@jenroll.section_id)
     end
     def update
-    	# @jenroll = Jenroll.find(params[:id])
-    	# if @jenroll.update_attributes(jenroll_params)
-    	# 	flash[:notice] = "Switched the section you're mentoring for."
-    	# 	redirect_to root_path
-    	# else
-    	# 	flash[:notice] = "Something went wrong. Please try again later."
-    	# 	redirect_to root_path
-    	# end
-        asdf
+    	@jenroll = Jenroll.find(params[:id])
+        @section = Section.find(@jenroll.section_id)
+    	if @section.update_attributes(jenroll_section_params)
+    		flash[:notice] = "Your mentor settings have been saved!"
+    		redirect_to root_path
+    	else
+    		flash[:notice] = "Something went wrong. Please try again later."
+    		redirect_to root_path
+    	end
     end
 
     def roster
@@ -90,4 +88,9 @@ class JenrollsController < ApplicationController
 	def jenroll_params
 		params.require(:jenroll).permit(:section_id)
 	end
+
+    private
+    def jenroll_section_params
+        params.require(:section).permit(:start, :end, :location, :date)
+    end
 end
