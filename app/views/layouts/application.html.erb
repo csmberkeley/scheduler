@@ -36,6 +36,7 @@
 
           <%= nav_link '<i class="fa fa-users"></i> Sections'.html_safe, sections_path %>
           <%= nav_link '<i class="fa fa-book"></i> Courses'.html_safe, courses_path %>
+          <%= nav_link '<i class="fa fa-user"></i> Attendance'.html_safe, student_attendance_index_path %>
         </ul>
         <% if current_user and current_user.admin %>
         <h4>Admin Settings</h4>

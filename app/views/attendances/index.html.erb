@@ -1,0 +1,12 @@
+<h2>Attendance</h2>
+<div class="list-group">
+
+<% @enrolls.each do | enroll | %>
+    <% if enroll.section_id != nil %>  
+    <a href="<%= student_attendance_path(enroll) %>" class="list-group-item">
+      <h4 class="list-group-item-heading"><%= enroll.course.course_name %></h4>
+      <p class="list-group-item-text"><%= enroll.section.name %> - <%= enroll.section.getMentorName%></p>
+    </a>
+    <% end %>
+<% end %>
+</div>
