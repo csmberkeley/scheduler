@@ -5,24 +5,50 @@
         <div class"form-group">
             <%= hidden_field_tag :id, @section.id %>
         </div>
+        <h2>Make a Temporary Time Change</h2>
+        <% if @section.temp_start == nil %>
+            <h6>Current time from <%= @section.start.strftime("%I:%M %p") %> to <%= @section.end.strftime("%I:%M %p") %> on <%= @section.date %>.</h6>
+        <% elsif @section.temp_start == @section.start and @section.temp_end == @section.end and @section.temp_date == @section.date %>
+            <h6>Default time of section recently changed to be from <%= @section.start.strftime("%I:%M %p") %> to <%= @section.end.strftime("%I:%M %p") %> on <%= @section.date %>.</h6>
+        <% else %>
+            <h6>Temporary time set to be from <%= @section.temp_start.strftime("%I:%M %p") %> to <%= @section.temp_end.strftime("%I:%M %p") %> on <%= @section.temp_date %>.</h6>
+        <% end %>
         <div class="form-group">
             <%= f.label :start %>
-            <%= f.time_field(:start, class:"form-control") %> 
+            <%= f.time_field(:temp_start, class:"form-control") %> 
         </div>
         <div class="form-group">
             <%= f.label :end %>
-            <%= f.time_field(:end, class:"form-control") %> 
+            <%= f.time_field(:temp_end, class:"form-control") %> 
         </div>
         <div class="form-group">
             <%= f.label :date, "Day of the week" %>
-            <%= f.text_field(:date, class:"form-control") %> 
+            <%= f.text_field(:temp_date, class:"form-control") %> 
         </div>
+        <label><%= check_box_tag 'makeDefaultTime?'%> Make this the default time/date?</label>
+        <% if @section.temp_start != nil and not (@section.temp_start == @section.start and @section.temp_end == @section.end and @section.temp_date == @section.date) %>
+            <br>
+            <%= link_to '<i class="fa fa-trash-o"></i> Remove Temporary Time'.html_safe, destroy_temp_time_path(@jenroll), class: "btn btn-danger", method: :delete, data: { confirm: "Are you sure?"}%>
+        <% end %>
+        <h2>Make a Temporary Location Change</h2>
+        <% if @section.temp_location == nil %>
+            <h6>Current location at <%= @section.location %>.</h6>
+        <% elsif @section.temp_location == @section.location  %>
+            <h6>Default location of section recently changed to be <%= @section.location %>.</h6>
+        <% else %>
+            <h6>Temporary location set to be <%= @section.temp_location %>.</h6>
+        <% end %>
         <div class="form-group">
             <%= f.label :location %>
-            <%= f.text_field(:location, class:"form-control") %> 
+            <%= f.text_field(:temp_location, class:"form-control") %> 
         </div>
-
-        <%= f.submit class: "btn btn-default" %>
+        <label><%= check_box_tag 'makeDefaultLocation?'%> Make this the default location?</label>
+        <% if @section.temp_location != nil and @section.temp_location != @section.location %>
+            <br>
+            <%= link_to '<i class="fa fa-trash-o"></i> Remove Temporary Location'.html_safe, destroy_temp_location_path(@jenroll), class: "btn btn-danger", method: :delete, data: { confirm: "Are you sure?"}%>
+        <% end %>
+        <br>
+        <%= f.submit "Update Settings", class: "btn btn-default" %>
     <% end %>
     </div>
 </div>

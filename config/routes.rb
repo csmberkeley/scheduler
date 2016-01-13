@@ -37,6 +37,8 @@ Rails.application.routes.draw do
   get "/jenrolls/:id/switch" => "jenrolls#switch", as: :jenroll_switch
   patch "/jenrolls/:id/switch" => "jenrolls#update_switch", as: :jenroll_update_switch
   get "/jenrolls/:id/roster" => "jenrolls#roster", as: :jenroll_roster
+  delete "/jenrolls/:id/templocation" => "jenrolls#destroy_temp_location", as: :destroy_temp_location
+  delete "/jenrolls/:id/temptime" => "jenrolls#destroy_temp_time", as: :destroy_temp_time
 
   resources :senrolls
   patch "/senrolls/:id/edit" => "senrolls#update"

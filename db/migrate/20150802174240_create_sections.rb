@@ -4,10 +4,14 @@ class CreateSections < ActiveRecord::Migration
       t.string :name
       t.time :start
       t.time :end
+      t.time :temp_start
+      t.time :temp_end
       t.string :date
+      t.string :temp_date
       t.boolean :empty
       t.integer :course_id
       t.string :location
+      t.string :temp_location
 
       t.timestamps
     end

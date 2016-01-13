@@ -82,7 +82,6 @@ class Section < ActiveRecord::Base
     return "TBD"
   end
 
-
   def assignMentor(mentorenroll)
     if self.getMentor() != nil
       return nil
