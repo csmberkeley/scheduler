@@ -35,4 +35,27 @@ class UserMailer < ActionMailer::Base
     @course = Course.find(@section.course_id)
     mail(to: @student.email, subject: "[CSM] You have been added to " + @section.name)
   end
+  def timeloc_change_email(user, section, time_change, location_change)
+    @section = section
+    @user = user
+    @time_change = time_change
+    @time_default_change = false
+    if @time_change and section.temp_start == section.start and section.temp_end == section.end and section.temp_date == section.date
+      @time_default_change = true
+    end
+    @location_change = location_change
+    @location_default_change = false
+    if @location_change and section.location == section.temp_location
+      @location_default_change = true
+    end
+    subject = nil
+    if time_change and location_change
+      subject = "[CSM] Your section time and location has changed"
+    elsif time_change
+      subject = "[CSM] Your section time has changed"
+    else
+      subject = "[CSM] Your section location has changed"
+    end
+    mail(to: @user.email, subject: subject)
+  end
 end

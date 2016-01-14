@@ -63,6 +63,8 @@ class JenrollsController < ApplicationController
     	@jenroll = Jenroll.find(params[:id])
         @section = Section.find(@jenroll.section_id)
         @new_section = Section.new(jenroll_section_params)
+        time_change = false
+        location_change = false
         if @new_section.temp_start != nil and @new_section.temp_end != nil and @new_section.temp_date != ""
             if params["makeDefaultTime?"]
                 @section.start = @new_section.temp_start
@@ -72,6 +74,7 @@ class JenrollsController < ApplicationController
             @section.temp_start = @new_section.temp_start
             @section.temp_end = @new_section.temp_end
             @section.temp_date = @new_section.temp_date
+            time_change = true
         elsif @new_section.temp_start != nil or @new_section.temp_end != nil or @new_section.temp_date != ""
             #missing fields
             flash[:notice] = "Missing fields for new section."
@@ -84,6 +87,19 @@ class JenrollsController < ApplicationController
                 @section.location = @new_section.temp_location
             end
             @section.temp_location = @new_section.temp_location
+            location_change = true
+        end
+        if location_change or time_change
+            #mail
+            users = []
+            users << User.find(@jenroll.user_id)
+            @section.enrolls.each do |enroll|
+                users << User.find(enroll.user_id)
+            end
+            users.each do |user|
+                #uncomment when working
+                # UserMailer.timeloc_change_email(user, @section, time_change, location_change).deliver
+            end
         end
     	if @section.save
     		flash[:notice] = "Your mentor settings have been saved!"

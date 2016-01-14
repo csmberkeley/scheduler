@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+  </head>
+  <body>
+    <p>Hi <%= @user.name%>,
+    <p>
+    <% if @time_change and @location_change %>
+        The following changes have been made to your section:
+    <% else %>
+        The following change has been made to your section:
+    <% end %>
+    <ul>
+    <% if @time_change and @time_default_change %>
+        <li><b>The default time of your section has been changed to ... . You will now be meeting at that time from here on out.</b></li>
+    <% elsif @time_change %>
+        <li><b>Your section's time has been temporarily changed to ... . <i>This is only a temporary change for your next meeting.</i></b></li>
+    <% end %>
+    <% if @location_change and @location_default_change %>
+        <li><b>The default location of your section has been changed to ... . You will now be meeting there from here on out.</b></li>
+    <% elsif @location_change %>
+        <li><b>Your section's location has been temporarily changed to ... . <i>This is only a temporary change for your next meeting.</i></b></li>
+    <% end %>
+    </ul>
+    <p>If you have any concerns, please let your mentor know!</p>
+    Best,<br>
+    CSM
+  </body>
+</html>

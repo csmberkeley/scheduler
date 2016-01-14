@@ -13,6 +13,7 @@
         <% else %>
             <h6>Temporary time set to be from <%= @section.temp_start.strftime("%I:%M %p") %> to <%= @section.temp_end.strftime("%I:%M %p") %> on <%= @section.temp_date %>.</h6>
         <% end %>
+
         <div class="form-group">
             <%= f.label :start %>
             <%= f.time_field(:temp_start, class:"form-control") %> 

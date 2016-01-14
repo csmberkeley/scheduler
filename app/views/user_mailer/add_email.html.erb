@@ -10,7 +10,7 @@
     <ul>
     <li><b>Course:</b> <%= @course.course_name %></li>
     <li><b>Section:</b> <%= @section.name %></li>
-    <li><b>Mentor:</b> <%= @section.mentor %> (<%= mail_to @section.mentor_email %>) </li>
+    <li><b>Mentor:</b> <%= @section.getMentorName() %> (<%= mail_to @section.getMentorEmail() %>) </li>
     <li><b>Location:</b> <%= @section.location %> </li>
     <li><b>Time:</b> <%=@section.date %> <%= @section.start.strftime("%I:%M %p") %>-<%= @section.end.strftime("%I:%M %p") %> </li>
     </ul>
