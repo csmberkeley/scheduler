@@ -1,7 +1,17 @@
 class JenrollsController < ApplicationController
+    before_filter :check_mentor_enroll, :only => [:mentor_enroll_redirect]
+    before_filter :check_create, :only => [:create]
+    before_filter :check_jenroll, :only => [:destroy, :switch, :update_switch, :edit, :update, :destroy_temp_location, :destroy_temp_time, :roster]
+    before_filter :check_update_switch, :only => [:update_switch]
+
 	def new
         @courses = Course.all
 	end
+
+    def mentor_enroll_redirect
+        @course = Course.find(params[:course_id])
+        redirect_to mentor_enroll_path(course_id: @course.id)
+    end
 
 	def mentor_enroll
 		@course = Course.find(params[:course_id])
@@ -28,7 +38,7 @@ class JenrollsController < ApplicationController
 			redirect_to root_path
 		else 
 	  		flash[:notice] = "Invalid mentor password!"
-	  		redirect_to root_path
+	  		redirect_to :back
 	  	end
     end
     def destroy
@@ -46,8 +56,14 @@ class JenrollsController < ApplicationController
 
     def update_switch
         @jenroll = Jenroll.find(params[:id])
+        @section = @jenroll.section
+        @section.temp_start = nil
+        @section.temp_end = nil
+        @section.temp_location = nil
+        @section.temp_date = ""
+        @section.save
         if @jenroll.update_attributes(jenroll_params)
-            flash[:notice] = "Switched the section you're mentoring for."
+            flash[:notice] = "Switched your mentoring section!"
             redirect_to root_path
         else
             flash[:notice] = "Something went wrong. Please try again later."
@@ -89,7 +105,7 @@ class JenrollsController < ApplicationController
             @section.temp_location = @new_section.temp_location
             location_change = true
         end
-        if location_change or time_change
+        if params["notify?"] and (location_change or time_change)
             #mail
             users = []
             users << User.find(@jenroll.user_id)
@@ -98,7 +114,7 @@ class JenrollsController < ApplicationController
             end
             users.each do |user|
                 #uncomment when working
-                # UserMailer.timeloc_change_email(user, @section, time_change, location_change).deliver
+                UserMailer.timeloc_change_email(user, @section, time_change, location_change).deliver
             end
         end
     	if @section.save
@@ -157,5 +173,48 @@ class JenrollsController < ApplicationController
     private
     def jenroll_section_params
         params.require(:section).permit(:temp_start, :temp_end, :temp_location, :temp_date)
+    end
+
+    #before filters
+    private
+    def check_jenroll
+        if not params[:id] or not Jenroll.exists?(params[:id]) or not check_enrollment(Jenroll.find(params[:id]))
+            flash[:notice] = "You do not have permission to access that page."
+            redirect_to root_path
+        end
+    end
+
+    private
+    def check_mentor_enroll
+        if not params[:course_id]
+            flash[:notice] = "Please choose a course."
+            redirect_to new_jenroll_path
+        end
+    end
+
+    private
+    def check_create
+        if params[:pass] == ""
+            flash[:notice] = "Please enter in the password."
+            redirect_to :back
+            return
+        end
+        if not params[:section_id]
+            flash[:notice] = "Please choose a section."
+            redirect_to :back
+            return
+        end
+    end
+
+    private
+    def check_update_switch
+        if params[:jenroll]
+            jenroll = Jenroll.new(jenroll_params)
+            if jenroll.section_id and Section.exists?(jenroll.section_id)
+                return
+            end
+        end
+        flash[:notice] = "Please choose a section."
+        redirect_to :back
     end
 end

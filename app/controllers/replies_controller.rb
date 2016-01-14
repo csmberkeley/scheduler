@@ -65,7 +65,7 @@ class RepliesController < ApplicationController
 		flash[:notice] = "You cannot trade."
 		redirect_to root_path
 	end
-	#**************************************************************************
+	
   #before_filters
   private
   def check_destroy

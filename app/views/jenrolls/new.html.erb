@@ -1,5 +1,5 @@
 <h3>Choose a course</h3>
-<%= form_tag(mentor_enroll_path) do |f| %>
+<%= form_tag(mentor_enroll_redirect_path) do |f| %>
 
   <table class="table">
     <thead>
@@ -20,7 +20,7 @@
     </tbody>
   </table>
   <div class = "actions" style = "margin-top: 10px">
-    <%= button_tag(type: 'submit', class: "btn btn-success") do %>
+    <%= button_tag(class: "btn btn-success") do %>
      <i class='fa fa-plus'></i> Add
     <% end %>
   </div>

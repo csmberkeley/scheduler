@@ -31,7 +31,8 @@ Rails.application.routes.draw do
   post "/replies/deny/:id" => "replies#deny", as: :deny_reply
 
   resources :jenrolls
-  post "/jenrolls/mentorenroll" => "jenrolls#mentor_enroll", as: :mentor_enroll
+  post "/jenrolls/mentorenrollredirect" => "jenrolls#mentor_enroll_redirect", as: :mentor_enroll_redirect
+  get "/jenrolls/mentorenroll/:course_id" => "jenrolls#mentor_enroll", as: :mentor_enroll
   post "/jenrolls/new" => "jenrolls#create"
   patch "/jenrolls/:id/edit" => "jenrolls#update"
   get "/jenrolls/:id/switch" => "jenrolls#switch", as: :jenroll_switch
