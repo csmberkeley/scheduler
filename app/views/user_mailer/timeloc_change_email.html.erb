@@ -13,14 +13,14 @@
     <% end %>
     <ul>
     <% if @time_change and @time_default_change %>
-        <li><b>The default time of your section has been changed to ... . You will now be meeting at that time from here on out.</b></li>
+        <li>The default time of your section has been changed to <b><%=@section.date %> <%= @section.start.strftime("%I:%M %p") %>-<%= @section.end.strftime("%I:%M %p") %></b>. <i>You will now be meeting at that time from here on out.</i></li>
     <% elsif @time_change %>
-        <li><b>Your section's time has been temporarily changed to ... . <i>This is only a temporary change for your next meeting.</i></b></li>
+        <li>Your section's time has been temporarily changed to <b><%=@section.temp_date %> <%= @section.temp_start.strftime("%I:%M %p") %>-<%= @section.temp_end.strftime("%I:%M %p") %></b>. <i>This is only a temporary change for your next meeting.</i></li>
     <% end %>
     <% if @location_change and @location_default_change %>
-        <li><b>The default location of your section has been changed to ... . You will now be meeting there from here on out.</b></li>
+        <li>The default location of your section has been changed to <b><%=@section.location%></b>. <i>You will now be meeting there from here on out.</i></li>
     <% elsif @location_change %>
-        <li><b>Your section's location has been temporarily changed to ... . <i>This is only a temporary change for your next meeting.</i></b></li>
+        <li>Your section's location has been temporarily changed to <b><%=@section.temp_location%></b>. <i>This is only a temporary change for your next meeting.</i></li>
     <% end %>
     </ul>
     <p>If you have any concerns, please let your mentor know!</p>

@@ -17,7 +17,11 @@
         <div class="form-group">
             <%= f.label :start %>
             <div class='input-group date' id='starttimepicker'>
-                <%= f.text_field(:temp_start, class:"form-control") %>
+                <% if @section.temp_start != nil %>
+                    <%= f.text_field(:temp_start, class:"form-control", :value => @section.temp_start.strftime("%I:%M %p")) %>
+                <% else %>
+                    <%= f.text_field(:temp_start, class:"form-control") %>
+                <% end %>
                 <span class="input-group-addon">
                     <span class="glyphicon glyphicon-time"></span>
                 </span>
@@ -26,7 +30,11 @@
         <div class="form-group">
             <%= f.label :end %>
             <div class='input-group date' id='endtimepicker'>
-                <%= f.text_field(:temp_end, class:"form-control") %>
+                <% if @section.temp_start != nil %>
+                    <%= f.text_field(:temp_end, class:"form-control", :value => @section.temp_end.strftime("%I:%M %p")) %>
+                <% else %>
+                    <%= f.text_field(:temp_end, class:"form-control") %>
+                <% end %>
                 <span class="input-group-addon">
                     <span class="glyphicon glyphicon-time"></span>
                 </span>
@@ -71,7 +79,7 @@
         <% end %>
         <br>
         <br>
-        <label><%= check_box_tag 'notify?'%> Notify your students via email?</label>
+        <label><%= check_box_tag 'notify?', 1, {:checked => "checked"} %> Notify your students via email?</label>
         <br>
         <%= f.submit "Update Settings", class: "btn btn-default" %>
     <% end %>
