@@ -5,7 +5,7 @@
     <h3 class="panel-title">Set Password</h3>
   </div>
   <div class="panel-body">  
-    <%= form_for @section, url: mentor_set_pass_path do |f|%>
+    <%= form_for @section, url: mentor_set_pass_path(@section) do |f|%>
         <div class="form-group">
             <%= f.label :password, "Password" %>
             <%= f.text_field(:password, class:"form-control") %> 
@@ -46,7 +46,7 @@
             <% if attendance.nil? %>
                 <% attendance = Attendance.new(enroll_id: student.id, week: n) %>
             <% end %>
-            <%= form_for attendance, url: mentor_set_attendance_status_path do |f| %>
+            <%= form_for attendance, url: mentor_set_attendance_status_path(attendance) do |f| %>
                 <%= f.select :status, Attendance.statuses.keys.to_a %>
                 <%= f.submit("Update", class: "btn btn-primary") %>
                 <%= f.hidden_field :enroll_id %>

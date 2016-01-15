@@ -58,4 +58,17 @@ class UserMailer < ActionMailer::Base
     end
     mail(to: @user.email, subject: subject)
   end
+
+  def time_remove_email(user, section)
+    @user = user
+    @section = section
+    mail(to: @user.email, subject: "[CSM] Your section time has changed")
+  end
+
+  def location_remove_email(user, section)
+    @user = user
+    @section = section
+    mail(to: @user.email, subject: "[CSM] Your section location has changed")
+  end
+
 end

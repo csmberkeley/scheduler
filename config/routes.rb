@@ -57,8 +57,8 @@ Rails.application.routes.draw do
   get "/jenrolls/:id/switch" => "jenrolls#switch", as: :jenroll_switch
   patch "/jenrolls/:id/switch" => "jenrolls#update_switch", as: :jenroll_update_switch
   get "/jenrolls/:id/roster" => "jenrolls#roster", as: :jenroll_roster
-  delete "/jenrolls/:id/templocation" => "jenrolls#destroy_temp_location", as: :destroy_temp_location
-  delete "/jenrolls/:id/temptime" => "jenrolls#destroy_temp_time", as: :destroy_temp_time
+  delete "/jenrolls/:id/templocation" => "jenrolls#destroy_temp_location", as: :jenroll_destroy_temp_location
+  delete "/jenrolls/:id/temptime" => "jenrolls#destroy_temp_time", as: :jenroll_destroy_temp_time
 
   #senrolls
   resources :senrolls
@@ -66,6 +66,8 @@ Rails.application.routes.draw do
   get "/senrolls/:id/switch" => "senrolls#switch", as: :senroll_switch
   patch "/senrolls/:id/switch" => "senrolls#update_switch", as: :senroll_update_switch
   get "/senrolls/:id/roster" => "senrolls#roster", as: :senroll_roster
+  delete "/senrolls/:id/templocation" => "senrolls#destroy_temp_location", as: :senroll_destroy_temp_location
+  delete "/senrolls/:id/temptime" => "senrolls#destroy_temp_time", as: :senroll_destroy_temp_time
 
   #admin stuff
   get "/admin/students" => "admins#index", as: :students_index
