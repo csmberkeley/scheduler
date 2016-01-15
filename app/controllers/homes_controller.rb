@@ -15,5 +15,6 @@ class HomesController < ApplicationController
   		curr_class_name = Course.find(senroll.course_id).course_name
   		@classes_to_senrolls[curr_class_name] = @classes_to_senrolls[curr_class_name] + [senroll]
   	end
+    @show_tabs = (@enrolls.size > 0 and (@jenrolls.size + @senrolls.size) > 0)
   end
 end
