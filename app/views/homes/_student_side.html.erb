@@ -1,0 +1,67 @@
+<div class="home">
+  <h2><i class="fa fa-tachometer"></i> Student Dashboard</h2>
+  
+  <div class = "alert alert-info">
+    <h2 style = "margin-top: 0px">
+    <i class = "fa fa-exclamation-circle"></i> Notice</h2>
+     <p>
+    Enrolling in a section here guarantees your spot in our program. You do not need to be enrolled on Telebears to attend.
+    <p><b>Please sign up for the Piazza appropriate for your class:</b>
+    <ul>
+      <li><a href="https://piazza.com/berkeley/fall2015/csm61a">CS61A</a></li>
+      <li><a href="https://piazza.com/berkeley/fall2015/csm61b">CS61B</a></li>
+    </ul>
+    <p>Important announcements and logistics will be posted there, so please check it at least occasionally! Feel free to also ask any CSM specific questions you may have there.
+
+  </div>
+
+  <div class = "switch-sections">
+  <% if @enrolls.size > 0%>
+    <h3> Your sections</h3> 
+    <% @enrolls.each do |enroll| %>
+      <% curr_course = Course.find(enroll.course_id) %>
+      <div class="panel panel-primary">
+        <div class="panel-heading">
+          <h3 class="panel-title"><i class="fa fa-book"></i> <%= curr_course.course_name %> 
+          
+          <%= link_to "<i class='fa fa-remove'></i>".html_safe, enrollment_path(enroll), :method => :delete, class: "delete-course", data: { confirm: "Are you sure you want to drop #{curr_course.course_name}?"}%>
+           
+          </h3>
+
+        </div>
+        <div class="panel-body">
+          <% if not enroll.section_id.nil? %>
+            <% curr_section = Section.find(enroll.section_id) %>
+            <h4>  <%= link_to curr_section.name, section_path(curr_section) %></h4>
+            <ul class="list-unstyled">        
+            <li><b>Mentor:</b> <%= curr_section.getMentorName() %> (<%= mail_to curr_section.getMentorEmail() %>) </li>
+            <% if curr_section.temp_location == nil %>
+              <li><b>Location:</b> <%= curr_section.location %> </li>
+            <% elsif curr_section.temp_location == curr_section.location %>
+              <li><h4 style = "color:red;"><b>PERMANENT LOCATION:</b> <%= curr_section.location %></h4></li>
+            <% else %>
+              <li><h4 style = "color:red;"><b>TEMPORARY LOCATION:</b> <%= curr_section.temp_location %></h4></li>
+            <% end %>
+            <% if curr_section.temp_start == nil %>
+                <li><b>Time:</b> <%=curr_section.date %> <%= curr_section.start.strftime("%I:%M %p") %>-<%= curr_section.end.strftime("%I:%M %p") %> </li>
+            <% elsif curr_section.temp_start == curr_section.start and curr_section.temp_end == curr_section.end and curr_section.temp_date == curr_section.date %>
+                <li><h4 style = "color:red;"><b>PERMANENT TIME:</b> <%=curr_section.date %> <%= curr_section.start.strftime("%I:%M %p") %>-<%= curr_section.end.strftime("%I:%M %p") %></h4></li>
+            <% else %>
+                <li><h4 style = "color:red;"><b>TEMPORARY TIME:</b> <%=curr_section.temp_date %> <%= curr_section.temp_start.strftime("%I:%M %p") %>-<%= curr_section.temp_end.strftime("%I:%M %p") %></h4></li>
+            <% end %>
+            </ul>
+            <%= link_to '<i class="fa fa-exchange"></i> Switch Sections'.html_safe, switch_section_path(enroll), class: "btn btn-warning" %>
+            <%= link_to '<i class="fa fa-trash-o"></i> Drop Section'.html_safe, drop_section_path(enroll_id: enroll.id), class: "btn btn-danger", data: { confirm: "Are you sure you want to drop #{curr_section.name}?"}%>
+            <%= link_to '<i class="fa fa-user"></i> Attendance'.html_safe, student_attendance_path(enroll), :class => "btn btn-success" %>
+          <% else %>
+            <h4>You're not enrolled in a section. </h4> 
+            <%= link_to '<i class="fa fa-plus"></i> Add Section'.html_safe, edit_enrollment_path(enroll),  class: "btn btn-success"%>
+          <% end %>
+        </div>
+      </div>
+    <% end %>
+  <% else %>
+  <% end %>  
+
+  </div>
+</div>

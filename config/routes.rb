@@ -7,6 +7,20 @@ Rails.application.routes.draw do
   #get "/courses/:id" => "courses#show", as: :course
   resources :courses
 
+  get "/attendances" => "attendances#index", as: :student_attendance_index
+  post "/attendances" => "attendances#create", as: :student_attendance_create
+  post "/attendances/checkin" => "attendances#checkin", as: :student_attendance_checkin
+  patch "/attendances/mentor/set_pass/:id" => "attendances#set_pass", as: :mentor_set_pass
+  patch "/attendances/mentor/assign_attendance/:id" => "attendances#set_status", as: :mentor_set_attendance_status
+  post "/attendances/mentor/assign_attendance/:id" => "attendances#set_status"
+  post "/attendances/mentor/approve_absence/:id" => "attendances#approve", as: :mentor_attendance_approve
+  post "/attendances/mentor/reject_absence/:id" => "attendances#reject", as: :mentor_attendance_reject
+  get "/attendances/mentor" => "attendances#mentor_index", as: :mentor_attendance_index
+  get "/attendances/jmentor/:id" => "attendances#mentor_show", as: :junior_mentor_attendance
+  get "/attendances/smentor/:id" => "attendances#mentor_show_senior", as: :senior_mentor_attendance
+  get "/attendances/:id" => "attendances#show", as: :student_attendance
+
+
   # get "/sections" => "sections#index"
   # get "/sections/:id" => "sections#show", as: :section
   resources :sections
@@ -30,14 +44,27 @@ Rails.application.routes.draw do
   post "/replies/accept/:id" => "replies#accept", as: :accept_reply
   post "/replies/deny/:id" => "replies#deny", as: :deny_reply
 
+  #contract
+  get "/users/contract/:id" => "users#contract", as: :contract
+  post "/users/sign-contract/:id" => "users#sign_contract", as: :sign_contract
+
+  #jenrolls
   resources :jenrolls
-  post "/jenrolls/mentorenroll" => "jenrolls#mentor_enroll", as: :mentor_enroll
+  post "/jenrolls/mentorenrollredirect" => "jenrolls#mentor_enroll_redirect", as: :mentor_enroll_redirect
+  get "/jenrolls/mentorenroll/:course_id" => "jenrolls#mentor_enroll", as: :mentor_enroll
   post "/jenrolls/new" => "jenrolls#create"
   patch "/jenrolls/:id/edit" => "jenrolls#update"
+  get "/jenrolls/:id/switch" => "jenrolls#switch", as: :jenroll_switch
+  patch "/jenrolls/:id/switch" => "jenrolls#update_switch", as: :jenroll_update_switch
   get "/jenrolls/:id/roster" => "jenrolls#roster", as: :jenroll_roster
+  delete "/jenrolls/:id/templocation" => "jenrolls#destroy_temp_location", as: :destroy_temp_location
+  delete "/jenrolls/:id/temptime" => "jenrolls#destroy_temp_time", as: :destroy_temp_time
 
+  #senrolls
   resources :senrolls
   patch "/senrolls/:id/edit" => "senrolls#update"
+  get "/senrolls/:id/switch" => "senrolls#switch", as: :senroll_switch
+  patch "/senrolls/:id/switch" => "senrolls#update_switch", as: :senroll_update_switch
   get "/senrolls/:id/roster" => "senrolls#roster", as: :senroll_roster
 
   #admin stuff

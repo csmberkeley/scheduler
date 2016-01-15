@@ -2,9 +2,9 @@
     <div class="panel-heading">Edit Section</div>
     <div class="panel-body">
     <%= form_for @section do |f|%>
-        <div class"form-group">
+<!--         <div class"form-group">
             <%= hidden_field_tag :id, @section.id %>
-        </div>
+        </div> -->
         <div class="form-group">
             <%= f.label :name %>
             <%= f.text_field(:name, class:"form-control") %> 
@@ -20,14 +20,6 @@
         <div class="form-group">
             <%= f.label :date, "Day of the week" %>
             <%= f.text_field(:date, class:"form-control") %> 
-        </div>
-        <div class="form-group">
-            <%= f.label :mentor %>
-            <%= f.text_field(:mentor, class:"form-control") %> 
-        </div>
-        <div class="form-group">
-            <%= f.label :mentor_email %>
-            <%= f.text_field(:mentor_email, class:"form-control") %> 
         </div>
         <div class="form-group">
             <%= f.label :location %>

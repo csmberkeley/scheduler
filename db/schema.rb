@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160103234118) do
+ActiveRecord::Schema.define(version: 20160113070150) do
 
   create_table "attendances", force: true do |t|
     t.integer  "enroll_id"
@@ -104,15 +104,19 @@ ActiveRecord::Schema.define(version: 20160103234118) do
     t.string   "name"
     t.time     "start"
     t.time     "end"
+    t.time     "temp_start"
+    t.time     "temp_end"
     t.string   "date"
+    t.string   "temp_date"
     t.boolean  "empty"
     t.integer  "course_id"
-    t.string   "mentor"
     t.string   "location"
+    t.string   "temp_location"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "limit"
-    t.string   "mentor_email"
+    t.string   "password"
+    t.boolean  "pass_enabled",  default: false
   end
 
   create_table "senrolls", force: true do |t|
@@ -149,6 +153,7 @@ ActiveRecord::Schema.define(version: 20160103234118) do
     t.datetime "confirmed_at"
     t.datetime "confirmation_sent_at"
     t.string   "unconfirmed_email"
+    t.boolean  "mentor_verified"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "email",                  default: "", null: false

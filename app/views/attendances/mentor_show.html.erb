@@ -1,0 +1,62 @@
+<h2>Attendance for <%= @section.name %></h2>
+
+<div class="panel panel-primary">
+  <div class="panel-heading">
+    <h3 class="panel-title">Set Password</h3>
+  </div>
+  <div class="panel-body">  
+    <%= form_for @section, url: mentor_set_pass_path do |f|%>
+        <div class="form-group">
+            <%= f.label :password, "Password" %>
+            <%= f.text_field(:password, class:"form-control") %> 
+            <%= f.label :pass_enabled, "Allow Check-ins" %>
+            <%= f.check_box :pass_enabled %>            
+        </div>
+        <%= f.submit("Update", class: "btn btn-success") %>
+    <% end %>   
+    </div>
+</div>
+
+<div class="list-group">
+<% @current_week.downto(1) do |n| %>
+    <div class="list-group-item">
+        <h3 class="list-group-item-heading">Week <%= n %></h3>
+        <p class="list-group-item-text">
+        <div class="list-group">
+        <% @students.each do |student| %>
+            <% attendance = Attendance.where(enroll_id: student.id, week: n).take %>
+            <div class="list-group-item <%= item_class attendance%>">
+            <h4 class="list-group-item-heading"><%= student.user.name %> - <%= student.user.email %></h4>
+            <p class="list-group-item-text">
+            
+            
+            <% if attendance.nil? %>
+                Unexcused Absence
+            <% elsif attendance.pending? %>
+                Absence requested for the following: <%= (attendance.reason.blank? ? "None provided" : attendance.reason) %>
+                <%= link_to '<i class="fa fa-check"></i>'.html_safe, mentor_attendance_approve_path(attendance), method: :post, class: "btn btn-success"%>
+                <%= link_to '<i class="fa fa-times"></i>'.html_safe, mentor_attendance_reject_path(attendance), method: :post, class: "btn btn-danger" %>
+            <% else %>
+                <%= attendance.status %>
+                <% if !attendance.reason.nil? %>
+                <p>
+                Reason: <%= attendance.reason %>
+                <% end %>
+            <% end %>
+            <% if attendance.nil? %>
+                <% attendance = Attendance.new(enroll_id: student.id, week: n) %>
+            <% end %>
+            <%= form_for attendance, url: mentor_set_attendance_status_path do |f| %>
+                <%= f.select :status, Attendance.statuses.keys.to_a %>
+                <%= f.submit("Update", class: "btn btn-primary") %>
+                <%= f.hidden_field :enroll_id %>
+                <%= f.hidden_field :week %>
+            <% end %>
+            </p>
+            </div>
+        <% end %>
+        </div>
+        </p>
+    </div>
+<% end %>
+</div>

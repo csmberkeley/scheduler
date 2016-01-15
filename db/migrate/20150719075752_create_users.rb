@@ -11,6 +11,7 @@ class CreateUsers < ActiveRecord::Migration
       t.datetime :confirmed_at
       t.datetime :confirmation_sent_at
       t.string   :unconfirmed_email # Only if using reconfirmable
+      t.boolean :mentor_verified
       t.timestamps
     end
   end

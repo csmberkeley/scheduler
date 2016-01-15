@@ -52,11 +52,11 @@ days.each do |d|
       times.each do |t|
             Section.create! :name => "Section #{count}", 
       :course_id => cs61a.id, :start => Time.new(2015,9,9, t,0,0, "+00:00"),:end => Time.new(2015,9,9, t+1,0,0, "+00:00"),
-      :date => d, :mentor => "TBD", :location => "TBD"
+      :date => d, :location => "TBD"
             count += 1
             Section.create! :name => "Section #{count}", 
       :course_id => cs61a.id, :start => Time.new(2015,9,9, t,0,0, "+00:00"),:end => Time.new(2015,9,9, t+1,0,0, "+00:00"),
-      :date => d, :mentor => "TBD", :location => "TBD"
+      :date => d, :location => "TBD"
             count += 1
       end 
 end
@@ -69,7 +69,7 @@ days.each do |d|
      times.each do |t|
            Section.create! :name => "Section #{count}", 
      :course_id => cs61b.id, :start => Time.new(2015,9,9, t,0,0, "+00:00"),:end => Time.new(2015,9,9, t+1,0,0, "+00:00"),
-     :date => d, :mentor => "TBD", :location => "TBD"
+     :date => d, :location => "TBD"
            count += 1
      end 
 end
@@ -81,3 +81,7 @@ Setting.create! :setting_name => "Enable Section Switching", :setting_type => "b
 Setting.create! :setting_name => "Section Limit", :setting_type => "int", :value => "5", :name => "limit"
 
 Setting.create! :setting_name => "Silent Add/Drop", :setting_type => "boolean", :value => "0", :name => "silent"
+
+Setting.create! :setting_name => "Base Week", :setting_type => "String", :value => "2015-10-24 14:46:21 +0100", :name => "start_week"
+
+Setting.create! :setting_name => "Max Week", :setting_type => "int", :value => "15", :name => "max_week"

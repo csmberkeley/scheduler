@@ -20,7 +20,6 @@ class CommentsController < ApplicationController
 		end
 	end
 
-	#**************************************************************************
   #before_filters
   private
   def check_destroy

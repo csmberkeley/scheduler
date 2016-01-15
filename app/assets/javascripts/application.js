@@ -15,6 +15,8 @@
 //= require twitter/bootstrap
 //= require turbolinks
 //= require admins
+//= require moment
+//= require bootstrap-datetimepicker
 //= require_tree .
 $(document).ready(function(){
   $(".btn").tooltip();
