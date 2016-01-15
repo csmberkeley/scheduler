@@ -11,8 +11,8 @@ Rails.application.routes.draw do
   post "/attendances" => "attendances#create", as: :student_attendance_create
   post "/attendances/checkin" => "attendances#checkin", as: :student_attendance_checkin
   patch "/attendances/mentor/set_pass/:id" => "attendances#set_pass", as: :mentor_set_pass
-  patch "/attendances/mentor/assign_attendance/:id" => "attendances#set_status", as: :mentor_set_attendance_status
-  post "/attendances/mentor/assign_attendance/:id" => "attendances#set_status"
+  patch "/attendances/mentor/assign_attendance" => "attendances#set_status", as: :mentor_set_attendance_status
+  post "/attendances/mentor/assign_attendance" => "attendances#set_status"
   post "/attendances/mentor/approve_absence/:id" => "attendances#approve", as: :mentor_attendance_approve
   post "/attendances/mentor/reject_absence/:id" => "attendances#reject", as: :mentor_attendance_reject
   get "/attendances/mentor" => "attendances#mentor_index", as: :mentor_attendance_index

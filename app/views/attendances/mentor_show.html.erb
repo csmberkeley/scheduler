@@ -46,7 +46,7 @@
             <% if attendance.nil? %>
                 <% attendance = Attendance.new(enroll_id: student.id, week: n) %>
             <% end %>
-            <%= form_for attendance, url: mentor_set_attendance_status_path(attendance) do |f| %>
+            <%= form_for attendance, url: mentor_set_attendance_status_path do |f| %>
                 <%= f.select :status, Attendance.statuses.keys.to_a %>
                 <%= f.submit("Update", class: "btn btn-primary") %>
                 <%= f.hidden_field :enroll_id %>
