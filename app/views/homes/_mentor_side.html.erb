@@ -65,7 +65,7 @@
           <%= link_to '<i class="fa fa-exchange"></i> Switch Sections'.html_safe, jenroll_switch_path(enroll.id), class: "btn btn-warning" %>
           <%= link_to '<i class="fa fa-trash-o"></i> Drop Mentoring Section'.html_safe, enroll, class: "btn btn-danger", method: :delete, data: { confirm: "Are you sure you want to stop mentoring #{curr_section.name}?"}%>
           <%= link_to '<i class="fa fa-cog"></i> Mentor Settings'.html_safe, edit_jenroll_path(enroll.id), class: "btn btn-success" %>
-          <%= link_to '<i class="fa fa-person"></i> View Attendance'.html_safe, junior_mentor_attendance_path(enroll), :class => "btn btn-default" %>
+          <%= link_to '<i class="fa fa-person"></i> View Attendance'.html_safe, junior_mentor_attendance_path(enroll), :class => "btn btn-info" %>
            <% end %>
         </div>
       </div>

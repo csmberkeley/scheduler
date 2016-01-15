@@ -7,11 +7,10 @@ class Jenroll < ActiveRecord::Base
 	has_many :mentorjoins
 
 	def getStudents()
-		@section = Section.find(self.section_id)
+		@section = self.section
 		users = []
 		@section.enrolls.each do |enroll|
-			curr_user = User.find(enroll.user_id)
-			users << curr_user
+			users << enroll.user
 		end
 		return users
 	end
