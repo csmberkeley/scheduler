@@ -5,6 +5,11 @@ class JenrollsController < ApplicationController
     before_filter :check_update_switch, :only => [:update_switch]
 
 	def new
+        if not current_user.mentor_verified
+            flash[:notice] = "Please agree to the contract to be a mentor!"
+            redirect_to contract_path(current_user)
+            return
+        end
         @courses = Course.all
 	end
 
