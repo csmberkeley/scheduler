@@ -134,7 +134,9 @@ class JenrollsController < ApplicationController
     def destroy_temp_location
         @jenroll = Jenroll.find(params[:id])
         @section = Section.find(@jenroll.section_id)
+        @user = @jenroll.user
         @section.temp_location = nil
+        UserMailer.location_remove_email(@user, @section).deliver
         if @section.save
             flash[:notice] = "Temporary location change removed."
         else
@@ -146,9 +148,11 @@ class JenrollsController < ApplicationController
     def destroy_temp_time
         @jenroll = Jenroll.find(params[:id])
         @section = Section.find(@jenroll.section_id)
+        @user = @jenroll.user
         @section.temp_start = nil
         @section.temp_end = nil
         @section.temp_date = ""
+        UserMailer.time_remove_email(@user, @section).deliver
         if @section.save
             flash[:notice] = "Temporary time change removed."
         else

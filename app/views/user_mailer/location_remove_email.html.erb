@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+  </head>
+  <body>
+    <p>Hi <%= @user.name%>,
+    <p>The following change has been made to your section:</p>
+    <ul>
+        <li>Your section's location has been reverted back to <b><%=@section.location %></b>.</li>
+    </ul>
+    <p>If you have any concerns, please let your mentor know!</p>
+    Best,<br>
+    CSM
+  </body>
+</html>
