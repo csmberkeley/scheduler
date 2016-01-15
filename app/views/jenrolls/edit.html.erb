@@ -58,7 +58,7 @@
         <label><%= check_box_tag 'makeDefaultTime?'%> Make this the default time/date?</label>
         <% if @section.temp_start != nil and not (@section.temp_start == @section.start and @section.temp_end == @section.end and @section.temp_date == @section.date) %>
             <br>
-            <%= link_to '<i class="fa fa-trash-o"></i> Remove Temporary Time'.html_safe, destroy_temp_time_path(@jenroll), class: "btn btn-danger", method: :delete, data: { confirm: "Are you sure?"}%>
+            <%= link_to '<i class="fa fa-trash-o"></i> Remove Temporary Time'.html_safe, jenroll_destroy_temp_time_path(@jenroll), class: "btn btn-danger", method: :delete, data: { confirm: "Are you sure?"}%>
         <% end %>
         <h2>Make a Temporary Location Change</h2>
         <% if @section.temp_location == nil %>
@@ -75,7 +75,7 @@
         <label><%= check_box_tag 'makeDefaultLocation?'%> Make this the default location?</label>
         <% if @section.temp_location != nil and @section.temp_location != @section.location %>
             <br>
-            <%= link_to '<i class="fa fa-trash-o"></i> Remove Temporary Location'.html_safe, destroy_temp_location_path(@jenroll), class: "btn btn-danger", method: :delete, data: { confirm: "Are you sure?"}%>
+            <%= link_to '<i class="fa fa-trash-o"></i> Remove Temporary Location'.html_safe, jenroll_destroy_temp_location_path(@jenroll), class: "btn btn-danger", method: :delete, data: { confirm: "Are you sure?"}%>
         <% end %>
         <br>
         <br>
