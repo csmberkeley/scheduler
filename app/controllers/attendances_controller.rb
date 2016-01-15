@@ -1,9 +1,16 @@
 class AttendancesController < ApplicationController
     before_filter :check_logged_in
+    before_filter :check_student_access, :only => [:show]
+    before_filter :check_student_create_access, :only => [:checkin, :create]
+    before_filter :check_junior_mentor_access, :only => [:mentor_show]
+    before_filter :check_senior_mentor_access, :only => [:mentor_show_senior]
+    before_filter :check_mentor_section_access, :only => [:set_pass]
+    before_filter :check_owns_student, :only => [:set_status]
+    before_filter :check_approve_reject, :only => [:approve, :reject]
     #may be better to prepopulate database so can do enroll.attendances instead of having to manually checking the existence of each week.....
     #but that is that more work? have to seed the database everytime someone creates an enroll, destroy taken care of
 
-    #mentor_show.html.erb very awkward cause when manually assigning status of attendance, might be creating one, or might be updating one, so code is very hacky, deal with post vs patch (can just force post tbh)
+    #mentor_show.html.erb very awkward careuse when manually assigning status of attendance, might be creating one, or might be updating one, so code is very hacky, deal with post vs patch (can just force post tbh)
     #also, how to set to unexcused absence??? need to manually add option to delete lol, or add enum status anyway? that just sucks. or tell mentors to change to absent-denied?
     def mentor_index        
     end
@@ -114,5 +121,47 @@ class AttendancesController < ApplicationController
     end
     private def getMaxWeek
         return Setting.find_by(name: "max_week").value.to_i
+    end
+    private def check_student_access
+        if !check_enrollment(Enroll.find(params[:id]))
+            flash[:notice] = "You do not have access to this page."
+            redirect_to root_path
+        end
+    end
+    private def check_student_create_access
+        if !check_enrollment(Enroll.find(params[:attendance][:enroll_id]))
+            flash[:notice] = "You do not have access to this page."
+            redirect_to root_path
+        end
+    end
+    private def check_junior_mentor_access
+        if !check_enrollment(Jenroll.find(params[:id]))
+            flash[:notice] = "You do not have access to this page."
+            redirect_to root_path
+        end
+    end
+    private def check_senior_mentor_access
+        if !check_enrollment(Senroll.find(params[:id]))
+            flash[:notice] = "You do not have access to this page."
+            redirect_to root_path
+        end
+    end
+    private def check_mentor_section_access
+        if !check_enrollment(Section.find(params[:id]).getMentor)
+            flash[:notice] = "You do not have access to this page."
+            redirect_to root_path  
+        end
+    end
+    private def check_owns_student
+        if !check_enrollment(Enroll.find(params[:attendance][:enroll_id]).section.getMentor)
+            flash[:notice] = "You do not have access to this page."
+            redirect_to root_path
+        end
+    end
+    private def check_approve_reject
+        if !check_enrollment(Attendance.find(params[:id]).enroll.section.getMentor)
+            flash[:notice] = "You do not have access to this page."
+            redirect_to root_path
+        end
     end
 end

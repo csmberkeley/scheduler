@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-    before_filter :check_admin
+    before_filter :check_admin, :only => [:destroy]
     def destroy
         @user = User.find(params[:id])
         name = @user.name
