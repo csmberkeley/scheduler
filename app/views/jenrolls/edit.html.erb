@@ -81,7 +81,8 @@
         <br>
         <label><%= check_box_tag 'notify?', 1, {:checked => "checked"} %> Notify your students via email?</label>
         <br>
-        <%= f.submit "Update Settings", class: "btn btn-default" %>
+        <%= f.submit "Update Settings", class: "btn btn-success" %>
+        <%= link_to "Cancel", root_path, class: "btn btn-default" %>
     <% end %>
     </div>
 </div>
