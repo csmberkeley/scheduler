@@ -1,0 +1,23 @@
+<h2>Mentor Attendance</h2>
+<h3>Senior Mentor Sections</h3>
+<div class="list-group">
+<% current_user.senrolls.each do |senroll| %>
+    <% if senroll.section_id != nil %>
+    <a href="<%= senior_mentor_attendance_path(senroll) %>" class="list-group-item">
+      <h4 class="list-group-item-heading"><%= senroll.course.course_name %></h4>
+      <p class="list-group-item-text"><%= senroll.section.name %></p>
+    </a>
+    <% end %>
+<% end %>
+</div>
+<h3>Junior Mentor Sections</h3>
+<div class="list-group">
+<% current_user.jenrolls.each do |jenroll| %>
+    <% if jenroll.section_id != nil %>
+    <a href="<%= junior_mentor_attendance_path(jenroll) %>" class="list-group-item">
+      <h4 class="list-group-item-heading"><%= jenroll.course.course_name %></h4>
+      <p class="list-group-item-text"><%= jenroll.section.name %></p>
+    </a>
+    <% end %>
+<% end %>
+</div>

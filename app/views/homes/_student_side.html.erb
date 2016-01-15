@@ -52,6 +52,7 @@
             </ul>
             <%= link_to '<i class="fa fa-exchange"></i> Switch Sections'.html_safe, switch_section_path(enroll), class: "btn btn-warning" %>
             <%= link_to '<i class="fa fa-trash-o"></i> Drop Section'.html_safe, drop_section_path(enroll_id: enroll.id), class: "btn btn-danger", data: { confirm: "Are you sure you want to drop #{curr_section.name}?"}%>
+            <%= link_to '<i class="fa fa-user"></i> Attendance'.html_safe, student_attendance_path(enroll), :class => "btn btn-success" %>
           <% else %>
             <h4>You're not enrolled in a section. </h4> 
             <%= link_to '<i class="fa fa-plus"></i> Add Section'.html_safe, edit_enrollment_path(enroll),  class: "btn btn-success"%>

@@ -1,0 +1,66 @@
+<% curr_section = @enroll.section %>
+<h2>Attendance for <%= curr_section.name %></h2>
+
+<p>
+Mentor: <%= curr_section.getMentorName %> (<%= curr_section.getMentorEmail %>)
+
+<% current_week = @current_week %>
+<div class="panel panel-primary">
+  <div class="panel-heading">
+    <h3 class="panel-title">Current Week: <%= current_week %></h3>
+  </div>
+  <div class="panel-body">    
+
+    <% curr_attendance = Attendance.where(enroll_id: @enroll, week: current_week).take %>
+    <% if curr_attendance == nil %>
+
+        <%= form_for @blank_attendance, url: student_attendance_checkin_path do |f|%>
+            <div class="form-group">
+                <%= f.hidden_field :enroll_id, value: @enroll.id %>
+                <%= f.label :reason, "Password" %>
+                <%= f.hidden_field :week, value: current_week %>
+                <%= f.text_field(:reason, class:"form-control") %> 
+            </div>
+            <%= f.submit("Check in", class: "btn btn-success") %>
+        <% end %>    
+        <%= form_for @blank_attendance, url: student_attendance_create_path do |f|%>
+            <div class="form-group">
+                <%= f.hidden_field :enroll_id, value: @enroll.id %>
+                <%= f.label :reason %>
+                <%= f.hidden_field :week, value: current_week %>
+                <%= f.text_field(:reason, class:"form-control") %> 
+            </div>
+            <%= f.submit("Submit Absence Request", class: "btn btn-warning") %>
+        <% end %>    
+    <% else %>
+        <%= curr_attendance.status %>
+    <% end %>
+  </div>
+</div>
+<div class="list-group">
+<% (current_week-1).downto(1) do |n|%>
+
+      <div class="list-group-item">
+        <h4 class="list-group-item-heading">Week <%= n %></h4>
+        <p class="list-group-item-text">
+
+    <% attendance = Attendance.where(enroll_id: @enroll, week: n).take %>
+    <% if attendance == nil %>
+        <h3>Unexcused Absence</h3>
+        <%= form_for @blank_attendance, url: student_attendance_create_path do |f|%>
+            <div class="form-group">
+                <%= f.hidden_field :enroll_id, value: @enroll.id %>
+                <%= f.label :reason %>
+                <%= f.hidden_field :week, value: n %>
+                <%= f.text_field(:reason, class:"form-control") %> 
+            </div>
+            <%= f.submit("Submit Absence Request", class: "btn btn-warning") %>
+        <% end %>
+    <% else %>
+       <span class="badge"> <%= attendance.status %> </span> <%= attendance.reason %> 
+    <% end %>
+      </p>
+      </div>
+    
+<% end %>
+</div>
