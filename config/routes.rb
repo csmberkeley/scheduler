@@ -30,6 +30,11 @@ Rails.application.routes.draw do
   post "/replies/accept/:id" => "replies#accept", as: :accept_reply
   post "/replies/deny/:id" => "replies#deny", as: :deny_reply
 
+  #contract
+  get "/users/contract/:id" => "users#contract", as: :contract
+  post "/users/sign-contract/:id" => "users#sign_contract", as: :sign_contract
+
+  #jenrolls
   resources :jenrolls
   post "/jenrolls/mentorenrollredirect" => "jenrolls#mentor_enroll_redirect", as: :mentor_enroll_redirect
   get "/jenrolls/mentorenroll/:course_id" => "jenrolls#mentor_enroll", as: :mentor_enroll
@@ -41,6 +46,7 @@ Rails.application.routes.draw do
   delete "/jenrolls/:id/templocation" => "jenrolls#destroy_temp_location", as: :destroy_temp_location
   delete "/jenrolls/:id/temptime" => "jenrolls#destroy_temp_time", as: :destroy_temp_time
 
+  #senrolls
   resources :senrolls
   patch "/senrolls/:id/edit" => "senrolls#update"
   get "/senrolls/:id/switch" => "senrolls#switch", as: :senroll_switch

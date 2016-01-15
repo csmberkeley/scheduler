@@ -1,0 +1,8 @@
+<div class = "col-xs-offset-2 col-xs-8" style = "margin-top:10px">
+	<h1>Mentor Contract</h1>
+	<p>I, <%= @user.name %>, accept the terms covered in the presentation of expectations. The mentor expectations are enumerated in the Computer Science Mentors bDrive and can be viewed throughout the semester.</p>
+	<div "form-control" style = "text-align: center;">
+		<%=link_to "Agree", sign_contract_path(@user), :method => "post", class: "btn btn-default" %>
+		<%= link_to "Cancel", root_path, class: "btn btn-default"%>
+	</div>
+<div>
