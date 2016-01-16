@@ -28,7 +28,8 @@ class UsersController < ApplicationController
         redirect_to new_jenroll_path
     end
 
-    private def check_user
+    private 
+    def check_user
         if params[:id] and User.exists?(params[:id])
             user = User.find(params[:id])
             if current_user.id == user.id
