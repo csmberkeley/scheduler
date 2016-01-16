@@ -1,4 +1,5 @@
 class UsersController < ApplicationController
+    before_filter :check_logged_in
     before_filter :check_admin, :only => [:destroy]
     before_filter :check_user, :only => [:contract, :sign_contract]
     def destroy

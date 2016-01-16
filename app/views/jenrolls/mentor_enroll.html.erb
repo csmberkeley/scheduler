@@ -3,6 +3,11 @@
 <%= form_tag(new_jenroll_path) do |f| %>
   <div class="form-group">
     <label for="mentor-pass">Password</label>
+    <div class = "alert alert-info" style = "margin-top:0px">
+       <p><i class = "fa fa-question-circle"></i> <b>What password?</b></p>
+       <p> This is the mentor password you have received in your email in order to sign up as a mentor. It is not your password or this account.</p>
+
+    </div>
     <%= password_field_tag :pass, nil, :class=> "form-control", :id => "mentor-pass", :placeholder => "Mentor Password"%>
   </div>
 

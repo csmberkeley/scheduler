@@ -1,5 +1,6 @@
 class CommentsController < ApplicationController
 	before_filter :check_destroy, :only => [:destroy]
+	before_filter :check_logged_in
 	def destroy
 		@comment = Comment.find(params[:id])
 		@enroll = @comment.getEnrollmentOfCommenter

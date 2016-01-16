@@ -1,4 +1,5 @@
 class SenrollsController < ApplicationController
+    before_filter :check_logged_in
     before_filter :check_senroll, :only => [:destroy, :switch, :update_switch, :edit, :update, :destroy_temp_location, :destroy_temp_time, :roster]
     before_filter :check_update_switch, :only => [:update_switch]
 
