@@ -188,7 +188,7 @@ class JenrollsController < ApplicationController
     #before filters
     private
     def check_jenroll
-        if not params[:id] or not Jenroll.exists?(params[:id]) or not check_enrollment(Jenroll.find(params[:id]))
+        if not params[:id] or not Jenroll.exists?(params[:id]) or not (check_enrollment(Jenroll.find(params[:id])) or current_user.admin)
             flash[:notice] = "You do not have permission to access that page."
             redirect_to root_path
         end
