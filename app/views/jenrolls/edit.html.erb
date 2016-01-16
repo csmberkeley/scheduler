@@ -55,7 +55,7 @@
             <br>
             <%= f.select(:temp_date, options_for_select([["None Selected", ""],['Monday', 'Monday'], ['Tuesday', 'Tuesday'], ['Wednesday', 'Wednesday'], ['Thursday', 'Thursday'], ["Friday", "Friday"]], @section.temp_date)) %>
         </div>
-        <% if Setting.find_by(name: 'default_switching').value == "1" %>
+        <% if Setting.find_by(name: 'default_switching').value == "1" or current_user.admin %>
             <label><%= check_box_tag 'makeDefaultTime?'%> Make this the default time/date?</label>
         <% end %>
         <% if @section.temp_start != nil and not (@section.temp_start == @section.start and @section.temp_end == @section.end and @section.temp_date == @section.date) %>
@@ -74,7 +74,7 @@
             <%= f.label :location %>
             <%= f.text_field(:temp_location, class:"form-control") %> 
         </div>
-        <% if Setting.find_by(name: 'default_switching').value == "1" %>
+        <% if Setting.find_by(name: 'default_switching').value == "1" or current_user.admin %>
             <label><%= check_box_tag 'makeDefaultLocation?'%> Make this the default location?</label>
             <br>
         <% end %>
