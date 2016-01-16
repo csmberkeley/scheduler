@@ -15,6 +15,7 @@ Mentor: <%= curr_section.getMentorName %> (<%= curr_section.getMentorEmail %>)
     <% if curr_attendance == nil %>
 
         <%= form_for @blank_attendance, url: student_attendance_checkin_path do |f|%>
+            <h3>Check In</h3>
             <div class="form-group">
                 <%= f.hidden_field :enroll_id, value: @enroll.id %>
                 <%= f.label :reason, "Password" %>
@@ -24,6 +25,7 @@ Mentor: <%= curr_section.getMentorName %> (<%= curr_section.getMentorEmail %>)
             <%= f.submit("Check in", class: "btn btn-success") %>
         <% end %>    
         <%= form_for @blank_attendance, url: student_attendance_create_path do |f|%>
+            <h3>Request an Absence</h3>
             <div class="form-group">
                 <%= f.hidden_field :enroll_id, value: @enroll.id %>
                 <%= f.label :reason %>
