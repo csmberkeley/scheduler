@@ -34,6 +34,9 @@ html {
 body > .row {
     height:100%;
 }
+.btn {
+    margin-bottom:4px;
+}
 .main-container {
     padding-left:15px;
     padding-right:15px;
