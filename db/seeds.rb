@@ -31,18 +31,25 @@ mike = User.create! :name => "Mike Aboody",
             :admin => "true"
 
 cs61a = Course.create! :course_name => "CS61A",
-			:semester => "Fall",
-			:year => 2015,
+			:semester => "Spring",
+			:year => 2016,
 			:password => "pass",
                   :description => "Structure and Interpretation of Computer Programs",
-                  :instructor => "John Denero"
+                  :instructor => "Paul Hilfinger"
 
 cs61b = Course.create! :course_name => "CS61B",
-			:semester => "Fall",
-			:year => 2015,
+			:semester => "Spring",
+			:year => 2016,
 			:password => "pass",
                   :description => "Data Structures",
-                  :instructor => "Paul Hilfinger"
+                  :instructor => "Josh Hug"
+
+cs70 = Course.create! :course_name => "CS70",
+      :semester => "Spring",
+      :year => 2016,
+      :password => "pass",
+                  :description => "Discrete Mathematics and Probability Theory",
+                  :instructor => "Satish Rao"
 
 #cs61a
 days = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"]
@@ -65,10 +72,24 @@ end
 days = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"]
 count = 1
 days.each do |d|
-     times = [11, 12, 13, 14, 15]
+     times = [10, 11, 12, 13, 14, 15, 16, 17]
      times.each do |t|
            Section.create! :name => "Section #{count}", 
      :course_id => cs61b.id, :start => Time.new(2015,9,9, t,0,0, "+00:00"),:end => Time.new(2015,9,9, t+1,0,0, "+00:00"),
+     :date => d, :location => "TBD"
+           count += 1
+     end 
+end
+
+#cs70
+# hour and half blocks, which requires some fishy array setup to make sure time blocks are set up correctly
+days = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"]
+count = 1
+days.each do |d|
+     times = [[9,30,11,0], [11,0,12,30], [12,30,14,0], [14,0,15,30], [15,30,17,0], [17,0,18,30]]
+     times.each do |t1, m1, t2, m2|
+           Section.create! :name => "Section #{count}", 
+     :course_id => cs70.id, :start => Time.new(2015,9,9, t1,m1,0, "+00:00"),:end => Time.new(2015,9,9, t2,m2,0, "+00:00"),
      :date => d, :location => "TBD"
            count += 1
      end 
@@ -82,6 +103,6 @@ Setting.create! :setting_name => "Section Limit", :setting_type => "int", :value
 
 Setting.create! :setting_name => "Silent Add/Drop", :setting_type => "boolean", :value => "0", :name => "silent"
 
-Setting.create! :setting_name => "Base Week", :setting_type => "String", :value => "2015-10-24 14:46:21 +0100", :name => "start_week"
+Setting.create! :setting_name => "Base Week", :setting_type => "String", :value => "2016-1-18 14:46:21 +0100", :name => "start_week"
 
 Setting.create! :setting_name => "Max Week", :setting_type => "int", :value => "15", :name => "max_week"

@@ -13,6 +13,9 @@
       <tr>
         <th>  </th>
         <th> Section Name </th>
+        <th> Day </th>
+        <th> Time </th>
+        <th> Location </th>
       </tr>
     </thead>
     <tbody>
@@ -20,6 +23,11 @@
         <tr>
           <td> <%= radio_button_tag :section_id, section.id %> </td>
           <td> <%= section.name %> </td>
+          <td> <%= section.date %> </td>
+          <td> <% if section.start and section.end %>
+            <%= section.start.strftime("%I:%M %p") %>-<%= section.end.strftime("%I:%M %p") %>
+          <% end %> </td>
+          <td> <%= section.location %> </td>
         </tr>
       <% end %>
     </tbody>
