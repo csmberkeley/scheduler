@@ -87,7 +87,7 @@ class JenrollsController < ApplicationController
         time_change = false
         location_change = false
         if @new_section.temp_start != nil and @new_section.temp_end != nil and @new_section.temp_date != ""
-            if params["makeDefaultTime?"]
+            if params["makeDefaultTime?"] and Setting.find_by(name: 'default_switching').value == "1"
                 @section.start = @new_section.temp_start
                 @section.end = @new_section.temp_end
                 @section.date = @new_section.temp_date
@@ -104,7 +104,7 @@ class JenrollsController < ApplicationController
         end
 
         if @new_section.temp_location != ""
-            if params["makeDefaultLocation?"]
+            if params["makeDefaultLocation?"] and Setting.find_by(name: 'default_switching').value == "1"
                 @section.location = @new_section.temp_location
             end
             @section.temp_location = @new_section.temp_location

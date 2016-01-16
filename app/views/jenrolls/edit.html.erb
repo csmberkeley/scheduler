@@ -55,7 +55,9 @@
             <br>
             <%= f.select(:temp_date, options_for_select([["None Selected", ""],['Monday', 'Monday'], ['Tuesday', 'Tuesday'], ['Wednesday', 'Wednesday'], ['Thursday', 'Thursday'], ["Friday", "Friday"]], @section.temp_date)) %>
         </div>
-        <label><%= check_box_tag 'makeDefaultTime?'%> Make this the default time/date?</label>
+        <% if Setting.find_by(name: 'default_switching').value == "1" %>
+            <label><%= check_box_tag 'makeDefaultTime?'%> Make this the default time/date?</label>
+        <% end %>
         <% if @section.temp_start != nil and not (@section.temp_start == @section.start and @section.temp_end == @section.end and @section.temp_date == @section.date) %>
             <br>
             <%= link_to '<i class="fa fa-trash-o"></i> Remove Temporary Time'.html_safe, jenroll_destroy_temp_time_path(@jenroll), class: "btn btn-danger", method: :delete, data: { confirm: "Are you sure?"}%>
@@ -72,12 +74,14 @@
             <%= f.label :location %>
             <%= f.text_field(:temp_location, class:"form-control") %> 
         </div>
-        <label><%= check_box_tag 'makeDefaultLocation?'%> Make this the default location?</label>
+        <% if Setting.find_by(name: 'default_switching').value == "1" %>
+            <label><%= check_box_tag 'makeDefaultLocation?'%> Make this the default location?</label>
+            <br>
+        <% end %>
         <% if @section.temp_location != nil and @section.temp_location != @section.location %>
             <br>
             <%= link_to '<i class="fa fa-trash-o"></i> Remove Temporary Location'.html_safe, jenroll_destroy_temp_location_path(@jenroll), class: "btn btn-danger", method: :delete, data: { confirm: "Are you sure?"}%>
         <% end %>
-        <br>
         <br>
         <label><%= check_box_tag 'notify?', 1, {:checked => "checked"} %> Notify your students via email?</label>
         <br>

@@ -106,3 +106,5 @@ Setting.create! :setting_name => "Silent Add/Drop", :setting_type => "boolean", 
 Setting.create! :setting_name => "Base Week", :setting_type => "String", :value => "2016-1-18 14:46:21 +0100", :name => "start_week"
 
 Setting.create! :setting_name => "Max Week", :setting_type => "int", :value => "15", :name => "max_week"
+
+Setting.create! :setting_name => "Enable Mentors to Change Default Section Time/Location", :setting_type => "boolean", :value => "1", :name => "default_switching"
