@@ -99,7 +99,25 @@ class JenrollsController < ApplicationController
             time_change = true
         elsif @new_section.temp_start != nil or @new_section.temp_end != nil or @new_section.temp_date != ""
             #missing fields
-            flash[:notice] = "Missing fields for new section."
+            missing_fields = []
+            if @new_section.temp_start == nil
+                missing_fields << "start"
+            end
+            if @new_section.temp_end == nil
+                missing_fields << "end"
+            end
+            if @new_section.temp_date == ""
+                missing_fields << "date"
+            end
+            missing_field_string = String.new(missing_fields[0])
+            (1...missing_fields.size).each do |i|
+                missing_field_string << ", #{String.new(missing_fields[i])}"
+            end
+            if missing_fields.size > 1
+                flash[:notice] = "Missing fields #{missing_field_string} for new section."
+            else
+                flash[:notice] = "Missing field #{missing_field_string} for new section."
+            end
             redirect_to edit_jenroll_path(@jenroll)
             return
         end
