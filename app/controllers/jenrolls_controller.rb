@@ -1,4 +1,5 @@
 class JenrollsController < ApplicationController
+    before_filter :check_logged_in
     before_filter :check_mentor_enroll, :only => [:mentor_enroll_redirect]
     before_filter :check_create, :only => [:create]
     before_filter :check_jenroll, :only => [:destroy, :switch, :update_switch, :edit, :update, :destroy_temp_location, :destroy_temp_time, :roster]
