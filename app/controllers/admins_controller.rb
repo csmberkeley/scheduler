@@ -64,9 +64,9 @@ class AdminsController < ApplicationController
           redirect_to manage_sections_path
         end
       end
-    #rescue
-    #  flash[:alert] = "Error in enrolling student."
-    #  redirect_to manage_sections_path
+    rescue => exception
+     flash[:alert] = "Error in enrolling student." + exception.backtrace
+     redirect_to manage_sections_path
     end
   end
 
