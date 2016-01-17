@@ -4,20 +4,34 @@ class SectionsController < ApplicationController
 	before_filter :check_admin, :only => [:new, :create, :edit, :update, :destroy]
 	before_filter :check_drop, :only => [:drop]
 	def index
-		@sections = {} 
-  	courses = Course.all.order(course_name: :asc) 
-  	courses.each do | course |
-      @sections[course.course_name] = { "Monday" => [], "Tuesday" => [], "Wednesday" => [], 
-        "Thursday" => [], "Friday" => [] }
-      course.sections.each do | section |
-        @sections[course.course_name][section.getDay] << section
-      end
-      @sections[course.course_name]["Monday"].sort!{|a,b| a.start && b.start ? [a.start, a.name] <=> [b.start, b.name] : a.start ? -1 : 1 }
-      @sections[course.course_name]["Tuesday"].sort!{|a,b| a.start && b.start ? [a.start, a.name] <=> [b.start, b.name] : a.start ? -1 : 1 }
-      @sections[course.course_name]["Wednesday"].sort!{|a,b| a.start && b.start ? [a.start, a.name] <=> [b.start, b.name] : a.start ? -1 : 1 }
-      @sections[course.course_name]["Thursday"].sort!{|a,b| a.start && b.start ? [a.start, a.name] <=> [b.start, b.name] : a.start ? -1 : 1 }
-      @sections[course.course_name]["Friday"].sort!{|a,b| a.start && b.start ? [a.start, a.name] <=> [b.start, b.name] : a.start ? -1 : 1 }
-    end
+		@sections = {}
+		course_ids = Set.new
+		current_user.enrolls.each do |enroll|
+			course_ids.add(enroll.course_id)
+		end
+		current_user.jenrolls.each do |jenroll|
+			course_ids.add(jenroll.course_id)
+		end
+		current_user.senrolls.each do |senroll|
+			course_ids.add(senroll.course_id)
+		end
+		@courses = []
+		course_ids.each do |course_id|
+			@courses << Course.find(course_id)
+		end
+		@courses.sort! {|course1, course2| course1.course_name <=> course2.course_name}
+	  	@courses.each do | course |
+	      @sections[course.course_name] = { "Monday" => [], "Tuesday" => [], "Wednesday" => [], 
+	        "Thursday" => [], "Friday" => [] }
+	      course.sections.each do | section |
+	        @sections[course.course_name][section.getDay] << section
+	      end
+	      @sections[course.course_name]["Monday"].sort!{|a,b| a.start && b.start ? [a.start, a.name] <=> [b.start, b.name] : a.start ? -1 : 1 }
+	      @sections[course.course_name]["Tuesday"].sort!{|a,b| a.start && b.start ? [a.start, a.name] <=> [b.start, b.name] : a.start ? -1 : 1 }
+	      @sections[course.course_name]["Wednesday"].sort!{|a,b| a.start && b.start ? [a.start, a.name] <=> [b.start, b.name] : a.start ? -1 : 1 }
+	      @sections[course.course_name]["Thursday"].sort!{|a,b| a.start && b.start ? [a.start, a.name] <=> [b.start, b.name] : a.start ? -1 : 1 }
+	      @sections[course.course_name]["Friday"].sort!{|a,b| a.start && b.start ? [a.start, a.name] <=> [b.start, b.name] : a.start ? -1 : 1 }
+	    end
 	end
 
 	def show

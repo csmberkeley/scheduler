@@ -109,56 +109,67 @@ class AttendancesController < ApplicationController
     def attendance_params
         params.require(:attendance).permit(:reason, :status, :week, :enroll_id)
     end
-    private def section_pass_params
+    private 
+    def section_pass_params
         params.require(:section).permit(:password, :pass_enabled)
     end
     #need to save this globally so it doesn't look it up every time....
-    private def getBaseWeek
+    private 
+    def getBaseWeek
         return DateTime.parse(Setting.find_by(name: "start_week").value)
     end
-    private def getCurrentWeek
+    private 
+    def getCurrentWeek
         return (DateTime.now - getBaseWeek).to_i / 7 + 1
     end
-    private def getMaxWeek
+    private 
+    def getMaxWeek
         return Setting.find_by(name: "max_week").value.to_i
     end
-    private def check_student_access
+    private 
+    def check_student_access
         if !check_enrollment(Enroll.find(params[:id]))
             flash[:notice] = "You do not have access to this page."
             redirect_to root_path
         end
     end
-    private def check_student_create_access
+    private 
+    def check_student_create_access
         if !check_enrollment(Enroll.find(params[:attendance][:enroll_id]))
             flash[:notice] = "You do not have access to this page."
             redirect_to root_path
         end
     end
-    private def check_junior_mentor_access
+    private 
+    def check_junior_mentor_access
         if !check_enrollment(Jenroll.find(params[:id]))
             flash[:notice] = "You do not have access to this page."
             redirect_to root_path
         end
     end
-    private def check_senior_mentor_access
+    private 
+    def check_senior_mentor_access
         if !check_enrollment(Senroll.find(params[:id]))
             flash[:notice] = "You do not have access to this page."
             redirect_to root_path
         end
     end
-    private def check_mentor_section_access
+    private 
+    def check_mentor_section_access
         if !check_enrollment(Section.find(params[:id]).getMentor)
             flash[:notice] = "You do not have access to this page."
             redirect_to root_path  
         end
     end
-    private def check_owns_student
+    private 
+    def check_owns_student
         if !check_enrollment(Enroll.find(params[:attendance][:enroll_id]).section.getMentor)
             flash[:notice] = "You do not have access to this page."
             redirect_to root_path
         end
     end
-    private def check_approve_reject
+    private 
+    def check_approve_reject
         if !check_enrollment(Attendance.find(params[:id]).enroll.section.getMentor)
             flash[:notice] = "You do not have access to this page."
             redirect_to root_path

@@ -1,4 +1,5 @@
 class OffersController < ApplicationController
+	before_filter :check_logged_in
 	before_filter :check_create_response, :only => [:create_response]
 	before_filter :check_show, :only => [:show]
 	before_filter :check_new, :only => [:new]

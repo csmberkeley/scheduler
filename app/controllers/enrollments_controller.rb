@@ -1,4 +1,5 @@
 class EnrollmentsController < ApplicationController
+  before_filter :check_logged_in
   before_filter :check_switch_section, :only => [:switch_section]
 
   # Creating an enrollment enrolls you into a class

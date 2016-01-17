@@ -1,4 +1,5 @@
 class RepliesController < ApplicationController
+	before_filter :check_logged_in
 	before_filter :check_respond, :only => [:accept, :deny]
 	before_filter :check_destroy, :only => [:destroy]
 	def destroy
