@@ -44,7 +44,7 @@ class AdminsController < ApplicationController
   end
 
   def add_student_to_section
-    begin
+    # begin
       student = params[:student].split(" ")
       student.pop
       user = User.find_by_name(student.join(" "))
@@ -62,12 +62,14 @@ class AdminsController < ApplicationController
         else
           flash[:alert] = "Student not enrolled in the course. Select another student."
           redirect_to manage_sections_path
+          return
         end
       end
-    rescue => exception
-     flash[:alert] = "Error in enrolling student." + exception.backtrace
-     redirect_to manage_sections_path
-    end
+    # rescue => exception
+    #  flash[:alert] = "Error in enrolling student." + exception.backtrace
+    #  redirect_to manage_sections_path
+    # end
+    redirect_to manage_sections_path
   end
 
   def drop_student_from_section
