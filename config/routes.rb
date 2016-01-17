@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
 
+  mount Ckeditor::Engine => '/ckeditor'
+
   devise_for :users
   #Set root to ensure devise works
   root "homes#index"
@@ -83,6 +85,10 @@ Rails.application.routes.draw do
   post "/settings" => "settings#update"
   get "/admin/manage_sections" => "admins#manage_sections", as: :manage_sections
   match 'users/:id' => 'users#destroy', :via => :delete, :as => :admin_destroy_user
+
+  #annoucenments
+  get "/settings/announcement_edit" => "announcements#edit", as: :announcement_edit
+  patch "/settings/announcement_edit" => "announcements#update", as: :announcement_update
   
   get "/admin/manage_section/add/:id" => "admins#new_student_to_section", as: :new_student_to_section
   post "/admin/manage_section/add/:id" => "admins#add_student_to_section"

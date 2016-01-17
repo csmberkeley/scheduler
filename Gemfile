@@ -54,5 +54,7 @@ gem "twitter-bootstrap-rails"
 gem 'devise'
 gem 'font-awesome-sass'
 gem 'figaro'
+gem 'ckeditor'
+gem 'paperclip'
 gem 'momentjs-rails'
 gem 'bootstrap3-datetimepicker-rails'
