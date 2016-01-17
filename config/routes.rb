@@ -2,7 +2,7 @@ Rails.application.routes.draw do
 
   mount Ckeditor::Engine => '/ckeditor'
 
-  devise_for :users
+  devise_for :users, :controllers => { :registrations => "registrations" }
   #Set root to ensure devise works
   root "homes#index"
   #get "/courses" => "courses#index"
