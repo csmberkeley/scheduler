@@ -17,7 +17,7 @@
                 <tr class="mentor-list">
                 <td class="col-md-2">
                 <div>
-                <a class="btn btn-success" data-toggle="collapse" href="#coursecollapse<%=mentor.id%>"  href="#" role="button"><i class="fa fa-plus"></i></a> <a class="btn btn-warning"  data-toggle="collapse" href="#editcollapse<%=mentor.id%>"  role="button"><i class="fa fa-pencil-square-o"></i></a>
+                <a class="btn btn-success" data-toggle="collapse" href="#rostercollapse<%=mentor.id%>"  href="#" role="button"><i class="fa fa-mortar-board"></i></a> <a class="btn btn-warning"  data-toggle="collapse" href="#editcollapse<%=mentor.id%>"  role="button"><i class="fa fa-dashboard"></i></a>
                 </div>
                 <div style="margin-top:5px">
                 
@@ -34,10 +34,25 @@
 
                 <%= form_tag admin_add_course_path(mentor) do %>
                 <br />
-                <div class="panel collapse panel-default" id="coursecollapse<%=mentor.id%>">
-                    <div class="panel-heading">Add course</div>
-                    <div class="panel-body">
-                    add course
+                <div class="collapse" id="rostercollapse<%=mentor.id%>">
+                    <% mentor.jenrolls.each do |enroll| %>
+                        <% section = enroll.section %>
+                        <div class = "roster">
+                            <h5><b><%= section.name %> Students</b></h5>
+                            <% if enroll.getStudents().size > 0 %>
+                                <ul class="list-group">
+                                <% enroll.getStudents().each do |student| %>
+                                  <li class="list-group-item" style="width: 75%">
+                                    <span class="badge"><%=student.email%></span>
+                                    <%=student.name %>
+                                  </li>
+                                <% end %>
+                                </ul>                                    
+                            <% else %>
+                                <h6>No Students</h6>
+                            <% end %>
+                        </div>
+                    <% end %>
                 <% end %>
                 </div>
                 </div>
