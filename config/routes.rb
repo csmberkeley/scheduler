@@ -73,6 +73,7 @@ Rails.application.routes.draw do
 
   #admin stuff
   get "/admin/students" => "admins#index", as: :students_index
+  get "/admin/mentors" => "admins#mentor_index", as: :mentors_index
   get "/admin/new-student" => "admins#new_student", as: :admin_new_student
   post "/admin/create-student" => "admins#create_student", as: :admin_create_student
   get "/admin/students/:id" => "admins#edit_student", as: :admin_edit_student

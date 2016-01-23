@@ -16,6 +16,16 @@ class AdminsController < ApplicationController
     end
   end
 
+  def mentor_index
+    @mentors = Set.new
+    Jenroll.all.each do |enroll|
+      @mentors.add(enroll.user)
+    end
+    Senroll.all.each do |enroll|
+      @mentors.add(enroll.user)
+    end
+  end
+
   def new_student
     @student = User.new
   end

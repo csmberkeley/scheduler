@@ -1,0 +1,83 @@
+<div class = "container">
+    <h1>Manage Mentors</h1>
+    <hr>
+    <div style = "margin-top:10px">
+        <b>Total mentors</b>: <%= @mentors.length %>
+    </div>
+    <div class = "sections">
+      <table class="table">
+        <thead>
+          <tr>
+            <th> Actions </th>
+            <th> Mentors </th>
+          </tr>
+        </thead>
+        <tbody>
+            <% @mentors.each do |mentor| %>
+                <tr class="mentor-list">
+                <td class="col-md-2">
+                <div>
+                <a class="btn btn-success" data-toggle="collapse" href="#coursecollapse<%=mentor.id%>"  href="#" role="button"><i class="fa fa-plus"></i></a> <a class="btn btn-warning"  data-toggle="collapse" href="#editcollapse<%=mentor.id%>"  role="button"><i class="fa fa-pencil-square-o"></i></a>
+                </div>
+                <div style="margin-top:5px">
+                
+                <%= link_to '<span class="btn btn-info" href="#" role="button"><i class="fa fa-user"></i></span>'.html_safe, admin_edit_student_path(mentor), method: :get %>
+                <%= link_to '<span style="padding-right:15px"class="btn btn-danger" href="#" role="button"><i class="fa fa-times"></i></span>'.html_safe, admin_destroy_user_path(mentor), method: :delete, data: { confirm: "Are you sure you want to delete #{mentor.name}?" } %>
+                </div>
+                </td>
+                <td>
+                <h4 style="">
+                 <%= mentor.name %>
+                 </h4>
+                
+                <%= mentor.email %>
+
+                <%= form_tag admin_add_course_path(mentor) do %>
+                <br />
+                <div class="panel collapse panel-default" id="coursecollapse<%=mentor.id%>">
+                    <div class="panel-heading">Add course</div>
+                    <div class="panel-body">
+                    add course
+                <% end %>
+                </div>
+                </div>
+                <div class="collapse" id="editcollapse<%=mentor.id%>">
+                <table class="table" >
+                        <thead>
+                            <tr>
+                                <th></th>
+                                <th>Class</th>
+                                <th>Section</th>
+                            </tr>
+                        
+                        </thead>
+                    <tbody>
+                <% mentor.enrolls.each do |enroll| %>
+                    
+                    <tr>
+                        <td class="col-md-1">
+                         <%= link_to '<span data-toggle="tooltip" data-placement="bottom" title="Drop from class" class="btn btn-danger" href="#" role="button"><i class="fa fa-trash-o"></i></span>'.html_safe, admin_destroy_enroll_path(enroll), method: :delete, data: { confirm: "Are you sure?" } %>
+
+                        </td>
+                        <td class="col-md-1"><b><%= enroll.course.course_name %></b></td>
+                        <td>
+                            <% if enroll.section %>
+                            <span><%= enroll.section.name.chomp %></span>
+                            <% else %>
+                            N/A
+                            <% end %>
+                        </td>
+                        </tr>
+                    
+                <% end %>
+                    </tbody>
+                    </table>
+                    <br />
+                </div>
+                </td>
+                </tr>  
+            <% end %>
+        </tbody>
+        </table>
+    </div>
+</div>
