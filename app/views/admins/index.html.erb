@@ -3,13 +3,13 @@
     <hr>
     <%= link_to "<i class='fa fa-plus'></i> Add User".html_safe, admin_new_student_path, :class => "btn btn-success" %>
     <div style = "margin-top:10px">
-        <b>Total accounts:</b>: <%= @students.length %>
+        <b>Total students</b>: <%= @students.length %>
     </div>
     <div>
-        <b>Total enrolled in a course</b>: <%=  @total_course_enrollment %>
+        <b>Total course enrollments</b>: <%=  @total_course_enrollment %>
     </div>
     <div>
-        <b>Total enrolled in a section</b>: <%=  @total_section_enrollment %>
+        <b>Total section enrollments</b>: <%=  @total_section_enrollment %>
     </div>
     <div class = "sections">
       <table class="table">
@@ -21,7 +21,6 @@
         </thead>
         <tbody>
             <% @students.each do |student| %>
-                <% next if student.admin%>
                 <tr class="student-list">
                 <td class="col-md-2">
                 <div>
