@@ -17,7 +17,7 @@
                 <tr class="mentor-list">
                 <td class="col-md-2">
                 <div>
-                <a class="btn btn-success" data-toggle="collapse" href="#rostercollapse<%=mentor.id%>"  href="#" role="button"><i class="fa fa-mortar-board"></i></a> <a class="btn btn-warning"  data-toggle="collapse" href="#editcollapse<%=mentor.id%>"  role="button"><i class="fa fa-dashboard"></i></a>
+                <a class="btn btn-success" data-toggle="collapse" href="#rostercollapse<%=mentor.id%>"  href="#" role="button"><i class="fa fa-list"></i></a> <a class="btn btn-warning"  data-toggle="collapse" href="#editcollapse<%=mentor.id%>"  role="button"><i class="fa fa-dashboard"></i></a>
                 </div>
                 <div style="margin-top:5px">
                 
@@ -57,37 +57,63 @@
                 </div>
                 </div>
                 <div class="collapse" id="editcollapse<%=mentor.id%>">
-                <table class="table" >
-                        <thead>
-                            <tr>
-                                <th></th>
-                                <th>Class</th>
-                                <th>Section</th>
-                            </tr>
-                        
-                        </thead>
-                    <tbody>
-                <% mentor.enrolls.each do |enroll| %>
-                    
-                    <tr>
-                        <td class="col-md-1">
-                         <%= link_to '<span data-toggle="tooltip" data-placement="bottom" title="Drop from class" class="btn btn-danger" href="#" role="button"><i class="fa fa-trash-o"></i></span>'.html_safe, admin_destroy_enroll_path(enroll), method: :delete, data: { confirm: "Are you sure?" } %>
+                    <%
+                        senrolls = mentor.senrolls
+                        jenrolls = mentor.jenrolls
+                        courses_to_mentor_enrolls = Hash.new([])
+                        jenrolls.each do |jenroll|
+                            curr_class_name = Course.find(jenroll.course_id).course_name
+                            courses_to_mentor_enrolls[curr_class_name] = courses_to_mentor_enrolls[curr_class_name] + [jenroll]
+                        end
+                        senrolls.each do |senroll|
+                            curr_class_name = Course.find(senroll.course_id).course_name
+                            courses_to_mentor_enrolls[curr_class_name] = courses_to_mentor_enrolls[curr_class_name] + [senroll]
+                        end
+                    %>
+                    <% courses_to_mentor_enrolls.keys.sort.each do |course_name| %>
+                      <div class="panel panel-primary" style="width: 80%">
+                        <div class="panel-heading">
+                          <h3 class="panel-title"><i class="fa fa-book"></i> <%= course_name %> 
+                          </h3>
 
-                        </td>
-                        <td class="col-md-1"><b><%= enroll.course.course_name %></b></td>
-                        <td>
-                            <% if enroll.section %>
-                            <span><%= enroll.section.name.chomp %></span>
+                        </div>
+                        <div class="panel-body">
+                          <% courses_to_mentor_enrolls[course_name].each do |enroll| %>
+                            <% curr_section = Section.find(enroll.section_id) %>
+                            <h4>  <%= link_to curr_section.name, section_path(curr_section) %></h4>
+                            <ul class="list-unstyled">        
+                            <li><b>Mentor:</b> <%= curr_section.getMentorName() %> (<%= mail_to curr_section.getMentorEmail() %>) </li>
+                            <% if curr_section.temp_location == nil %>
+                              <li><b>Location:</b> <%= curr_section.location %> </li>
+                            <% elsif curr_section.temp_location == curr_section.location %>
+                              <li><h4 style = "color:red;"><b>PERMANENT LOCATION:</b> <%= curr_section.location %></h4></li>
                             <% else %>
-                            N/A
+                              <li><h4 style = "color:red;"><b>TEMPORARY LOCATION:</b> <%= curr_section.temp_location %></h4></li>
                             <% end %>
-                        </td>
-                        </tr>
-                    
-                <% end %>
-                    </tbody>
-                    </table>
-                    <br />
+                            <% if curr_section.temp_start == nil %>
+                                <li><b>Time:</b> <%=curr_section.date %> <%= curr_section.start.strftime("%I:%M %p") %>-<%= curr_section.end.strftime("%I:%M %p") %> </li>
+                            <% elsif curr_section.temp_start == curr_section.start and curr_section.temp_end == curr_section.end and curr_section.temp_date == curr_section.date %>
+                                <li><h4 style = "color:red;"><b>PERMANENT TIME:</b> <%=curr_section.date %> <%= curr_section.start.strftime("%I:%M %p") %>-<%= curr_section.end.strftime("%I:%M %p") %></h4></li>
+                            <% else %>
+                                <li><h4 style = "color:red;"><b>TEMPORARY TIME:</b> <%=curr_section.temp_date %> <%= curr_section.temp_start.strftime("%I:%M %p") %>-<%= curr_section.temp_end.strftime("%I:%M %p") %></h4></li>
+                            <% end %>
+                            </ul>       
+                            <% badge_button = '<i class="fa fa-person"></i> '.html_safe + getPendingBadge(enroll).html_safe + ' View Attendance'%>
+                            <% if enroll.is_a?(Senroll) %>
+                              <%= link_to badge_button.html_safe, senior_mentor_attendance_path(enroll), :class => "btn btn-info" %>
+                              <%= link_to '<i class="fa fa-exchange"></i> Switch Sections'.html_safe, senroll_switch_path(enroll.id), class: "btn btn-warning" %>
+                              <%= link_to '<i class="fa fa-trash-o"></i> Drop Mentoring Section'.html_safe, enroll, class: "btn btn-danger", method: :delete, data: { confirm: "Are you sure you want to stop mentoring #{curr_section.name}?"}%>
+                              <%= link_to '<i class="fa fa-cog"></i> Mentor Settings'.html_safe, edit_senroll_path(enroll.id), class: "btn btn-success" %>
+                            <% else %>
+                              <%= link_to badge_button.html_safe, junior_mentor_attendance_path(enroll), :class => "btn btn-info" %>
+                              <%= link_to '<i class="fa fa-exchange"></i> Switch Sections'.html_safe, jenroll_switch_path(enroll.id), class: "btn btn-warning" %>
+                              <%= link_to '<i class="fa fa-trash-o"></i> Drop Mentoring Section'.html_safe, enroll, class: "btn btn-danger", method: :delete, data: { confirm: "Are you sure you want to stop mentoring #{curr_section.name}?"}%>
+                              <%= link_to '<i class="fa fa-cog"></i> Mentor Settings'.html_safe, edit_jenroll_path(enroll.id), class: "btn btn-success" %>
+                             <% end %>
+                          <% end %>
+                        </div>
+                      </div>
+                    <% end %>
                 </div>
                 </td>
                 </tr>  
