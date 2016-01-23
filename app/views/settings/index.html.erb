@@ -12,7 +12,10 @@
                     <%= f.check_box :value %>
                 <% else %>
                     <%= f.text_field :value %>
-                <%end%>
+                <% end %>
+                <% if setting.name == "announcement" %>
+                    <%= link_to "Edit announcement " " <i class='fa fa-pencil'></i>".html_safe, announcement_edit_path %>
+                <% end %>
             </div>
             
             <% end %>

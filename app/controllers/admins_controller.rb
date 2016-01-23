@@ -24,7 +24,6 @@ class AdminsController < ApplicationController
        flash[:notice] = "Created user #{@student.name}!"
        redirect_to students_index_path
     end
-   
   end
 
   def new_student_to_section
@@ -112,7 +111,7 @@ class AdminsController < ApplicationController
       course.sections.each do | section |
         @sections[course.course_name][section.getDay] << section
       end
-        @sections[course.course_name]["Monday"].sort!{|a,b| a.start && b.start ? [a.start, a.name] <=> [b.start, b.name] : a.start ? -1 : 1 }
+      @sections[course.course_name]["Monday"].sort!{|a,b| a.start && b.start ? [a.start, a.name] <=> [b.start, b.name] : a.start ? -1 : 1 }
       @sections[course.course_name]["Tuesday"].sort!{|a,b| a.start && b.start ? [a.start, a.name] <=> [b.start, b.name] : a.start ? -1 : 1 }
       @sections[course.course_name]["Wednesday"].sort!{|a,b| a.start && b.start ? [a.start, a.name] <=> [b.start, b.name] : a.start ? -1 : 1 }
       @sections[course.course_name]["Thursday"].sort!{|a,b| a.start && b.start ? [a.start, a.name] <=> [b.start, b.name] : a.start ? -1 : 1 }
