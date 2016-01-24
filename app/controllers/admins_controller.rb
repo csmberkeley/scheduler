@@ -1,7 +1,10 @@
 class AdminsController < ApplicationController
   before_filter :check_admin
   def index
-    @students = User.all
+    @students = Set.new
+    Enroll.all.each do |enroll|
+      @students.add(enroll.user)
+    end
     @courses = Course.all
     @total_course_enrollment = 0
     @courses.each do |course|
@@ -10,6 +13,16 @@ class AdminsController < ApplicationController
     @total_section_enrollment = 0
     Section.all.each do |section|
       @total_section_enrollment += section.enrolls.length
+    end
+  end
+
+  def mentor_index
+    @mentors = Set.new
+    Jenroll.all.each do |enroll|
+      @mentors.add(enroll.user)
+    end
+    Senroll.all.each do |enroll|
+      @mentors.add(enroll.user)
     end
   end
 
