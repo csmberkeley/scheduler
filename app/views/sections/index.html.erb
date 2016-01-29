@@ -7,6 +7,10 @@
       <thead>
       </thead>
       <tbody>
+
+      <% max_column_height = [course["Monday"].size, course["Tuesday"].size, course["Wednesday"].size, course["Thursday"].size,course["Friday"].size] %>
+
+
       <tr>
         <td> <h3> Monday </h3> </td>  
         <% course["Monday"].each do |section| %>

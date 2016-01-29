@@ -117,12 +117,17 @@
                             <% else %>
                                 <li><h4 style = "color:red;"><b>TEMPORARY TIME:</b> <%=curr_section.temp_date %> <%= curr_section.temp_start.strftime("%I:%M %p") %>-<%= curr_section.temp_end.strftime("%I:%M %p") %></h4></li>
                             <% end %>
-                            </ul>       
+                            </ul>
+                            <% badge_button = '<i class="fa fa-person"></i> '.html_safe + getPendingBadge(enroll).html_safe + ' View Attendance'%>       
                             <% if enroll.is_a?(Senroll) %>
+                              <%= link_to badge_button.html_safe, senior_mentor_attendance_path(enroll), :class => "btn btn-info" %>
+                              <%= link_to '<i class="fa fa-search"></i> View Roster'.html_safe, senroll_roster_path(enroll), :class => "btn btn-primary" %>  
                               <%= link_to '<i class="fa fa-exchange"></i> Switch Sections'.html_safe, senroll_switch_path(enroll.id), class: "btn btn-warning" %>
                               <%= link_to '<i class="fa fa-trash-o"></i> Drop Mentoring Section'.html_safe, enroll, class: "btn btn-danger", method: :delete, data: { confirm: "Are you sure you want to stop mentoring #{curr_section.name}?"}%>
                               <%= link_to '<i class="fa fa-cog"></i> Mentor Settings'.html_safe, edit_senroll_path(enroll.id), class: "btn btn-success" %>
                             <% else %>
+                              <%= link_to badge_button.html_safe, junior_mentor_attendance_path(enroll), :class => "btn btn-info" %>
+                              <%= link_to '<i class="fa fa-search"></i> View Roster'.html_safe, jenroll_roster_path(enroll), :class => "btn btn-primary" %>
                               <%= link_to '<i class="fa fa-exchange"></i> Switch Sections'.html_safe, jenroll_switch_path(enroll.id), class: "btn btn-warning" %>
                               <%= link_to '<i class="fa fa-trash-o"></i> Drop Mentoring Section'.html_safe, enroll, class: "btn btn-danger", method: :delete, data: { confirm: "Are you sure you want to stop mentoring #{curr_section.name}?"}%>
                               <%= link_to '<i class="fa fa-cog"></i> Mentor Settings'.html_safe, edit_jenroll_path(enroll.id), class: "btn btn-success" %>
