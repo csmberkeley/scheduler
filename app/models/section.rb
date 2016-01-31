@@ -30,6 +30,35 @@ class Section < ActiveRecord::Base
         sections << section
       end
     end
+
+    #Sort the sections by day, then time
+    monday = []
+    tuesday = []
+    wednesday = []
+    thursday = []
+    friday = []
+    sections.each do |section|
+      case section.getDay
+      when "Monday"
+        monday << section
+      when "Tuesday"
+        tuesday << section
+      when "Wednesday"
+        wednesday << section
+      when "Thursday"
+        thursday << section
+      else
+        friday << section
+      end
+    end
+
+    monday.sort!{|a,b| a.start && b.start ? a.start <=> b.start : a.start ? -1 : 1 }
+    tuesday.sort!{|a,b| a.start && b.start ? a.start <=> b.start : a.start ? -1 : 1 }
+    wednesday.sort!{|a,b| a.start && b.start ? a.start <=> b.start : a.start ? -1 : 1 }
+    thursday.sort!{|a,b| a.start && b.start ? a.start <=> b.start : a.start ? -1 : 1 }
+    friday.sort!{|a,b| a.start && b.start ? a.start <=> b.start : a.start ? -1 : 1 } 
+
+    sections = monday + tuesday + wednesday + thursday + friday
     return sections
   end
   def isFull()
