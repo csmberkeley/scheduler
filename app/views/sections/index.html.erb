@@ -8,47 +8,91 @@
       </thead>
       <tbody>
 
-      <% max_column_height = [course["Monday"].size, course["Tuesday"].size, course["Wednesday"].size, course["Thursday"].size,course["Friday"].size] %>
-
+      <% max_column_height = [course["Monday"].size, course["Tuesday"].size, course["Wednesday"].size, course["Thursday"].size,course["Friday"].size].max %>
+      <% current_height = 1 %>
 
       <tr>
         <td> <h3> Monday </h3> </td>  
         <% course["Monday"].each do |section| %>
           <td> 
             <%= render partial: "section.html", locals: {section: section} %>
+            <% current_height += 1 %>
           </td>
         <% end %>
+        <% while current_height < max_column_height do %>
+          <td>
+            <div class="spacer"></div>
+          </td>
+          <% current_height += 1 %>
+        <% end %>
       </tr>
+
+      <% current_height = 1 %>
       <tr>
         <td> <h3> Tuesday </h3>  </td>  
         <% course["Tuesday"].each do | section | %>   
           <td>
             <%= render partial: "section.html", locals: {section: section} %> 
+            <% current_height += 1 %>
           </td>
         <% end %>
+        <% while current_height < max_column_height do %>
+          <td>
+            <div class="spacer"></div>
+          </td>
+          <% current_height += 1 %>
+        <% end %>
       </tr>
+
+      <% current_height = 1 %>
       <tr>
         <td> <h3> Wednesday </h3>  </td>  
         <% course["Wednesday"].each do | section | %>
           <td>
             <%= render partial: "section.html", locals: {section: section} %> 
+            <% current_height += 1 %>
           </td>
         <% end %>
+        <% while current_height < max_column_height do %>
+          <td>
+            <div class="spacer"></div>
+          </td>
+          <% current_height += 1 %>
+        <% end %>
       </tr>
+
+
+      <% current_height = 1 %>     
       <tr>
         <td> <h3> Thursday </h3>  </td>  
         <% course["Thursday"].each do | section | %>
           <td>
             <%= render partial: "section.html", locals: {section: section} %> 
+            <% current_height += 1 %>
           </td>
         <% end %>
+        <% while current_height < max_column_height do %>
+          <td>
+            <div class="spacer"></div>
+          </td>
+          <% current_height += 1 %>
+        <% end %>
       </tr>
+
+      <% current_height = 1 %>  
       <tr>
         <td> <h3> Friday </h3> </td>  
         <% course["Friday"].each do | section | %> 
           <td>
             <%= render partial: "section.html", locals: {section: section} %> 
+            <% current_height += 1 %>
           </td>
+        <% end %>
+        <% while current_height < max_column_height do %>
+          <td>
+            <div class="spacer"></div>
+          </td>
+          <% current_height += 1 %>
         <% end %>
       </tr>
       </tbody>
