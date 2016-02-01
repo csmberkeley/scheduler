@@ -9,7 +9,7 @@
       <tbody>
 
       <% max_column_height = [course["Monday"].size, course["Tuesday"].size, course["Wednesday"].size, course["Thursday"].size,course["Friday"].size].max %>
-      <% current_height = 1 %>
+      <% current_height = 0 %>
 
       <tr>
         <td> <h3> Monday </h3> </td>  
@@ -27,7 +27,7 @@
         <% end %>
       </tr>
 
-      <% current_height = 1 %>
+      <% current_height = 0 %>
       <tr>
         <td> <h3> Tuesday </h3>  </td>  
         <% course["Tuesday"].each do | section | %>   
@@ -44,7 +44,7 @@
         <% end %>
       </tr>
 
-      <% current_height = 1 %>
+      <% current_height = 0 %>
       <tr>
         <td> <h3> Wednesday </h3>  </td>  
         <% course["Wednesday"].each do | section | %>
@@ -62,7 +62,7 @@
       </tr>
 
 
-      <% current_height = 1 %>     
+      <% current_height = 0 %>     
       <tr>
         <td> <h3> Thursday </h3>  </td>  
         <% course["Thursday"].each do | section | %>
@@ -79,7 +79,7 @@
         <% end %>
       </tr>
 
-      <% current_height = 1 %>  
+      <% current_height = 0 %>  
       <tr>
         <td> <h3> Friday </h3> </td>  
         <% course["Friday"].each do | section | %> 
