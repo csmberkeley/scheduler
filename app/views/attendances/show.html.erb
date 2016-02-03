@@ -15,7 +15,7 @@ Mentor: <%= curr_section.getMentorName %> (<%= curr_section.getMentorEmail %>)
     <% if curr_attendance == nil %>
 
         <%= form_for @blank_attendance, url: student_attendance_checkin_path do |f|%>
-            <h3>Check In</h3>
+            <h4>Check In</h4>
             <div class="form-group">
                 <%= f.hidden_field :enroll_id, value: @enroll.id %>
                 <%= f.label :reason, "Password" %>
@@ -25,7 +25,7 @@ Mentor: <%= curr_section.getMentorName %> (<%= curr_section.getMentorEmail %>)
             <%= f.submit("Check in", class: "btn btn-success") %>
         <% end %>    
         <%= form_for @blank_attendance, url: student_attendance_create_path do |f|%>
-            <h3>Request an Absence</h3>
+            <h4>Request an Absence</h4>
             <div class="form-group">
                 <%= f.hidden_field :enroll_id, value: @enroll.id %>
                 <%= f.label :reason %>
@@ -35,20 +35,25 @@ Mentor: <%= curr_section.getMentorName %> (<%= curr_section.getMentorEmail %>)
             <%= f.submit("Submit Absence Request", class: "btn btn-warning") %>
         <% end %>    
     <% else %>
+        <% if curr_attendance.pending? %>
+            <h4>Absence requested</h4>
+            <%=
+            <%= Your current absence request is pending.%>
+        <% end %>
         <%= curr_attendance.status %>
     <% end %>
   </div>
 </div>
 <div class="list-group">
 <% (current_week-1).downto(1) do |n|%>
-
-      <div class="list-group-item">
+    <% attendance = Attendance.where(enroll_id: @enroll, week: n).take %>
+      <div class="list-group-item <%= item_class attendance%>">
         <h4 class="list-group-item-heading">Week <%= n %></h4>
         <p class="list-group-item-text">
 
-    <% attendance = Attendance.where(enroll_id: @enroll, week: n).take %>
+    
     <% if attendance == nil %>
-        <h3>Unexcused Absence</h3>
+        <h4>Unexcused Absence</h4>
         <%= form_for @blank_attendance, url: student_attendance_create_path do |f|%>
             <div class="form-group">
                 <%= f.hidden_field :enroll_id, value: @enroll.id %>
