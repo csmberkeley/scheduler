@@ -31,14 +31,22 @@ class JenrollsController < ApplicationController
 		if password == @course.password
             if params.has_key?("sm?")
                 @senroll = Senroll.new
+                if (@section.assignMentor(@senroll) == nil)
+                    flash[:notice] = "Someone has already taken this section."
+                    redirect_to root_path
+                    return
+                end
                 current_user.senrolls << @senroll
                 @course.senrolls << @senroll
-                @section.assignMentor(@senroll)
             else
                 @jenroll = Jenroll.new
+                if (@section.assignMentor(@jenroll) == nil) 
+                    flash[:notice] = "Someone has already taken this section."
+                    redirect_to root_path
+                    return
+                end
                 current_user.jenrolls << @jenroll
                 @course.jenrolls << @jenroll
-                @section.assignMentor(@jenroll)
             end
 			flash[:notice] = "You have been signed up as a mentor!"
 			redirect_to root_path
