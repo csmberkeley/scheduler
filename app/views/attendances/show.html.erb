@@ -36,9 +36,8 @@ Mentor: <%= curr_section.getMentorName %> (<%= curr_section.getMentorEmail %>)
         <% end %>    
     <% else %>
         <% if curr_attendance.pending? %>
-            <h4>Absence requested</h4>
-            <%=
-            <%= Your current absence request is pending.%>
+            <h4>Absence requested</h4>            
+            Your current absence request is pending.
         <% end %>
         <%= curr_attendance.status %>
     <% end %>
