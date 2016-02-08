@@ -11,8 +11,8 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160116184631) do
-
+ActiveRecord::Schema.define(version: 20160203050505) do
+  
   create_table "announcements", force: true do |t|
     t.text     "info"
     t.datetime "created_at"
@@ -64,6 +64,7 @@ ActiveRecord::Schema.define(version: 20160116184631) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "limit"
+    t.string   "base_week"
   end
 
   create_table "enrolls", force: true do |t|
