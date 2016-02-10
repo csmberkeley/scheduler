@@ -143,9 +143,9 @@ class SenrollsController < ApplicationController
         @email_list = ""
         @students.each_with_index do |student, i| 
             if i == 0
-                @email_list << student.email
+                @email_list << "#{student.name} <#{student.email}>"
             else
-                @email_list << ", #{student.email}"
+                @email_list << ", #{student.name} <#{student.email}>"
             end
         end
         render "jenrolls/roster"
