@@ -12,7 +12,7 @@
 # It's strongly recommended that you check this file into your version control system.
 
 ActiveRecord::Schema.define(version: 20160203050505) do
-  
+
   create_table "announcements", force: true do |t|
     t.text     "info"
     t.datetime "created_at"
