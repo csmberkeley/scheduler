@@ -72,10 +72,11 @@ class AdminsController < ApplicationController
           redirect_to manage_sections_path
           return
         else
-          flash[:alert] = "Student not enrolled in the course. Select another student."
-          redirect_to manage_sections_path
-          return
+          next
         end
+        flash[:alert] = "Student not enrolled in the course. Select another student."
+        redirect_to manage_sections_path
+        return
       end
     # rescue => exception
     #  flash[:alert] = "Error in enrolling student." + exception.backtrace
