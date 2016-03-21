@@ -143,7 +143,7 @@ Changing this file will not add extra columns or delete columns, as this file is
 
 **db/seeds.rb**: This file inserts information into our tables to give us the starting point of our application. Some of the code in here is necessary for the application to run, while other information is some basic setup so that your application doesn't look bare when you first start running it. Everytime you reset the database, it runs all this code here so you'll have the same starting place everytime.
 
-Running rake db:drop will destory your database. Running rake db:migrate will format your database. Runinng rake db:seed will run seed.rb to initialize your application to the starting state you desire, so change starting values to your liking. 
+Running rake db:drop will destory your database. Running rake db:migrate will format your database. Runinng rake db:seed will run seed.rb to initialize your application to the starting state you desire, so change starting values to your liking. You'll usually run all three commands in that order to restart your database.
 
 **config/routes.rb**: This file outlines what URL request talks to which Controller and what function it calls. If there are conflicting URL paths, the route closest to the bottom gets priority. The formatting of each route is as follows:
     
@@ -207,14 +207,14 @@ Now let's move on to the View (views/homes/index.html.erb) .erb stands for exten
     </div>
     ...
 
-* Everything inside <\* \*> is Ruby code you want to run on the page. With this, you can provide some form of control on what is shown using basic code control logic. Everything else is familiar HTML.
-* <\*= \*> with an equal sign means this information will be displayed on the screen. Forgetting this equal sign will not show the stored ruby value on the screen, which is a common mistake. 
+* Everything inside <% %> is Ruby code you want to run on the page. With this, you can provide some form of control on what is shown using basic code control logic. Everything else is familiar HTML.
+* <%= %> with an equal sign means this information will be displayed on the screen. Forgetting this equal sign will not show the stored ruby value on the screen, which is a common mistake. 
 * Whatever you have tagged with an @ symbol in you controller, you can access that value here with using @ again
-* **<%= link_to 'Enroll As Student'.html_safe, new_enrollment_path%>** shows a hyperlink that will call another controller action (usually loading a new page). The first argument is the value displayed, the second argument is a route specified in config/routes.rb (see "Notable files" section)
+* **<%= link_to 'Enroll As Student'.html_safe, new_enrollment_path%>** shows a hyperlink that will call another controller action (usually loading a new page). The first argument is the value displayed, the second argument is a route specified in config/routes.rb (see "Notable files" section). There are many other erb methods at your disposal.
 * CSS and Javascript are stored in the app/assets, corresponding to the controller name and view folder name.
 * **<%= render "student_side" %>** will load the _student_side.html.erb file in this spot. This is so you don't have to rewrite repetitive html.erb code. These files are called **partials** and they keep your erb code clean. Stored them in the same file directory and make as many as you want!
 
-You've made it! There's many more things going on in the background that I haven't discussed yet, but this should be enough for you to move forward!
+You've made it! There's many more things going on in the background that I haven't discussed yet, but this should be enough for you to move forward! From here, I'd recommend running the application, looking at the interactions when you are clicking around, and trying to find the associated code that handles that interaction.
 
 #### What are Gems?
 
