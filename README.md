@@ -12,7 +12,7 @@ All the gems used in this project are listed in the Gemfile, but notable ones
 include:
 
     gem 'devise' # Sign-in and user functionality
-    gem "figaro" # Secret key handler
+    gem 'figaro' # Secret key handler
     gem 'ckeditor' # UI for editing announcements
     gem 'bootstrap3-datetimepicker-rails' # UI for selecting a time/date
     gem 'font-awesome-sass' #Provides icons
@@ -226,7 +226,7 @@ Special thanks to contributors Mike Aboody and Alex Zhang for helping me code th
 
 ## License
 
-Developed through UC Berkeley's [Computer Science Mentors](csmberkeley.github.io), a student mentoring organization.
+Developed through UC Berkeley's [Computer Science Mentors](http://csmberkeley.github.io), a student mentoring organization.
 
 Copyright (c) 2016 Allan Tang, Mike Aboody, Alex Zhang. See LICENSE for details.
 
