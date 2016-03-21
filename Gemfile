@@ -42,7 +42,7 @@ gem 'spring',        group: :development
 group :development, :test do 
   gem "better_errors"
   gem "binding_of_caller"
-  gem 'sqlite3'
+  gem 'sqlite3', '1.3.10'
 end
 
 group :production do
@@ -58,3 +58,7 @@ gem 'ckeditor'
 gem 'paperclip'
 gem 'momentjs-rails'
 gem 'bootstrap3-datetimepicker-rails'
+
+#For Windows compatibility, using rails installer. Download 2.1 ruby version to avoid sqlite3 errors
+gem 'coffee-script-source', '1.8.0'
+gem 'tzinfo-data'

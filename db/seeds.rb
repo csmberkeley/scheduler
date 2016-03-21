@@ -6,6 +6,10 @@
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 
+# Always have an admin account, don't delete (can change credientials if you'd like).
+# See README for storing passwords and generating secret keys, ENV[] needs to reference values
+# in application.yml, a file you need to create yourself.
+
 admin = User.create! :name => "Admin",
 			 :email => "csmberkeley@gmail.com",
              :password => ENV["ADMIN_PASS"],
@@ -94,6 +98,8 @@ days.each do |d|
            count += 1
      end 
 end
+
+#Necessary state infomration, don't delete/change unless you know what you're doing
 
 Setting.create! :setting_name => "Enable Comments", :setting_type => "boolean", :value => "1", :name => "comments"
 
