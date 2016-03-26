@@ -6,54 +6,53 @@
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 
-# Always have an admin account, don't delete (can change credientials if you'd like).
+# Always have an admin account, don't delete (can change credentials if you'd like).
 # See README for storing passwords and generating secret keys, ENV[] needs to reference values
 # in application.yml, a file you need to create yourself.
 
 admin = User.create! :name => "Admin",
-			 :email => "csmberkeley@gmail.com",
-             :password => ENV["ADMIN_PASS"],
-             :password_confirmation => ENV["ADMIN_PASS"],
-             :confirmed_at => "2015-09-09 02:50:19"
+                     :email => "csmberkeley@gmail.com",
+                     :password => ENV["ADMIN_PASS"],
+                     :password_confirmation => ENV["ADMIN_PASS"],
+                     :confirmed_at => "2015-09-09 02:50:19"
 admin.admin = true
 admin.save
 
 #mike's test data
 
 allan = User.create! :name => "Allan Tang",
-            :email => "allan_tang@berkeley.edu",
-            :password => ENV["USER_ALLAN_PASS"],
-            :password_confirmation => ENV["USER_ALLAN_PASS"],
-            :confirmed_at => "2015-09-09 02:50:19"
+                     :email => "allan_tang@berkeley.edu",
+                     :password => ENV["USER_ALLAN_PASS"],
+                     :password_confirmation => ENV["USER_ALLAN_PASS"],
+                     :confirmed_at => "2015-09-09 02:50:19"
 
 
-mike = User.create! :name => "Mike Aboody",
-			:email => "mikeaboody@berkeley.edu",
-            :password => ENV["USER_MIKE_PASS"],
-            :password_confirmation => ENV["USER_MIKE_PASS"],
-            :confirmed_at => "2015-09-09 02:50:19",
-            :admin => "true"
+mike  = User.create! :name => "Mike Aboody",
+                     :email => "mikeaboody@berkeley.edu",
+                     :password => ENV["USER_MIKE_PASS"],
+                     :password_confirmation => ENV["USER_MIKE_PASS"],
+                     :confirmed_at => "2015-09-09 02:50:19",
+                     :admin => "true"
 
 cs61a = Course.create! :course_name => "CS61A",
-			:semester => "Spring",
-			:year => 2016,
-			:password => "pass",
-                  :description => "Structure and Interpretation of Computer Programs",
-                  :instructor => "Paul Hilfinger"
+                       :semester => "Spring",
+                       :year => 2016,
+                       :password => "pass",
+                       :description => "Structure and Interpretation of Computer Programs",
+                       :instructor => "Paul Hilfinger"
 
 cs61b = Course.create! :course_name => "CS61B",
-			:semester => "Spring",
-			:year => 2016,
-			:password => "pass",
-                  :description => "Data Structures",
-                  :instructor => "Josh Hug"
+                       :semester => "Spring",
+                       :year => 2016,
+                       :password => "pass",
+                       :description => "Data Structures",
+                       :instructor => "Josh Hug"
 
-cs70 = Course.create! :course_name => "CS70",
-      :semester => "Spring",
-      :year => 2016,
-      :password => "pass",
-                  :description => "Discrete Mathematics and Probability Theory",
-                  :instructor => "Satish Rao"
+cs70  = Course.create! :course_name => "CS70", :semester => "Spring",
+                       :year => 2016,
+                       :password => "pass",
+                       :description => "Discrete Mathematics and Probability Theory",
+                       :instructor => "Satish Rao"
 
 data8 = Course.create! :course_name => "Data8",
                        :semester => "Spring",
