@@ -55,51 +55,89 @@ cs70 = Course.create! :course_name => "CS70",
                   :description => "Discrete Mathematics and Probability Theory",
                   :instructor => "Satish Rao"
 
-#cs61a
-days = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"]
-count = 1
-days.each do |d|
-      times = [10, 11, 12, 13, 14, 15, 16, 17]
-      times.each do |t|
-            Section.create! :name => "Section #{count}", 
-      :course_id => cs61a.id, :start => Time.new(2015,9,9, t,0,0, "+00:00"),:end => Time.new(2015,9,9, t+1,0,0, "+00:00"),
-      :date => d, :location => "TBD"
-            count += 1
-            Section.create! :name => "Section #{count}", 
-      :course_id => cs61a.id, :start => Time.new(2015,9,9, t,0,0, "+00:00"),:end => Time.new(2015,9,9, t+1,0,0, "+00:00"),
-      :date => d, :location => "TBD"
-            count += 1
-      end 
+data8 = Course.create! :course_name => "Data8",
+                       :semester => "Spring",
+                       :year => 2016,
+                       :password => "pass",
+                       :description => "Foundations of Data Science",
+                       :instructor => "John DeNero"
+
+# Useful week constants.
+weekdays = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"]
+tuth = ["Tuesday", "Thursday"]
+mwf = weekdays - tuth
+
+# Generic seeding pattern for any CSM mentored course.
+def seed_class(course:, days:, repeats: 1, sec_times:, lec_days:, lec_times:)
+    count = 1
+    days.each do |d|
+        sec_times.each do |hs, ms, he, me| # Hour/min start, hour/min end
+            lhs, lms, lhe, lme = lec_times
+            lec_start = Time.parse("#{lhs}:#{lms}")
+            lec_end   = Time.parse("#{lhe}:#{lme}")
+            sec_start = Time.parse("#{hs}:#{ms}")
+            sec_end   = Time.parse("#{he}:#{me}")
+            if not lec_days.include?(d) or (lec_start >= sec_end) or (lec_end <= sec_start)
+              for _ in (1..repeats) # Number of sections per timeslot.
+                Section.create! :name => "Section #{count}",
+                                :course_id => course.id,
+                                :start => Time.new(2015, 9, 9, hs, ms, 0, "+00:00"),
+                                :end => Time.new(2015, 9, 9, he, me, 0, "+00:00"),
+                                :date => d,
+                                :location => "TBD"
+                count += 1
+              end
+            end
+        end
+    end
 end
 
-#cs61b
-days = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"]
-count = 1
-days.each do |d|
-     times = [10, 11, 12, 13, 14, 15, 16, 17]
-     times.each do |t|
-           Section.create! :name => "Section #{count}", 
-     :course_id => cs61b.id, :start => Time.new(2015,9,9, t,0,0, "+00:00"),:end => Time.new(2015,9,9, t+1,0,0, "+00:00"),
-     :date => d, :location => "TBD"
-           count += 1
-     end 
-end
+# CS61a
+# 1 hr sections. First is 10:00-11:00, last is 17:00-18:00
+cs61a_sec_times = (10..17).flat_map { |x| [[x, 00, x + 1, 00]] }
+cs61a_lec_times = [14, 00, 15, 00]
+seed_class(course: cs61a,
+           days: weekdays,
+           repeats: 2,
+           sec_times: cs61a_sec_times,
+           lec_days: mwf,
+           lec_times: cs61a_lec_times)
 
-#cs70
-# hour and half blocks, which requires some fishy array setup to make sure time blocks are set up correctly
-days = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"]
-count = 1
-days.each do |d|
-     times = [[9,30,11,0], [11,0,12,30], [12,30,14,0], [14,0,15,30], [15,30,17,0], [17,0,18,30]]
-     times.each do |t1, m1, t2, m2|
-           Section.create! :name => "Section #{count}", 
-     :course_id => cs70.id, :start => Time.new(2015,9,9, t1,m1,0, "+00:00"),:end => Time.new(2015,9,9, t2,m2,0, "+00:00"),
-     :date => d, :location => "TBD"
-           count += 1
-     end 
-end
+# CS61b
+# 1 hr sections. First is 10:00-11:00, last is 17:00-18:00
+cs61b_sec_times = (10..17).flat_map { |x| [[x, 00, x + 1, 00]] }
+cs61b_lec_times = [15, 00, 16, 00]
+seed_class(course: cs61b,
+           days: weekdays,
+           repeats: 1,
+           sec_times: cs61b_sec_times,
+           lec_days: mwf,
+           lec_times: cs61b_lec_times)
 
-#Necessary state infomration, don't delete/change unless you know what you're doing
+# CS70
+# 1.5 hr sections. First is 9:30-11:00, last is 17:00-18:30
+# Generate two sections at a time, hence the step size.
+cs70_sec_times = (9..15).step(3).flat_map { |x| [[x, 30, x+2, 00], [x+2, 00, x+3, 30]] }
+cs70_lec_times = [12, 30, 14, 00]
+seed_class(course: cs70,
+           days: weekdays,
+           repeats: 1,
+           sec_times: cs70_sec_times,
+           lec_days: tuth,
+           lec_times: cs70_lec_times)
+
+# Data8
+# 0.5 hr sections. First is 10:00-10:30, last is 4:30-5:00
+data8_sec_times = (10..16).flat_map { |x| [[x, 00, x, 30], [x, 30, x+1, 00]] }
+data8_lec_times = [10, 00, 11, 00]
+seed_class(course: data8,
+           days: weekdays,
+           repeats: 1,
+           sec_times: data8_sec_times,
+           lec_days: mwf,
+           lec_times: data8_lec_times)
+
+# Necessary state information, don't delete/change unless you know what you're doing
 
 Setting.create! :setting_name => "Enable Comments", :setting_type => "boolean", :value => "1", :name => "comments"
 
