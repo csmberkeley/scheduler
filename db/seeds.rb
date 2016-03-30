@@ -68,27 +68,27 @@ mwf = weekdays - tuth
 
 # Generic seeding pattern for any CSM mentored course.
 def seed_class(course:, days:, repeats: 1, sec_times:, lec_days:, lec_times:)
-    count = 1
-    days.each do |d|
-        sec_times.each do |hs, ms, he, me| # Hour/min start, hour/min end
-            lhs, lms, lhe, lme = lec_times
-            lec_start = Time.parse("#{lhs}:#{lms}")
-            lec_end   = Time.parse("#{lhe}:#{lme}")
-            sec_start = Time.parse("#{hs}:#{ms}")
-            sec_end   = Time.parse("#{he}:#{me}")
-            if not lec_days.include?(d) or (lec_start >= sec_end) or (lec_end <= sec_start)
-              for _ in (1..repeats) # Number of sections per timeslot.
-                Section.create! :name => "Section #{count}",
-                                :course_id => course.id,
-                                :start => Time.new(2015, 9, 9, hs, ms, 0, "+00:00"),
-                                :end => Time.new(2015, 9, 9, he, me, 0, "+00:00"),
-                                :date => d,
-                                :location => "TBD"
-                count += 1
-              end
-            end
+  count = 1
+  days.each do |d|
+    sec_times.each do |hs, ms, he, me| # Hour/min start, hour/min end
+      lhs, lms, lhe, lme = lec_times
+      lec_start = Time.parse("#{lhs}:#{lms}")
+      lec_end   = Time.parse("#{lhe}:#{lme}")
+      sec_start = Time.parse("#{hs}:#{ms}")
+      sec_end   = Time.parse("#{he}:#{me}")
+      if not lec_days.include?(d) or (lec_start >= sec_end) or (lec_end <= sec_start)
+        for _ in (1..repeats) # Number of sections per timeslot.
+          Section.create! :name => "Section #{count}",
+            :course_id => course.id,
+            :start => Time.new(2015, 9, 9, hs, ms, 0, "+00:00"),
+            :end => Time.new(2015, 9, 9, he, me, 0, "+00:00"),
+            :date => d,
+            :location => "TBD"
+          count += 1
         end
+      end
     end
+  end
 end
 
 # CS61a
