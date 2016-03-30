@@ -1,0 +1,89 @@
+<div class = "container">
+  <h1>Manage Student Attendance</h1>
+  <hr>
+
+  <div style = "margin-top:10px">
+    <p>Toggle Students</p>
+    <p>Download as CSV</p>
+  </div>
+
+  <div class = "sections">
+    <table class="table">
+      <thead>
+        <tr>
+          <th> Attendance Status </th>
+          <th> Mentors </th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <% @mentors.each do |mentor| %>
+          <tr class="mentor-list">
+            <!-- Left column -->
+            <td class="col-md-2">
+              <!-- Game plan:
+                - Display attendance status as complete or incomplete
+                - When clicked on, shows roster
+                - Table: Name, Email, # of approved, # of excused, # of pending, # of unexcused
+                 -->
+              <div> 
+                <a class="btn btn-success" data-toggle="collapse" href="#rostercollapse<%=mentor.id%>"  href="#" role="button"><i class="fa fa-list"></i><% mentor.id%></a>
+              </div>
+            </td>
+            <!-- Right Column -->
+            <td>
+              <!-- Information -->
+              <h4><%= mentor.name %></h4>
+              <%= mentor.email %>
+
+              <!-- Student roster -->
+              <%= form_tag admin_add_course_path(mentor) do %>
+                <br />
+                <div class="collapse" id="rostercollapse<%=mentor.id%>">
+                  <% mentor.jenrolls.each do |enroll| %>
+                    <% section = enroll.section %>
+                    <% course = enroll.course %>
+                    <div class = "roster">
+                      <h5><b><%= course.course_name %> <%= section.name %> Students</b></h5>
+                      <% if enroll.getStudents().size > 0 %>
+                        <ul class="list-group">
+                        <% enroll.getStudents().each do |student| %>
+                          <li class="list-group-item" style="width: 75%">
+                            <span class="badge"><%=student.email%></span>
+                            <%=student.name %>
+                          </li>
+                        <% end %>
+                        </ul>                                    
+                      <% else %>
+                        <h6>No Students</h6>
+                      <% end %>
+                    </div>
+                  <% end %>
+                  <% mentor.senrolls.each do |enroll| %>
+                    <% section = enroll.section %>
+                    <% course = enroll.course %>
+                    <div class = "roster">
+                      <h5><b><%= course.course_name %> <%= section.name %> Students</b></h5>
+                      <% if enroll.getStudents().size > 0 %>
+                        <ul class="list-group">
+                          <% enroll.getStudents().each do |student| %>
+                            <li class="list-group-item" style="width: 75%">
+                              <span class="badge"><%=student.email%></span>
+                              <%=student.name %>
+                            </li>
+                          <% end %>
+                        </ul>
+                      <% else %>
+                        <h6>No Students</h6>
+                      <% end %>
+                    </div>
+                  <% end %>
+                <% end %>
+              </div>
+            </td>
+          </tr>  
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+</div>

@@ -132,6 +132,25 @@ class AdminsController < ApplicationController
       @sections[course.course_name]["Friday"].sort!{|a,b| a.start && b.start ? [a.start, a.name] <=> [b.start, b.name] : a.start ? -1 : 1 }
     end
   end
+
+  def manage_attendance
+    @mentors = Set.new
+    Jenroll.all.each do |enroll|
+      @mentors.add(enroll.user)
+    end
+    Senroll.all.each do |enroll|
+      @mentors.add(enroll.user)
+    end
+    @students = Set.new
+    Enroll.all.each do |enroll|
+      @students.add(enroll.user)
+    end
+    @total_section_enrollment = 0
+    Section.all.each do |section|
+      @total_section_enrollment += section.enrolls.length
+    end
+  end
+
   def add_course
     @user = User.find(params[:user_id])
     @course = Course.find(params[:course].values[0][:name].to_i)
@@ -139,6 +158,7 @@ class AdminsController < ApplicationController
     flash[:notice] = "Added #{@user.name} to #{@course.course_name}" 
     redirect_to students_index_path
   end
+
   def send_email
     Section.all.each do |section|
       UserMailer.section_email(section).deliver
