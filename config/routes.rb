@@ -1,6 +1,8 @@
 Rails.application.routes.draw do
 
-  devise_for :users
+  mount Ckeditor::Engine => '/ckeditor'
+
+  devise_for :users, :controllers => { :registrations => "registrations" }
   #Set root to ensure devise works
   root "homes#index"
   #get "/courses" => "courses#index"
@@ -71,6 +73,7 @@ Rails.application.routes.draw do
 
   #admin stuff
   get "/admin/students" => "admins#index", as: :students_index
+  get "/admin/mentors" => "admins#mentor_index", as: :mentors_index
   get "/admin/new-student" => "admins#new_student", as: :admin_new_student
   post "/admin/create-student" => "admins#create_student", as: :admin_create_student
   get "/admin/students/:id" => "admins#edit_student", as: :admin_edit_student
@@ -83,6 +86,10 @@ Rails.application.routes.draw do
   post "/settings" => "settings#update"
   get "/admin/manage_sections" => "admins#manage_sections", as: :manage_sections
   match 'users/:id' => 'users#destroy', :via => :delete, :as => :admin_destroy_user
+
+  #annoucenments
+  get "/settings/announcement_edit" => "announcements#edit", as: :announcement_edit
+  patch "/settings/announcement_edit" => "announcements#update", as: :announcement_update
   
   get "/admin/manage_section/add/:id" => "admins#new_student_to_section", as: :new_student_to_section
   post "/admin/manage_section/add/:id" => "admins#add_student_to_section"

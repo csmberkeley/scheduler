@@ -15,5 +15,8 @@ class HomesController < ApplicationController
   		@courses_to_mentor_enrolls[curr_class_name] = @courses_to_mentor_enrolls[curr_class_name] + [senroll]
   	end
     @show_tabs = (@enrolls.size > 0 and (@jenrolls.size + @senrolls.size) > 0)
+    if Setting.find_by(name: 'announcement').value == "1"
+      @announcement = Announcement.all.first
+    end
   end
 end

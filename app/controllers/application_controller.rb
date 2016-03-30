@@ -38,7 +38,7 @@ class ApplicationController < ActionController::Base
   end
   private
   def check_enrollment(enrollment)
-    if current_user and enrollment and enrollment.user_id == current_user.id
+    if (current_user and enrollment and enrollment.user_id == current_user.id) or current_user.admin?
       return true
     end
     return false

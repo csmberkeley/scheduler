@@ -1,7 +1,10 @@
 class AdminsController < ApplicationController
   before_filter :check_admin
   def index
-    @students = User.all
+    @students = Set.new
+    Enroll.all.each do |enroll|
+      @students.add(enroll.user)
+    end
     @courses = Course.all
     @total_course_enrollment = 0
     @courses.each do |course|
@@ -10,6 +13,16 @@ class AdminsController < ApplicationController
     @total_section_enrollment = 0
     Section.all.each do |section|
       @total_section_enrollment += section.enrolls.length
+    end
+  end
+
+  def mentor_index
+    @mentors = Set.new
+    Jenroll.all.each do |enroll|
+      @mentors.add(enroll.user)
+    end
+    Senroll.all.each do |enroll|
+      @mentors.add(enroll.user)
     end
   end
 
@@ -24,7 +37,6 @@ class AdminsController < ApplicationController
        flash[:notice] = "Created user #{@student.name}!"
        redirect_to students_index_path
     end
-   
   end
 
   def new_student_to_section
@@ -44,7 +56,7 @@ class AdminsController < ApplicationController
   end
 
   def add_student_to_section
-    begin
+    # begin
       student = params[:student].split(" ")
       student.pop
       user = User.find_by_name(student.join(" "))
@@ -60,14 +72,17 @@ class AdminsController < ApplicationController
           redirect_to manage_sections_path
           return
         else
-          flash[:alert] = "Student not enrolled in the course. Select another student."
-          redirect_to manage_sections_path
+          next
         end
+        flash[:alert] = "Student not enrolled in the course. Select another student."
+        redirect_to manage_sections_path
+        return
       end
-    #rescue
-    #  flash[:alert] = "Error in enrolling student."
+    # rescue => exception
+    #  flash[:alert] = "Error in enrolling student." + exception.backtrace
     #  redirect_to manage_sections_path
-    end
+    # end
+    redirect_to manage_sections_path
   end
 
   def drop_student_from_section
@@ -110,7 +125,7 @@ class AdminsController < ApplicationController
       course.sections.each do | section |
         @sections[course.course_name][section.getDay] << section
       end
-        @sections[course.course_name]["Monday"].sort!{|a,b| a.start && b.start ? [a.start, a.name] <=> [b.start, b.name] : a.start ? -1 : 1 }
+      @sections[course.course_name]["Monday"].sort!{|a,b| a.start && b.start ? [a.start, a.name] <=> [b.start, b.name] : a.start ? -1 : 1 }
       @sections[course.course_name]["Tuesday"].sort!{|a,b| a.start && b.start ? [a.start, a.name] <=> [b.start, b.name] : a.start ? -1 : 1 }
       @sections[course.course_name]["Wednesday"].sort!{|a,b| a.start && b.start ? [a.start, a.name] <=> [b.start, b.name] : a.start ? -1 : 1 }
       @sections[course.course_name]["Thursday"].sort!{|a,b| a.start && b.start ? [a.start, a.name] <=> [b.start, b.name] : a.start ? -1 : 1 }

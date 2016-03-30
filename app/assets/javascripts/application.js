@@ -15,6 +15,7 @@
 //= require twitter/bootstrap
 //= require turbolinks
 //= require admins
+//= require ckeditor/init
 //= require moment
 //= require bootstrap-datetimepicker
 //= require_tree .

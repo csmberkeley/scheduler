@@ -31,14 +31,22 @@ class JenrollsController < ApplicationController
 		if password == @course.password
             if params.has_key?("sm?")
                 @senroll = Senroll.new
+                if (@section.assignMentor(@senroll) == nil)
+                    flash[:notice] = "Someone has already taken this section."
+                    redirect_to root_path
+                    return
+                end
                 current_user.senrolls << @senroll
                 @course.senrolls << @senroll
-                @section.assignMentor(@senroll)
             else
                 @jenroll = Jenroll.new
+                if (@section.assignMentor(@jenroll) == nil) 
+                    flash[:notice] = "Someone has already taken this section."
+                    redirect_to root_path
+                    return
+                end
                 current_user.jenrolls << @jenroll
                 @course.jenrolls << @jenroll
-                @section.assignMentor(@jenroll)
             end
 			flash[:notice] = "You have been signed up as a mentor!"
 			redirect_to root_path
@@ -88,7 +96,7 @@ class JenrollsController < ApplicationController
         time_change = false
         location_change = false
         if @new_section.temp_start != nil and @new_section.temp_end != nil and @new_section.temp_date != ""
-            if params["makeDefaultTime?"] and Setting.find_by(name: 'default_switching').value == "1"
+            if params["makeDefaultTime?"] and (Setting.find_by(name: 'default_switching').value == "1" or current_user.admin)
                 @section.start = @new_section.temp_start
                 @section.end = @new_section.temp_end
                 @section.date = @new_section.temp_date
@@ -99,13 +107,31 @@ class JenrollsController < ApplicationController
             time_change = true
         elsif @new_section.temp_start != nil or @new_section.temp_end != nil or @new_section.temp_date != ""
             #missing fields
-            flash[:notice] = "Missing fields for new section."
+            missing_fields = []
+            if @new_section.temp_start == nil
+                missing_fields << "start"
+            end
+            if @new_section.temp_end == nil
+                missing_fields << "end"
+            end
+            if @new_section.temp_date == ""
+                missing_fields << "date"
+            end
+            missing_field_string = String.new(missing_fields[0])
+            (1...missing_fields.size).each do |i|
+                missing_field_string << ", #{String.new(missing_fields[i])}"
+            end
+            if missing_fields.size > 1
+                flash[:notice] = "Missing fields #{missing_field_string} for new section."
+            else
+                flash[:notice] = "Missing field #{missing_field_string} for new section."
+            end
             redirect_to edit_jenroll_path(@jenroll)
             return
         end
 
         if @new_section.temp_location != ""
-            if params["makeDefaultLocation?"] and Setting.find_by(name: 'default_switching').value == "1"
+            if params["makeDefaultLocation?"] and (Setting.find_by(name: 'default_switching').value == "1" or current_user.admin)
                 @section.location = @new_section.temp_location
             end
             @section.temp_location = @new_section.temp_location
@@ -168,9 +194,9 @@ class JenrollsController < ApplicationController
         @email_list = ""
         @students.each_with_index do |student, i| 
             if i == 0
-                @email_list << student.email
+                @email_list << "#{student.name} <#{student.email}>"
             else
-                @email_list << ", #{student.email}"
+                @email_list << ", #{student.name} <#{student.email}>"
             end
         end
     end
@@ -188,7 +214,7 @@ class JenrollsController < ApplicationController
     #before filters
     private
     def check_jenroll
-        if not params[:id] or not Jenroll.exists?(params[:id]) or not check_enrollment(Jenroll.find(params[:id]))
+        if not params[:id] or not Jenroll.exists?(params[:id]) or not (check_enrollment(Jenroll.find(params[:id])) or current_user.admin)
             flash[:notice] = "You do not have permission to access that page."
             redirect_to root_path
         end

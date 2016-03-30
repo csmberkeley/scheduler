@@ -2,14 +2,14 @@
 
 <div class="panel panel-primary">
   <div class="panel-heading">
-    <h3 class="panel-title">Set Password</h3>
+    <h3 class="panel-title">Set Check-in Password</h3>
   </div>
   <div class="panel-body">  
     <%= form_for @section, url: mentor_set_pass_path(@section) do |f|%>
         <div class="form-group">
             <%= f.label :password, "Password" %>
             <%= f.text_field(:password, class:"form-control") %> 
-            <%= f.label :pass_enabled, "Allow Check-ins" %>
+            <%= f.label :pass_enabled, "Open Check-ins" %>
             <%= f.check_box :pass_enabled %>            
         </div>
         <%= f.submit("Update", class: "btn btn-success") %>

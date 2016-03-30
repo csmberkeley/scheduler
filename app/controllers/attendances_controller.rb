@@ -43,7 +43,7 @@ class AttendancesController < ApplicationController
     def show
         @enroll = Enroll.find(params[:id])
         @blank_attendance = Attendance.new
-        @current_week = getCurrentWeek
+        @current_week = getCurrentWeek(@enroll.course)
     end
     def set_pass
         section = Section.find(params[:id])
@@ -57,14 +57,14 @@ class AttendancesController < ApplicationController
     def mentor_show
         enr = Jenroll.find(params[:id])
         @students = enr.section.enrolls
-        @current_week = getCurrentWeek
+        @current_week = getCurrentWeek(enr.course)
         @section = enr.section
         @max_week = getMaxWeek
     end
     def mentor_show_senior
         enr = Senroll.find(params[:id])
         @students = enr.section.enrolls
-        @current_week = getCurrentWeek
+        @current_week = getCurrentWeek(enr.course)
         @section = enr.section
         @max_week = getMaxWeek
         render "mentor_show"
@@ -115,12 +115,17 @@ class AttendancesController < ApplicationController
     end
     #need to save this globally so it doesn't look it up every time....
     private 
-    def getBaseWeek
-        return DateTime.parse(Setting.find_by(name: "start_week").value)
+    def getBaseWeek(course)
+        if course.base_week.nil?
+            return DateTime.parse(Setting.find_by(name: "start_week").value)
+        else
+            return DateTime.parse(course.base_week)
+        end
     end
+    private
     private 
-    def getCurrentWeek
-        return (DateTime.now - getBaseWeek).to_i / 7 + 1
+    def getCurrentWeek(course)
+        return (DateTime.now - getBaseWeek(course)).to_i / 7 + 1
     end
     private 
     def getMaxWeek

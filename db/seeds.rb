@@ -6,6 +6,10 @@
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 
+# Always have an admin account, don't delete (can change credientials if you'd like).
+# See README for storing passwords and generating secret keys, ENV[] needs to reference values
+# in application.yml, a file you need to create yourself.
+
 admin = User.create! :name => "Admin",
 			 :email => "csmberkeley@gmail.com",
              :password => ENV["ADMIN_PASS"],
@@ -95,6 +99,8 @@ days.each do |d|
      end 
 end
 
+#Necessary state infomration, don't delete/change unless you know what you're doing
+
 Setting.create! :setting_name => "Enable Comments", :setting_type => "boolean", :value => "1", :name => "comments"
 
 Setting.create! :setting_name => "Enable Section Switching", :setting_type => "boolean", :value => "1", :name => "section"
@@ -108,3 +114,11 @@ Setting.create! :setting_name => "Base Week", :setting_type => "String", :value 
 Setting.create! :setting_name => "Max Week", :setting_type => "int", :value => "15", :name => "max_week"
 
 Setting.create! :setting_name => "Enable Mentors to Change Default Section Time/Location", :setting_type => "boolean", :value => "1", :name => "default_switching"
+
+Setting.create! :setting_name => "Enable Announcement", :setting_type => "boolean", :value => "1", :name => "announcement"
+
+Announcement.create! :info => "<p> Hi this is stuff on the home page </p>"
+
+
+
+

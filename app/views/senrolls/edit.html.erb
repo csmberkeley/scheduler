@@ -1,88 +1,111 @@
-<div class="panel panel-default">
-    <div class="panel-heading">Mentor Settings For Section</div>
-    <div class="panel-body">
-    <%= form_for @section, url: edit_senroll_path(@senroll.id) do |f|%>
-        <div class"form-group">
-            <%= hidden_field_tag :id, @section.id %>
-        </div>
-        <h2>Make a Temporary Time Change</h2>
-        <% if @section.temp_start == nil %>
-            <h6>Current time from <%= @section.start.strftime("%I:%M %p") %> to <%= @section.end.strftime("%I:%M %p") %> on <%= @section.date %>.</h6>
-        <% elsif @section.temp_start == @section.start and @section.temp_end == @section.end and @section.temp_date == @section.date %>
-            <h6>Default time of section recently changed to be from <%= @section.start.strftime("%I:%M %p") %> to <%= @section.end.strftime("%I:%M %p") %> on <%= @section.date %>.</h6>
-        <% else %>
-            <h6>Temporary time set to be from <%= @section.temp_start.strftime("%I:%M %p") %> to <%= @section.temp_end.strftime("%I:%M %p") %> on <%= @section.temp_date %>.</h6>
-        <% end %>
-
-        <div class="form-group">
-            <%= f.label :start %>
-            <div class='input-group date' id='starttimepicker'>
-                <% if @section.temp_start != nil %>
-                    <%= f.text_field(:temp_start, class:"form-control", :value => @section.temp_start.strftime("%I:%M %p")) %>
-                <% else %>
-                    <%= f.text_field(:temp_start, class:"form-control") %>
-                <% end %>
-                <span class="input-group-addon">
-                    <span class="glyphicon glyphicon-time"></span>
-                </span>
-            </div>
-        </div>
-        <div class="form-group">
-            <%= f.label :end %>
-            <div class='input-group date' id='endtimepicker'>
-                <% if @section.temp_start != nil %>
-                    <%= f.text_field(:temp_end, class:"form-control", :value => @section.temp_end.strftime("%I:%M %p")) %>
-                <% else %>
-                    <%= f.text_field(:temp_end, class:"form-control") %>
-                <% end %>
-                <span class="input-group-addon">
-                    <span class="glyphicon glyphicon-time"></span>
-                </span>
-            </div>
-        </div>
-        <script type="text/javascript">
-            $(function () {
-                $('#starttimepicker').datetimepicker({
-                    format: 'LT'
-                });
-                $('#endtimepicker').datetimepicker({
-                    format: 'LT'
-                });
-            });
-        </script>
-        <div class="form-group">
-            <%= f.label :date, "Day of the week" %>
-            <br>
-            <%= f.select(:temp_date, options_for_select([["None Selected", ""],['Monday', 'Monday'], ['Tuesday', 'Tuesday'], ['Wednesday', 'Wednesday'], ['Thursday', 'Thursday'], ["Friday", "Friday"]], @section.temp_date)) %>
-        </div>
-        <label><%= check_box_tag 'makeDefaultTime?'%> Make this the default time/date?</label>
-        <% if @section.temp_start != nil and not (@section.temp_start == @section.start and @section.temp_end == @section.end and @section.temp_date == @section.date) %>
-            <br>
-            <%= link_to '<i class="fa fa-trash-o"></i> Remove Temporary Time'.html_safe, senroll_destroy_temp_time_path(@senroll), class: "btn btn-danger", method: :delete, data: { confirm: "Are you sure?"}%>
-        <% end %>
-        <h2>Make a Temporary Location Change</h2>
-        <% if @section.temp_location == nil %>
-            <h6>Current location at <%= @section.location %>.</h6>
-        <% elsif @section.temp_location == @section.location  %>
-            <h6>Default location of section recently changed to be <%= @section.location %>.</h6>
-        <% else %>
-            <h6>Temporary location set to be <%= @section.temp_location %>.</h6>
-        <% end %>
-        <div class="form-group">
-            <%= f.label :location %>
-            <%= f.text_field(:temp_location, class:"form-control") %> 
-        </div>
-        <label><%= check_box_tag 'makeDefaultLocation?'%> Make this the default location?</label>
-        <% if @section.temp_location != nil and @section.temp_location != @section.location %>
-            <br>
-            <%= link_to '<i class="fa fa-trash-o"></i> Remove Temporary Location'.html_safe, senroll_destroy_temp_location_path(@senroll), class: "btn btn-danger", method: :delete, data: { confirm: "Are you sure?"}%>
-        <% end %>
-        <br>
-        <br>
-        <label><%= check_box_tag 'notify?', 1, {:checked => "checked"} %> Notify your students via email?</label>
-        <br>
-        <%= f.submit "Update Settings", class: "btn btn-success" %>
-        <%= link_to "Cancel", root_path, class: "btn btn-default" %>
-    <% end %>
+<h2>Mentor Settings For Section</h2>
+<%= form_for @section, url: edit_senroll_path(@senroll.id) do |f|%>
+    <div class"form-group">
+        <%= hidden_field_tag :id, @section.id %>
     </div>
-</div>
+    <div class = "row">
+        <div class = "col-sm-12">
+            <div class="panel panel-default">
+              <!-- Default panel contents -->
+              <div class="panel-heading"><h4>Make a Temporary Time Change</h4></div>
+              <div class="panel-body">
+                <% if @section.temp_start == nil %>
+                    <h6>Current time from <%= @section.start.strftime("%I:%M %p") %> to <%= @section.end.strftime("%I:%M %p") %> on <%= @section.date %>.</h6>
+                <% elsif @section.temp_start == @section.start and @section.temp_end == @section.end and @section.temp_date == @section.date %>
+                    <h6>Default time of section recently changed to be from <%= @section.start.strftime("%I:%M %p") %> to <%= @section.end.strftime("%I:%M %p") %> on <%= @section.date %>.</h6>
+                <% else %>
+                    <h6>Temporary time set to be from <%= @section.temp_start.strftime("%I:%M %p") %> to <%= @section.temp_end.strftime("%I:%M %p") %> on <%= @section.temp_date %>.</h6>
+                <% end %>
+
+                <div class="form-group">
+                    <%= f.label :start %>
+                    <div class='input-group date' id='starttimepicker'>
+                        <% if @section.temp_start != nil %>
+                            <%= f.text_field(:temp_start, class:"form-control", :value => @section.temp_start.strftime("%I:%M %p")) %>
+                        <% else %>
+                            <%= f.text_field(:temp_start, class:"form-control") %>
+                        <% end %>
+                        <span class="input-group-addon">
+                            <span class="glyphicon glyphicon-time"></span>
+                        </span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <%= f.label :end %>
+                    <div class='input-group date' id='endtimepicker'>
+                        <% if @section.temp_start != nil %>
+                            <%= f.text_field(:temp_end, class:"form-control", :value => @section.temp_end.strftime("%I:%M %p")) %>
+                        <% else %>
+                            <%= f.text_field(:temp_end, class:"form-control") %>
+                        <% end %>
+                        <span class="input-group-addon">
+                            <span class="glyphicon glyphicon-time"></span>
+                        </span>
+                    </div>
+                </div>
+                <script type="text/javascript">
+                    $(function () {
+                        $('#starttimepicker').datetimepicker({
+                            format: 'LT'
+                        });
+                        $('#endtimepicker').datetimepicker({
+                            format: 'LT'
+                        });
+                    });
+                </script>
+                <div class="form-group">
+                    <%= f.label :date, "Day of the week" %>
+                    <br>
+                    <%= f.select(:temp_date, options_for_select([["None Selected", ""],['Monday', 'Monday'], ['Tuesday', 'Tuesday'], ['Wednesday', 'Wednesday'], ['Thursday', 'Thursday'], ["Friday", "Friday"]], @section.temp_date)) %>
+                </div>
+              </div>
+
+              <div class="panel-footer">
+                <% if Setting.find_by(name: 'default_switching').value == "1" or current_user.admin %>
+                    <label><%= check_box_tag 'makeDefaultTime?'%> Make this the default time/date?</label>
+                <% end %>
+                <% if @section.temp_start != nil and not (@section.temp_start == @section.start and @section.temp_end == @section.end and @section.temp_date == @section.date) %>
+                    <br>
+                    <%= link_to '<i class="fa fa-trash-o"></i> Revert Time to Default'.html_safe, senroll_destroy_temp_time_path(@senroll), class: "btn btn-danger", method: :delete, data: { confirm: "Are you sure?"}%>
+                <% end %>
+              </div>
+            </div>
+        </div>
+        <div class = "col-sm-12">
+            <div class="panel panel-default">
+              <!-- Default panel contents -->
+              <div class="panel-heading"><h4>Make a Temporary Location Change</h4></div>
+              <div class="panel-body">
+                <% if @section.temp_location == nil %>
+                    <h6>Current location at <%= @section.location %>.</h6>
+                <% elsif @section.temp_location == @section.location  %>
+                    <h6>Default location of section recently changed to be <%= @section.location %>.</h6>
+                <% else %>
+                    <h6>Temporary location set to be <%= @section.temp_location %>.</h6>
+                <% end %>
+                <div class="form-group">
+                    <%= f.label :location %>
+                    <%= f.text_field(:temp_location, class:"form-control") %> 
+                </div>
+              </div>
+
+              <div class="panel-footer">
+                <% if Setting.find_by(name: 'default_switching').value == "1" or current_user.admin %>
+                    <label><%= check_box_tag 'makeDefaultLocation?'%> Make this the default location?</label>
+                    <br>
+                <% end %>
+                <% if @section.temp_location != nil and @section.temp_location != @section.location %>
+                    <br>
+                    <%= link_to '<i class="fa fa-trash-o"></i> Remove Location to Default'.html_safe, senroll_destroy_temp_location_path(@senroll), class: "btn btn-danger", method: :delete, data: { confirm: "Are you sure?"}%>
+                <% end %>
+              </div>
+            </div>
+            <div style = "text-align:center; padding-top:20px">
+                <label><%= check_box_tag 'notify?', 1, {:checked => "checked"} %> Notify your students of your changes via email?</label>
+                <br>
+                <%= f.submit "Update Settings", class: "btn btn-success" %>
+                <%= link_to "Cancel", root_path, class: "btn btn-default" %>
+            </div>
+        </div>
+    </div>
+<% end %>

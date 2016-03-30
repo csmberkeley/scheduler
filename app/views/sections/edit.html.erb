@@ -36,6 +36,13 @@
         </div>
 
         <%= f.submit class: "btn btn-default" %>
+        <% if @section.getMentor() != nil %>
+            <% if @section.getMentor().is_a?(Senroll) %>
+                <%= link_to '<i class="fa fa-cog"></i> Section Mentor Settings'.html_safe, edit_senroll_path(@section.getMentor().id), class: "btn btn-success" %>
+            <% else %>
+                <%= link_to '<i class="fa fa-cog"></i> Section Mentor Settings'.html_safe, edit_jenroll_path(@section.getMentor().id), class: "btn btn-success" %>
+            <% end %>
+        <% end %>
     <% end %>
     </div>
 </div>
