@@ -2,9 +2,15 @@
   <h1>Manage Student Attendance</h1>
   <hr>
 
+  <!-- 
+    To Dos:
+      - Toggle all students
+      - Get attendance to show the right numbers
+   -->
+
   <div style ="margin-top:10px">
     <a class="btn btn-success" data-toggle="collapse" href="#rostercollapse"  role="button">Toggle All Students</a>
-    <a class="btn btn-danger" href="#" role="button">Download as CSV</a>
+    <!-- <a class="btn btn-danger" href="#" role="button">Download as CSV</a> -->
     <br><br>
   </div>
 
@@ -43,20 +49,23 @@
                   <div class="collapse" id="rostercollapse<%=mentor.id%>">
                     <% section = enroll.section %>
                     <% course = enroll.course %>
-                    <div class = "roster">
+                    <div class="roster">
                       <h5><b><%= course.course_name %> <%= section.name %> Students</b></h5>
                       <% if enroll.getStudents().size > 0 %>
                         <ul class="list-group">
                         <% enroll.getStudents().each do |student| %>
                           <li class="list-group-item" style="width: 75%">
-                            <div>
+                            <div style="float:left">
                               <%=student.name %>
                               <span class="badge"><%=student.email%></span>
                             </div>
-                            <span class="label label-success">Approved: <%= enroll.attendances.approved.count %></span>
-                            <span class="label label-primary">Excused: <%=enroll.attendances.excused.count %></span>
-                            <span class="label label-warning">Pending: <%=enroll.attendances.pending.count %></span>
-                            <span class="label label-danger">Unexcused: <%=enroll.attendances.denied.count %></span>
+                            <div style="float:right">
+                              <span class="label label-success">Approved: <%= enroll.attendances.approved.count %></span>
+                              <span class="label label-primary">Excused: <%=enroll.attendances.excused.count %></span>
+                              <span class="label label-warning">Pending: <%=enroll.attendances.pending.count %></span>
+                              <span class="label label-danger">Unexcused: <%=enroll.attendances.denied.count %></span>
+                            </div>
+                            <br>
                           </li>
                         <% end %>
                         </ul>                                    

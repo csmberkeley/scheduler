@@ -145,9 +145,9 @@ class AdminsController < ApplicationController
     Enroll.all.each do |enroll|
       @students.add(enroll.user)
     end
-    @total_section_enrollment = 0
+    @sections = Set.new
     Section.all.each do |section|
-      @total_section_enrollment += section.enrolls.length
+      @sections.add(section)
     end
   end
 
