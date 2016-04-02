@@ -5,7 +5,7 @@
   <!-- 
     To Dos:
       - Toggle all students
-      - Get attendance to show the right numbers
+      - Remove the extra thingys everywhere
    -->
 
   <div style ="margin-top:10px">
@@ -24,17 +24,24 @@
       </thead>
 
       <tbody>
-        <% @mentors.each do |mentor| %>
-          <tr class="mentor-list">
-            <td class="col-md-2">
-              <% mentor.jenrolls.each do |enroll| %>
+        <% @sections.each do |section| %>
+          <% section.enrolls.each do |enroll| %>
+            <tr class="mentor-list">
+              <td class="col-md-2">
+                <% mentor = User.find(enroll.user.id) %>
+                <% course = enroll.course %>
+                <% course_name = course.course_name %>
                 <div>
                   <a class="btn btn-success" data-toggle="collapse" href="#rostercollapse<%=mentor.id%>"  href="#" role="button"><i class="fa fa-list"></i></a>
                   <a class="btn btn-warning"  data-toggle="collapse" href="#editcollapse<%=mentor.id%>"  role="button"><i class="fa fa-dashboard"></i></a>
                 </div>
                 <div>
                   <% badge_button = '<i class="fa fa-person"></i> '.html_safe + getPendingBadge(enroll).html_safe + ' Take'%>
-                  <%= link_to badge_button.html_safe, junior_mentor_attendance_path(enroll), :class => "btn btn-primary" %>
+                  <% if enroll.is_a?(Senroll) %>
+                    <%= link_to badge_button.html_safe, senior_mentor_attendance_path(enroll), :class => "btn btn-primary" %>
+                  <% else %>
+                    <%= link_to badge_button.html_safe, junior_mentor_attendance_path(enroll), :class => "btn btn-primary" %>
+                  <% end %>
                   </div>
                 </div>
               </td>
@@ -47,10 +54,8 @@
                 <%= form_tag admin_add_course_path(mentor) do %>
                   <br />
                   <div class="collapse" id="rostercollapse<%=mentor.id%>">
-                    <% section = enroll.section %>
-                    <% course = enroll.course %>
                     <div class="roster">
-                      <h5><b><%= course.course_name %> <%= section.name %> Students</b></h5>
+                      <h5><b><%= course_name %> <%= section.name %> Students</b></h5>
                       <% if enroll.getStudents().size > 0 %>
                         <ul class="list-group">
                         <% enroll.getStudents().each do |student| %>
@@ -90,7 +95,6 @@
                             courses_to_mentor_enrolls[curr_class_name] = courses_to_mentor_enrolls[curr_class_name] + [senroll]
                         end
                     %>
-                    <% courses_to_mentor_enrolls.keys.sort.each do |course_name| %>
                       <div class="panel panel-primary" style="width: 80%">
                         <div class="panel-heading">
                           <h3 class="panel-title"><i class="fa fa-book"></i> <%= course_name %> 
@@ -135,7 +139,6 @@
                           <% end %>
                         </div>
                       </div>
-                    <% end %>
                 </div>
               <% end %>
             </td>

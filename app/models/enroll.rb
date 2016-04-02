@@ -58,6 +58,7 @@ class Enroll < ActiveRecord::Base
     end
     return false
   end
+
   def removeAllReplies()
     course = Course.find(self.course_id)
     course.sections.each do |section|
@@ -68,7 +69,15 @@ class Enroll < ActiveRecord::Base
         end
       end
     end
+  end
 
+  def getStudents()
+    section = Section.find(self.section_id)
+    users = []
+    section.enrolls.each do |enroll|
+      users << enroll.user
+    end
+    return users
   end
 
 end
