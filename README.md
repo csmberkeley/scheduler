@@ -53,24 +53,24 @@ Create a new blank file called `application.yml` and place it directly inside th
       USERNAME: <put your username for an email account you own, see section "Mailing System">
       PASSWORD: <put your password for an email account you own, see section "Mailing System">
       ADMIN_PASS: <pick a password for admin account, you can choose>
-      USER_ALLAN_PASS: <pick a password for user account, you can choose>
-      USER_MIKE_PASS: <pick a password for user account, you can choose>
+      USER_1_PASS: <pick a password for user account, you can choose>
+      USER_2_PASS: <pick a password for user account, you can choose>
 
     test:
       SECRET_KEY_BASE: <insert 2nd string here>
       USERNAME: <put your username for an email account you own, see section "Mailing System">
       PASSWORD: <put your password for an email account you own, see section "Mailing System">
       ADMIN_PASS: <pick a password for admin account, you can choose>
-      USER_ALLAN_PASS: <pick a password for user account, you can choose>
-      USER_MIKE_PASS: <pick a password for user account, you can choose>
+      USER_1_PASS: <pick a password for user account, you can choose>
+      USER_2_PASS: <pick a password for user account, you can choose>
 
     production: 
       SECRET_KEY_BASE: <insert 3rd string here>
       USERNAME: <put your username for an email account you own (everything before the @), see section "Mailing System">
       PASSWORD: <put your password for an email account you own, see section "Mailing System">
       ADMIN_PASS: <pick a password for admin account, you can choose>
-      USER_ALLAN_PASS: <pick a password for user account, you can choose>
-      USER_MIKE_PASS: <pick a password for user account, you can choose>
+      USER_1_PASS: <pick a password for user account, you can choose>
+      USER_2_PASS: <pick a password for user account, you can choose>
 
 You can to choose to generate your own strings if you'd like. Save the file once you're done.
 

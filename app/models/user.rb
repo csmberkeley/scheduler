@@ -35,4 +35,13 @@ class User < ActiveRecord::Base
     end
     return enrolls
   end
+
+  def junior?
+    self.jenrolls != []
+  end
+
+  def senior?
+    self.senrolls != []
+  end
+
 end
