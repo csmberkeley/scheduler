@@ -72,10 +72,14 @@
                               <span class="badge"><%=student.email%></span>
                             </div>
                             <div style="float:right">
-                              <span class="label label-success">Approved: <%= enroll.attendances.approved.count %></span>
-                              <span class="label label-primary">Excused: <%=enroll.attendances.excused.count %></span>
-                              <span class="label label-warning">Pending: <%=enroll.attendances.pending.count %></span>
-                              <span class="label label-danger">Unexcused: <%=enroll.attendances.denied.count %></span>
+                              <% approved = enroll.attendances.approved.count %>
+                              <% excused = enroll.attendances.excused.count %>
+                              <% pending = enroll.attendances.pending.count %>
+                              <span class="label label-success">Approved: <%= approved %></span>
+                              <span class="label label-primary">Excused: <%= excused %></span>
+                              <span class="label label-warning">Pending: <%= pending %></span>
+                              <span class="label label-danger">Unexcused: 
+                                <%= enroll.getCurrentWeek() - approved - excused - pending %></span>
                             </div>
                             <br>
                           </li>

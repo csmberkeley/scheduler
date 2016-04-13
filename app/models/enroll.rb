@@ -80,4 +80,16 @@ class Enroll < ActiveRecord::Base
     return users
   end
 
+  def getBaseWeek()
+    if self.course.base_week.nil?
+        return DateTime.parse(Setting.find_by(name: "start_week").value)
+    else
+        return DateTime.parse(self.course.base_week)
+    end
+  end
+
+  def getCurrentWeek()
+    return (DateTime.now - self.getBaseWeek()).to_i / 7 + 1
+  end
+
 end
