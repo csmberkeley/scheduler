@@ -6,10 +6,10 @@ class ApplicationController < ActionController::Base
   before_filter :configure_devise_params, if: :devise_controller?
   before_filter :update_associated_sections
   def configure_devise_params
-    devise_parameter_sanitizer.for(:sign_up) do |u|
+    devise_parameter_sanitizer.permit(:sign_up) do |u|
       u.permit(:name, :email, :password, :password_confirmation)
     end
-    devise_parameter_sanitizer.for(:account_update) do |u|
+    devise_parameter_sanitizer.permit(:account_update) do |u|
       u.permit(:name, :email, :password, :password_confirmation, :current_password)
     end
   end
