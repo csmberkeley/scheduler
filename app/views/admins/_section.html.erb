@@ -2,7 +2,13 @@
 <%= link_to "<i class='fa fa-pencil'></i>".html_safe, edit_section_path(section) %>
 <%= link_to "<i class='fa fa-trash'></i>".html_safe, section_path(section), :method => :delete,data: { confirm: "Are you sure you want to delete the section?"} %> <br>
 <i class="fa fa-user"></i> <%= section.getMentorName() %> <br>
-<i class="fa fa-map-marker"></i>  <%= section.location %> <br>
+<i class="fa fa-map-marker"></i>
+    <% if section.temp_location == nil %>
+        <%= section.location %>
+    <% else %>
+        <%= section.temp_location %>
+    <% end %>
+    <br> 
 <i class="fa fa-envelope"></i> <%= mail_to(section.getMentorEmail(), (section.getMentorEmail() ? section.getMentorEmail().truncate(23)  : "")) %><br>
 <% if section.start and section.end %>
      <i class="fa fa-clock-o"></i> <%= section.start.strftime("%I:%M %p") %>-<%= section.end.strftime("%I:%M %p") %> <br>

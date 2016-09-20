@@ -2,7 +2,13 @@
 
 <i class="fa fa-user"></i> <%= section.getMentorName() %> <br>
 <i class="fa fa-envelope"></i> <%= mail_to(section.getMentorEmail(), (section.getMentorEmail() ? section.getMentorEmail().truncate(23)  : "")) %><br>
-<i class="fa fa-map-marker"></i>  <%= section.location %> <br>
+<i class="fa fa-map-marker"></i>
+    <% if section.temp_location == nil %>
+        <%= section.location %>
+    <% else %>
+      <%= section.temp_location %>
+    <% end %>
+    <br>
 <% if section.start and section.end %>
      <i class="fa fa-clock-o"></i> <%= section.start.strftime("%I:%M %p") %>-<%= section.end.strftime("%I:%M %p") %> <br>
 <% end %>
