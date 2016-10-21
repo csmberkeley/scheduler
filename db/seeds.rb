@@ -26,7 +26,7 @@ user1 = User.create! :name => "John Smith",
                      :password_confirmation => ENV["USER_1_PASS"],
                      :confirmed_at => "2015-09-09 02:50:19"
 
-user2  = User.create! :name => "Andrew Huang",
+user2 = User.create! :name => "Andrew Huang",
                      :email => "ahuang@berkeley.edu",
                      :password => ENV["USER_2_PASS"],
                      :password_confirmation => ENV["USER_2_PASS"],
