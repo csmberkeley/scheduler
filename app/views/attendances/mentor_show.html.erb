@@ -1,4 +1,5 @@
 <h2>Attendance for <%= @section.name %></h2>
+<% monthArray = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"] %>
 
 <div class="panel panel-primary">
   <div class="panel-heading">
@@ -19,8 +20,15 @@
 
 <div class="list-group">
 <% @current_week.downto(1) do |n| %>
+<% start_hour = @section.start %>
+<% end_hour = @section.end %>
+<% current_day = (@section.start.day + 7 * (n - 1)) % 31 %>
+<% month_increment = (@section.start.day + 7 * (n - 1)) / 31 %>
+<% current_month = (@section.start.month - 1 + month_increment) % 12 %>
+
+
     <div class="list-group-item">
-        <h3 class="list-group-item-heading">Week <%= n %></h3>
+        <h3 class="list-group-item-heading">Week <%= n %>: <%= month_increment %> <%= monthArray[current_month] %> <%= current_day %> <%= start_hour.strftime("%I:%M") %> to <%= end_hour.strftime("%I:%M") %></h3>
         <p class="list-group-item-text">
         <div class="list-group">
         <% @students.each do |student| %>
