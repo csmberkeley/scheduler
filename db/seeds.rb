@@ -33,6 +33,12 @@ user2 = User.create! :name => "Andrew Huang",
                      :confirmed_at => "2015-09-09 02:50:19",
                      :admin => "true"
 
+user3 = User.create! :name => "Andrew Pong",
+                     :email => "apong@berkeley.edu",
+                     :password => ENV["USER_2_PASS"],
+                     :password_confirmation => ENV["USER_2_PASS"],
+                     :confirmed_at => "2015-09-09 02:50:19"
+
 cs61a = Course.create! :course_name => "CS61A",
                        :semester => "Spring",
                        :year => 2016,

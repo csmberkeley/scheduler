@@ -24,12 +24,12 @@
                 <tr class="student-list">
                 <td class="col-md-2">
                 <div>
-                <a class="btn btn-success" data-toggle="collapse" href="#coursecollapse<%=student.id%>"  href="#" role="button"><i class="fa fa-plus"></i></a> <a class="btn btn-warning"  data-toggle="collapse" href="#editcollapse<%=student.id%>"  role="button"><i class="fa fa-pencil-square-o"></i></a>
+                <a class="btn btn-success" style="height:30px; width:30px; position:relative; text-align:center; line-height:1em; padding-left:9px;" data-toggle="collapse" href="#coursecollapse<%=student.id%>"  href="#" role="button"><i class="fa fa-plus"></i></a> <a class="btn btn-warning" style="height:30px;width:30px;text-align:center;line-height:1em;padding-left:9px;"   data-toggle="collapse" href="#editcollapse<%=student.id%>"  role="button"><i class="fa fa-pencil-square"></i></a>
                 </div>
-                <div style="margin-top:5px">
+                <div style="margin-top:3px">
                 
-                <%= link_to '<span class="btn btn-info" href="#" role="button"><i class="fa fa-user"></i></span>'.html_safe, admin_edit_student_path(student), method: :get %>
-                <%= link_to '<span style="padding-right:15px"class="btn btn-danger" href="#" role="button"><i class="fa fa-times"></i></span>'.html_safe, admin_destroy_user_path(student), method: :delete, data: { confirm: "Are you sure you want to delete #{student.name}?" } %>
+                <%= link_to '<span class="btn btn-info" style="height:30px;width:30px;text-align:center;line-height:1em;padding-left:9px;"  href="#" role="button"><i class="fa fa-user"></i></span>'.html_safe, admin_edit_student_path(student), method: :get %>
+                <%= link_to '<span class="btn btn-danger" style="height:30px;width:30px;text-align:center;line-height:1em;padding-left:9px;padding-right:15px;"  href="#" role="button"><i class="fa fa-times"></i></span>'.html_safe, admin_destroy_user_path(student), method: :delete, data: { confirm: "Are you sure you want to delete #{student.name}?" } %>
                 </div>
                 </td>
                 <td>
