@@ -7,3 +7,16 @@
 .student-list {         
     margin-bottom:5px;
 }
+
+// CSS styling for the four buttons in Manage Students (Admin Section): 
+// (Add Course for Student, Drop Course for Student, Update User, Delete User) 
+
+#add-course, #drop-course, #update-user, #delete-user {
+	height:30px;
+	width:30px;
+	position:relative;
+	text-align:center;
+	line-height:1em;
+	padding-left:9px;	
+}
+

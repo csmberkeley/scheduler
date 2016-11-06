@@ -24,12 +24,13 @@
                 <tr class="student-list">
                 <td class="col-md-2">
                 <div>
-                <a class="btn btn-success" style="height:30px; width:30px; position:relative; text-align:center; line-height:1em; padding-left:9px;" data-toggle="collapse" href="#coursecollapse<%=student.id%>"  href="#" role="button"><i class="fa fa-plus"></i></a> <a class="btn btn-warning" style="height:30px;width:30px;text-align:center;line-height:1em;padding-left:9px;"   data-toggle="collapse" href="#editcollapse<%=student.id%>"  role="button"><i class="fa fa-pencil-square"></i></a>
+                <a class="btn btn-success" id="add-course" data-toggle="collapse" data-tt="tooltip" title="Add Course" href="#coursecollapse<%=student.id%>" href="#" role="button"><i class="fa fa-plus"></i></a> 
+                <a class="btn btn-warning" id="drop-course" data-toggle="collapse" data_tt="tooltip" title="Drop Course" href="#editcollapse<%=student.id%>"  role="button"><i class="fa fa-pencil-square"></i></a>
                 </div>
                 <div style="margin-top:3px">
                 
-                <%= link_to '<span class="btn btn-info" style="height:30px;width:30px;text-align:center;line-height:1em;padding-left:9px;"  href="#" role="button"><i class="fa fa-user"></i></span>'.html_safe, admin_edit_student_path(student), method: :get %>
-                <%= link_to '<span class="btn btn-danger" style="height:30px;width:30px;text-align:center;line-height:1em;padding-left:9px;padding-right:15px;"  href="#" role="button"><i class="fa fa-times"></i></span>'.html_safe, admin_destroy_user_path(student), method: :delete, data: { confirm: "Are you sure you want to delete #{student.name}?" } %>
+                <%= link_to '<span class="btn btn-info" id="update-user" data-toggle="tooltip" title="Update User" href="#" role="button"><i class="fa fa-user"></i></span>'.html_safe, admin_edit_student_path(student), method: :get %>
+                <%= link_to '<span class="btn btn-danger" id="delete-user" data-toggle="tooltip" title="Delete User" href="#" role="button"><i class="fa fa-times"></i></span>'.html_safe, admin_destroy_user_path(student), method: :delete, data: { confirm: "Are you sure you want to delete #{student.name}?" } %>
                 </div>
                 </td>
                 <td>
