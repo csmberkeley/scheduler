@@ -54,9 +54,10 @@
             <% end %>
             </p>
             </div>
-            <% if @students %>
-              <%= link_to "Approve All", mentor_approve_all_path(:week => n, :id => @section.id), method: :patch, :class => "btn btn-primary approve-all" %>
-            <% end %>
+        <% end %>
+
+        <% if @students %>
+          <%= link_to "Approve All", mentor_approve_all_path(:week => n, :id => @section.id), method: :patch, :class => "btn btn-primary approve-all" %>
         <% end %>
         </div>
         </p>
