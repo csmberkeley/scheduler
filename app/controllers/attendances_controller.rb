@@ -55,6 +55,20 @@ class AttendancesController < ApplicationController
         end
         redirect_to :back
     end
+
+    def batch_set_status
+      if params[:students]
+        params[:students].each do |enroll_id, status|
+          attendance = Attendance.where(enroll_id: enroll_id.to_i, week: params[:week]).take
+          if attendance.nil?
+            Attendance.new(enroll_id: enroll_id.to_i, week: params[:week], status: status).save!
+          else
+            attendance.update!(status: status)
+          end
+        end
+      end
+      redirect_to :back
+    end
     #need to do something similar to check_enrollment in application_controller.rb to make sure only the actual student can meddle
     def show
         @enroll = Enroll.find(params[:id])
