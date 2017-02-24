@@ -24,6 +24,22 @@ class AttendancesController < ApplicationController
         a.save
         redirect_to :back
     end
+
+    def approve_all
+        section = Section.find(params[:id])
+        n = params[:week]
+        students = section.enrolls
+        students.each do |student|
+          attendance = Attendance.where(enroll_id: student.id, week: n).take
+          if attendance.nil?
+            attendance = Attendance.new(enroll_id: student.id, week: n)
+          end
+          attendance.approved!
+          attendance.save
+        end
+        redirect_to :back
+    end
+
     def reject
         a = Attendance.find(params[:id])
         a.denied!
