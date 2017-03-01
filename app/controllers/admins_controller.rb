@@ -69,7 +69,7 @@ class AdminsController < ApplicationController
           if Setting.find_by(name: 'silent').value == "0"
             UserMailer.add_email(user, section).deliver
           end
-          redirect_to manage_sections_path(section.course_id)
+          redirect_to manage_sections_path(enroll.course_id)
           return
         else
           next
