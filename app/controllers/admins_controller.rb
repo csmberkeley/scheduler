@@ -69,20 +69,20 @@ class AdminsController < ApplicationController
           if Setting.find_by(name: 'silent').value == "0"
             UserMailer.add_email(user, section).deliver
           end
-          redirect_to manage_sections_path
+          redirect_to manage_sections_path(section.course_id)
           return
         else
           next
         end
         flash[:alert] = "Student not enrolled in the course. Select another student."
-        redirect_to manage_sections_path
+        redirect_to manage_sections_path(section.course_id)
         return
       end
     # rescue => exception
     #  flash[:alert] = "Error in enrolling student." + exception.backtrace
     #  redirect_to manage_sections_path
     # end
-    redirect_to manage_sections_path
+      redirect_to manage_sections_path(section.course_id)
   end
 
   def drop_student_from_section
@@ -96,10 +96,10 @@ class AdminsController < ApplicationController
       if Setting.find_by(name: 'silent').value == "0"
         UserMailer.drop_email(student, section).deliver
       end
-      redirect_to manage_sections_path
+      redirect_to manage_sections_path(section.course_id)
     else
       flash[:alert] = "Could not drop #{student.name} from #{section.name}"
-      redirect_to manage_sections_path
+      redirect_to manage_sections_path(section.course_id)
     end
   end
 
