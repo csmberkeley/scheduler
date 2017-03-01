@@ -45,7 +45,15 @@
         <hr />
         <ul class="nav nav-pills nav-stacked">
         <%= nav_link "Settings", settings_path %>
-        <%= nav_link "Manage Sections", manage_sections_path %>
+        <li class="dropdown">
+          <a class="dropdown-toggle" data-toggle="dropdown" href="#">Manage Sections <span class="caret"></span></a>
+          <ul class="dropdown-menu">
+            <li><%= link_to "All", manage_sections_path %></li>
+            <% Course.all.order(course_name: :asc).each do |course| %>
+              <li><%= link_to course.course_name, manage_sections_path(course) %></li>
+            <% end %>
+          </ul>
+        </li>
         <%= nav_link "Manage Students", students_index_path %>
         <%= nav_link "Manage Mentors", mentors_index_path %>
         <%= nav_link "Manage Attendance", manage_attendance_path %>
