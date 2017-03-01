@@ -48,7 +48,6 @@
         <li class="dropdown">
           <a class="dropdown-toggle" data-toggle="dropdown" href="#">Manage Sections <span class="caret"></span></a>
           <ul class="dropdown-menu">
-            <li><%= link_to "All", manage_sections_path %></li>
             <% Course.all.order(course_name: :asc).each do |course| %>
               <li><%= link_to course.course_name, manage_sections_path(course) %></li>
             <% end %>
