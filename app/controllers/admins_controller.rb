@@ -118,7 +118,11 @@ class AdminsController < ApplicationController
   def manage_sections
     # final product
     @sections = {}
-    courses = Course.all.order(course_name: :asc) 
+    if params[:format]
+      courses = Array.wrap(Course.find(params[:format]))
+    else
+      courses = Course.all.order(course_name: :asc) 
+    end
     courses.each do | course |
       @sections[course.course_name] = { "Monday" => [], "Tuesday" => [], "Wednesday" => [], 
         "Thursday" => [], "Friday" => [] }
