@@ -46,8 +46,10 @@
                   <% end %>
                   <% if attendance.nil? %>
                       <% attendance = Attendance.new(enroll_id: student.id, week: n) %>
+                      <%= select_tag "students[#{student.id}]", options_for_select(Attendance.nil_statuses, selected: "Change attendance...", disabled: "Change attendance...") %>
+                  <% else %>
+                      <%= select_tag "students[#{student.id}]", options_for_select(Attendance.statuses.keys.to_a, attendance.status) %>
                   <% end %>
-                  <%= select_tag "students[#{student.id}]", options_for_select(Attendance.statuses.keys.to_a, attendance.status) %>
                   </p>
                   </div>
               <% end %>
