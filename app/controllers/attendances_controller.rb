@@ -24,6 +24,22 @@ class AttendancesController < ApplicationController
         a.save
         redirect_to :back
     end
+
+    def approve_all
+        section = Section.find(params[:id])
+        n = params[:week]
+        students = section.enrolls
+        students.each do |student|
+          attendance = Attendance.where(enroll_id: student.id, week: n).take
+          if attendance.nil?
+            attendance = Attendance.new(enroll_id: student.id, week: n)
+          end
+          attendance.approved!
+          attendance.save
+        end
+        redirect_to :back
+    end
+
     def reject
         a = Attendance.find(params[:id])
         a.denied!
@@ -38,6 +54,20 @@ class AttendancesController < ApplicationController
             attendance.update!(attendance_params)
         end
         redirect_to :back
+    end
+
+    def batch_set_status
+      if params[:students]
+        params[:students].each do |enroll_id, status|
+          attendance = Attendance.where(enroll_id: enroll_id.to_i, week: params[:week]).take
+          if attendance.nil?
+            Attendance.new(enroll_id: enroll_id.to_i, week: params[:week], status: status).save!
+          else
+            attendance.update!(status: status)
+          end
+        end
+      end
+      redirect_to :back
     end
     #need to do something similar to check_enrollment in application_controller.rb to make sure only the actual student can meddle
     def show

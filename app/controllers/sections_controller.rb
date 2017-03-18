@@ -58,7 +58,7 @@ class SectionsController < ApplicationController
 		section = Section.new(section_params)
 		if section.save
 			flash[:notice] = "Made #{section.name}"
-			redirect_to manage_sections_path
+			redirect_to manage_sections_path(course)
 		else
 			render :action => 'new'
 		end
@@ -76,7 +76,7 @@ class SectionsController < ApplicationController
 		params[:section][:course_id] = course.id
 		if section.update_attributes(section_params)
 			flash[:notice] = "Edited #{section.name}"
-			redirect_to manage_sections_path
+      redirect_to manage_sections_path(course)
 		else
 			render :action => 'edit'
 		end
@@ -85,12 +85,13 @@ class SectionsController < ApplicationController
 
 	def destroy
 		section = Section.find(params[:id])
+    course_id = section.course_id
 		section.enrolls do |e|
 			e.removeAllReplies
 		end
 		flash[:notice] = "Deleted #{section.name}"
 		section.destroy
-		redirect_to manage_sections_path
+		redirect_to manage_sections_path(course_id)
 	end
 
 	def drop
