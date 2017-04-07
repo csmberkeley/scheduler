@@ -1,18 +1,15 @@
-<% curr_section = @enroll.section %>
-<% monthArray = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"] %>
-<h2>Attendance for <%= curr_section.name %></h2>
+<h2>Attendance for <%= @section.name %></h2>
 
 <p>
-Mentor: <%= curr_section.getMentorName %> (<%= curr_section.getMentorEmail %>)
+Mentor: <%= @section.getMentorName %> (<%= @section.getMentorEmail %>)
 
-<% current_week = @current_week %>
 <div class="panel panel-primary">
   <div class="panel-heading">
-    <h3 class="panel-title">Current Week: <%= current_week %></h3>
+    <h3 class="panel-title">Current Week: <%= @current_week %></h3>
   </div>
-  <div class="panel-body">    
+  <div class="panel-body">
 
-    <% curr_attendance = Attendance.where(enroll_id: @enroll, week: current_week).take %>
+    <% curr_attendance = Attendance.where(enroll_id: @enroll, week: @current_week).take %>
     <% if curr_attendance == nil %>
 
         <%= form_for @blank_attendance, url: student_attendance_checkin_path do |f|%>
@@ -20,7 +17,7 @@ Mentor: <%= curr_section.getMentorName %> (<%= curr_section.getMentorEmail %>)
             <div class="form-group">
                 <%= f.hidden_field :enroll_id, value: @enroll.id %>
                 <%= f.label :reason, "Password" %>
-                <%= f.hidden_field :week, value: current_week %>
+                <%= f.hidden_field :week, value: @current_week %>
                 <%= f.text_field(:reason, class:"form-control") %> 
             </div>
             <%= f.submit("Check in", class: "btn btn-success") %>
@@ -30,7 +27,7 @@ Mentor: <%= curr_section.getMentorName %> (<%= curr_section.getMentorEmail %>)
             <div class="form-group">
                 <%= f.hidden_field :enroll_id, value: @enroll.id %>
                 <%= f.label :reason %>
-                <%= f.hidden_field :week, value: current_week %>
+                <%= f.hidden_field :week, value: @current_week %>
                 <%= f.text_field(:reason, class:"form-control") %> 
             </div>
             <%= f.submit("Submit Absence Request", class: "btn btn-warning") %>
@@ -45,18 +42,12 @@ Mentor: <%= curr_section.getMentorName %> (<%= curr_section.getMentorEmail %>)
   </div>
 </div>
 <div class="list-group">
-<% (current_week-1).downto(1) do |n|%>
+<% (@current_week-1).downto(1) do |n|%>
     <% attendance = Attendance.where(enroll_id: @enroll, week: n).take %>
-    <% start_hour = curr_section.start %>
-    <% end_hour = curr_section.end %>
-    <% current_day = (curr_section.start.day + 7 * (n - 1)) % 31 %>
-    <% month_increment = (curr_section.start.day + 7 * (n - 1)) / 31 %>
-    <% current_month = (curr_section.start.month - 1 + month_increment) % 12 %>
       <div class="list-group-item <%= item_class attendance%>">
-        <h4 class="list-group-item-heading">Week <%= n %>: <%= monthArray[current_month] %> <%= current_day %></h4>
+        <h4 class="list-group-item-heading">Week <%= n %>: <%= @section.getDate(n) %> </h4>
         <p class="list-group-item-text">
 
-    
     <% if attendance == nil %>
         <h4>Unexcused Absence</h4>
         <%= form_for @blank_attendance, url: student_attendance_create_path do |f|%>
@@ -73,6 +64,5 @@ Mentor: <%= curr_section.getMentorName %> (<%= curr_section.getMentorEmail %>)
     <% end %>
       </p>
       </div>
-    
 <% end %>
 </div>

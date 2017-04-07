@@ -1,5 +1,4 @@
 <h2>Attendance for <%= @section.name %></h2>
-<% monthArray = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"] %>
 
 <div class="panel panel-primary">
   <div class="panel-heading">
@@ -11,23 +10,17 @@
             <%= f.label :password, "Password" %>
             <%= f.text_field(:password, class:"form-control") %> 
             <%= f.label :pass_enabled, "Open Check-ins" %>
-            <%= f.check_box :pass_enabled %>            
+            <%= f.check_box :pass_enabled %>
         </div>
         <%= f.submit("Update", class: "btn btn-success") %>
-    <% end %>   
+    <% end %>
     </div>
 </div>
 <div class="list-group">
 <% @current_week.downto(1) do |n| %>
-<% start_hour = @section.start %>
-<% end_hour = @section.end %>
-<% current_day = (@section.start.day + 7 * (n - 1)) % 31 %>
-<% month_increment = (@section.start.day + 7 * (n - 1)) / 31 %>
-<% current_month = (@section.start.month - 1 + month_increment) % 12 %>
-
 
     <div class="list-group-item">
-        <h3 class="list-group-item-heading">Week <%= n %>: <%= monthArray[current_month] %> <%= current_day %> </h3>
+        <h3 class="list-group-item-heading">Week <%= n %>: <%= @section.getDate(n) %> </h3>
         <p class="list-group-item-text">
         <div class="list-group">
           <% if @students %>

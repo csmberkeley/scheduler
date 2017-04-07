@@ -123,4 +123,9 @@ class Section < ActiveRecord::Base
     mentorenroll.save
     return mentorenroll
   end
+
+  def getDate(week)
+    date = start + 7.days * (week - 1)
+    return "#{Date::MONTHNAMES[date.month]} #{date.day}"
+  end
 end
