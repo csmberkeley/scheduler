@@ -1,5 +1,6 @@
-class Section < ActiveRecord::Base
 
+class Section < ActiveRecord::Base
+  DAY_OFFSETS = { "Monday" => 0, "Tuesday" => 1, "Wednesday" => 2, "Thursday" => 3, "Friday" => 4}
 
   has_many :enrolls
   has_many :requests, dependent: :destroy
@@ -125,7 +126,7 @@ class Section < ActiveRecord::Base
   end
 
   def getDate(week)
-    date = start + 7.days * (week - 1)
-    return "#{Date::MONTHNAMES[date.month]} #{date.day}"
+    current_date = start + DAY_OFFSETS[date].days + 7.days * (week - 1)
+    return "#{Date::MONTHNAMES[current_date.month]} #{current_date.day}"
   end
 end
