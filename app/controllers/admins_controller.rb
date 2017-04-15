@@ -14,6 +14,9 @@ class AdminsController < ApplicationController
     Section.all.each do |section|
       @total_section_enrollment += section.enrolls.length
     end
+
+    @total_students = @students.length
+    @students = @students.paginate(page: params[:page], per_page: 20)
   end
 
   def mentor_index

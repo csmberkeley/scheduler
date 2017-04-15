@@ -3,7 +3,7 @@
     <hr>
     <%= link_to "<i class='fa fa-plus'></i> Add User".html_safe, admin_new_student_path, :class => "btn btn-success" %>
     <div style = "margin-top:10px">
-        <b>Total students</b>: <%= @students.length %>
+        <b>Total students</b>: <%= @total_students %>
     </div>
     <div>
         <b>Total course enrollments</b>: <%=  @total_course_enrollment %>
@@ -119,3 +119,4 @@
         </table>
     </div>
 </div>
+<%= will_paginate @students, id: "csm-pagination", previous_label: "←", next_label: "→" %>

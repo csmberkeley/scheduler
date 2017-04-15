@@ -30,6 +30,41 @@
 	padding-right: 20px;
 }
 
+.pagination {
+  padding: 3px;
+}
+
+#csm-pagination {
+  display: block;
+  width: 50%;
+  margin: 0 auto 25px auto;
+}
+
+.pagination a {
+  padding: 2px 5px 2px 5px;
+  margin: 2px;
+  text-decoration: none;
+  color: black;
+}
+
+.pagination a:hover, .pagination a:active {
+  color: #000;
+}
+
+.pagination em.current {
+  padding: 2px 5px 2px 5px;
+  margin: 2px; border: 1px solid #428bca;
+  background-color: #428bca;
+  text-decoration: none;
+  font-style: normal;
+  color: #FFF;
+}
+
+.pagination span.disabled {
+  padding: 2px 5px 2px 5px;
+  margin: 2px;
+  color: #ddd;
+}
 
 
 
