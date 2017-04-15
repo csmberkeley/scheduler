@@ -1,15 +1,28 @@
 <div class = "container">
     <h1>Manage Students</h1>
     <hr>
-    <%= link_to "<i class='fa fa-plus'></i> Add User".html_safe, admin_new_student_path, :class => "btn btn-success" %>
-    <div style = "margin-top:10px">
-        <b>Total students</b>: <%= @total_students %>
-    </div>
-    <div>
-        <b>Total course enrollments</b>: <%=  @total_course_enrollment %>
-    </div>
-    <div>
-        <b>Total section enrollments</b>: <%=  @total_section_enrollment %>
+    <div class="all-students-wrapper">
+      <div class="student-info">
+          <%= link_to "<i class='fa fa-plus'></i> Add User".html_safe, admin_new_student_path, :class => "btn btn-success" %>
+          <p><b>Total students</b>: <%= @total_students %></p>
+          <p><b>Total course enrollments</b>: <%=  @total_course_enrollment %></p>
+          <p><b>Total section enrollments</b>: <%=  @total_section_enrollment %></p>
+      </div>
+      <div class="course-filter">
+        <%= form_tag students_index_path, method: :post do |f| %>
+          <%= submit_tag("Filter by Course", class: "btn btn-primary") %>
+          <% Course.all.each do |course| %>
+            <p>
+              <% if @courses and @courses.include?(course) %>
+                <%= check_box_tag("filter_course[#{course.id}]", 1, true) %>
+              <% else %>
+                <%= check_box_tag("filter_course[#{course.id}]") %>
+              <% end %>
+              <%= label_tag("filter_course[#{course.id}]", course.course_name) %>
+            </p>
+          <% end %>
+        <% end %>
+      </div>
     </div>
     <div class = "sections">
       <table class="table">
@@ -45,7 +58,7 @@
                  <%= student.name %>
                  </h4>
                 </td>
-                
+
                 <td>
                 <%= student.email %>
 
@@ -62,11 +75,11 @@
                 possible_enroll = Course.where.not(id: exclude)
                 %>
                 <% if possible_enroll.length > 0 %>
-                    <%= fields_for "course[]", @courses do |f| %>
+                    <%= fields_for "course[]", Course.all do |f| %>
                         <div class="field">
                         <div class="form-group">
                         <label>Course</label>
-                            <%= f.select :name, possible_enroll.collect {|p|                             
+                            <%= f.select :name, possible_enroll.collect {|p|
                                 [ p.course_name, p.id]
                                  },{}, {prompt: "Select one", class: "form-control"}%>
                         </div>
@@ -87,11 +100,11 @@
                                 <th>Class</th>
                                 <th>Section</th>
                             </tr>
-                        
+
                         </thead>
                     <tbody>
                 <% student.enrolls.each do |enroll| %>
-                    
+
                     <tr>
                         <td class="col-md-1">
                          <%= link_to '<span data-toggle="tooltip" data-placement="bottom" title="Drop from class" class="btn btn-danger" href="#" role="button"><i class="fa fa-trash-o"></i></span>'.html_safe, admin_destroy_enroll_path(enroll), method: :delete, data: { confirm: "Are you sure?" } %>
@@ -106,17 +119,17 @@
                             <% end %>
                         </td>
                         </tr>
-                    
+
                 <% end %>
                     </tbody>
                     </table>
                     <br />
                 </div>
                 </td>
-                </tr>  
+                </tr>
             <% end %>
         </tbody>
         </table>
     </div>
 </div>
-<%= will_paginate @students, id: "csm-pagination", previous_label: "←", next_label: "→" %>
+<%= will_paginate @students, id: "csm-pagination", previous_label: "←", next_label: "→", params: { filter_active: @courses } %>

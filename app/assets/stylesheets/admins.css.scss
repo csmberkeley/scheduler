@@ -34,6 +34,20 @@
   padding: 3px;
 }
 
+.all-students-wrapper {
+  overflow: hidden;
+  width: 500px;
+}
+
+.student-info {
+  float: left;
+  width: 230px;
+}
+
+.course-filter {
+  float: left;
+}
+
 #csm-pagination {
   display: block;
   width: 50%;

@@ -1,3 +1,5 @@
+require 'will_paginate/array'
+
 class AdminsController < ApplicationController
   before_filter :check_admin
   def index
@@ -5,9 +7,15 @@ class AdminsController < ApplicationController
     Enroll.all.each do |enroll|
       @students.add(enroll.user)
     end
-    @courses = Course.all
+
+    if params[:filter_course]
+      @courses = params[:filter_course].keys.map{ |course_id| Course.find(course_id) }
+    elsif params[:filter_active]
+      @courses = params[:filter_active].map{ |course_id| Course.find(course_id) }
+    end
+
     @total_course_enrollment = 0
-    @courses.each do |course|
+    Course.all.each do |course|
       @total_course_enrollment += course.enrolls.length
     end
     @total_section_enrollment = 0
@@ -16,7 +24,7 @@ class AdminsController < ApplicationController
     end
 
     @total_students = @students.length
-    @students = @students.paginate(page: params[:page], per_page: 20)
+    @students = @students.to_a.paginate(page: params[:page], per_page: 20)
   end
 
   def mentor_index

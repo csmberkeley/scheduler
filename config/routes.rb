@@ -74,7 +74,7 @@ Rails.application.routes.draw do
   delete "/senrolls/:id/temptime" => "senrolls#destroy_temp_time", as: :senroll_destroy_temp_time
 
   #admin stuff
-  get "/admin/students" => "admins#index", as: :students_index
+  match "/admin/students" => "admins#index", as: :students_index, via: [:get, :post]
   get "/admin/mentors" => "admins#mentor_index", as: :mentors_index
   get "/admin/new-student" => "admins#new_student", as: :admin_new_student
   post "/admin/create-student" => "admins#create_student", as: :admin_create_student
