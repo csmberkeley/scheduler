@@ -36,7 +36,7 @@
 
 .all-students-wrapper {
   overflow: hidden;
-  width: 500px;
+  width: 600px;
 }
 
 .student-info {
@@ -78,6 +78,16 @@
   padding: 2px 5px 2px 5px;
   margin: 2px;
   color: #ddd;
+}
+
+#course-filter-checkbox {
+  margin-top: 0px;
+  margin-bottom: 10px;
+  margin-left: 20px;
+}
+
+#course-filter-checkbox label {
+  padding-left: 0px;
 }
 
 

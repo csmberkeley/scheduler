@@ -11,16 +11,16 @@
       <div class="course-filter">
         <%= form_tag students_index_path, method: :post do |f| %>
           <%= submit_tag("Filter by Course", class: "btn btn-primary") %>
-          <% Course.all.each do |course| %>
-            <p>
-              <% if @courses and @courses.include?(course) %>
-                <%= check_box_tag("filter_course[#{course.id}]", 1, true) %>
-              <% else %>
-                <%= check_box_tag("filter_course[#{course.id}]") %>
-              <% end %>
-              <%= label_tag("filter_course[#{course.id}]", course.course_name) %>
-            </p>
-          <% end %>
+            <% Course.all.each do |course| %>
+              <span id="course-filter-checkbox" class="checkbox">
+                <% if @courses and @courses.include?(course) %>
+                  <%= check_box_tag("filter_course[#{course.id}]", 1, true) %>
+                <% else %>
+                  <%= check_box_tag("filter_course[#{course.id}]") %>
+                <% end %>
+                <%= label_tag("filter_course[#{course.id}]", course.course_name) %>
+              </span>
+            <% end %>
         <% end %>
       </div>
     </div>
