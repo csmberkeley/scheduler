@@ -38,21 +38,23 @@
                     <% mentor.jenrolls.each do |enroll| %>
                         <% section = enroll.section %>
                         <% course = enroll.course %>
-                        <div class = "roster">
-                            <h5><b><%= course.course_name %> <%= section.name %> Students</b></h5>
-                            <% if enroll.getStudents().size > 0 %>
-                                <ul class="list-group">
-                                <% enroll.getStudents().each do |student| %>
-                                  <li class="list-group-item" style="width: 75%">
-                                    <span class="badge"><%=student.email%></span>
-                                    <%=student.name %>
-                                  </li>
-                                <% end %>
-                                </ul>                                    
-                            <% else %>
-                                <h6>No Students</h6>
-                            <% end %>
-                        </div>
+                        <% if section != nil %>
+                          <div class = "roster">
+                              <h5><b><%= course.course_name %> <%= section.name %> Students</b></h5>
+                              <% if enroll.getStudents().size > 0 %>
+                                  <ul class="list-group">
+                                  <% enroll.getStudents().each do |student| %>
+                                    <li class="list-group-item" style="width: 75%">
+                                      <span class="badge"><%=student.email%></span>
+                                      <%=student.name %>
+                                    </li>
+                                  <% end %>
+                                  </ul>                                    
+                              <% else %>
+                                  <h6>No Students</h6>
+                              <% end %>
+                          </div>
+                        <% end %>
                     <% end %>
                     <% mentor.senrolls.each do |enroll| %>
                         <% section = enroll.section %>
