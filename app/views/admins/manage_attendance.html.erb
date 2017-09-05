@@ -41,59 +41,60 @@
                     <a class="btn btn-success" data-toggle="collapse" href="#rostercollapse<%=mentor.id%>"  href="#" role="button"><i class="fa fa-list"></i></a>
                     <a class="btn btn-warning"  data-toggle="collapse" href="#editcollapse<%=mentor.id%>"  role="button"><i class="fa fa-dashboard"></i></a>
                   </div>
-                <% end %>
-                <div>
-                  <% badge_button = '<i class="fa fa-person"></i> '.html_safe + getPendingBadge(enroll).html_safe + ' Take '%>
-                  <!-- Fix these -->
-                  <% if section.jenroll === nil %>
-                    <%= link_to badge_button.html_safe, senior_mentor_attendance_path(mentor.id), :class => "btn btn-danger" %>
-                  <% else %>
-                    <%= link_to badge_button.html_safe, junior_mentor_attendance_path(mentor.id), :class => "btn btn-danger" %>
-                  <% end %>
-                  </div>
-                </div>
-              </td>
-              
-              <!-- Right Column -->
-              <td>
-                <!-- Information -->
-                <h4><%= section.getMentorName() %></h4>
-                <%= section.getMentorEmail() %>
-                <!-- Student roster -->
-                <%= form_tag admin_add_course_path(mentor) do %>
-                  <br />
-                  <div class="collapse" id="rostercollapse<%=mentor.id%>">
-                    <div class="roster">
-                      <h5><b><%= course_name %> <%= section.name %> Students</b></h5>
-                      <% if enroll.getStudents().size > 0 %>
-                        <ul class="list-group">
-                        <% enroll.getStudents().each do |student| %>
-                          <li class="list-group-item" style="width: 75%">
-                            <div style="float:left">
-                              <%= student.name %>
-                              <span class="badge"><%=student.email%></span>
-                            </div>
-                            <div style="float:right">
-                              <% approved = enroll.attendances.approved.count %>
-                              <% excused = enroll.attendances.excused.count %>
-                              <% pending = enroll.attendances.pending.count %>
-                              <span class="label label-success">Approved: <%= approved %></span>
-                              <span class="label label-primary">Excused: <%= excused %></span>
-                              <span class="label label-warning">Pending: <%= pending %></span>
-                              <span class="label label-danger">Unexcused: 
-                                <%= enroll.getCurrentWeek() - approved - excused - pending %></span>
-                            </div>
-                            <br>
-                          </li>
-                        <% end %>
-                        </ul>                                    
-                      <% else %>
-                        <h6>No Students</h6>
-                      <% end %>
+                  <div>
+                    <% badge_button = '<i class="fa fa-person"></i> '.html_safe + getPendingBadge(enroll).html_safe + ' Take '%>
+                    <!-- Fix these -->
+                    <% if section.jenroll === nil %>
+                      <%= link_to badge_button.html_safe, senior_mentor_attendance_path(mentor.id), :class => "btn btn-danger" %>
+                    <% else %>
+                      <%= link_to badge_button.html_safe, junior_mentor_attendance_path(mentor.id), :class => "btn btn-danger" %>
+                    <% end %>
                     </div>
                   </div>
-                <!-- form_tag -->
+                </td>
+                
+                <!-- Right Column -->
+                <td>
+                  <!-- Information -->
+                  <h4><%= section.getMentorName() %></h4>
+                  <%= section.getMentorEmail() %>
+                  <!-- Student roster -->
+                  <%= form_tag admin_add_course_path(mentor) do %>
+                    <br />
+                    <div class="collapse" id="rostercollapse<%=mentor.id%>">
+                      <div class="roster">
+                        <h5><b><%= course_name %> <%= section.name %> Students</b></h5>
+                        <% if enroll.getStudents().size > 0 %>
+                          <ul class="list-group">
+                          <% enroll.getStudents().each do |student| %>
+                            <li class="list-group-item" style="width: 75%">
+                              <div style="float:left">
+                                <%= student.name %>
+                                <span class="badge"><%=student.email%></span>
+                              </div>
+                              <div style="float:right">
+                                <% approved = enroll.attendances.approved.count %>
+                                <% excused = enroll.attendances.excused.count %>
+                                <% pending = enroll.attendances.pending.count %>
+                                <span class="label label-success">Approved: <%= approved %></span>
+                                <span class="label label-primary">Excused: <%= excused %></span>
+                                <span class="label label-warning">Pending: <%= pending %></span>
+                                <span class="label label-danger">Unexcused: 
+                                  <%= enroll.getCurrentWeek() - approved - excused - pending %></span>
+                              </div>
+                              <br>
+                            </li>
+                          <% end %>
+                          </ul>                                    
+                        <% else %>
+                          <h6>No Students</h6>
+                        <% end %>
+                      </div>
+                    </div>
+                  <!-- form_tag -->
+                  <% end %>
                 <% end %>
+
                 <!-- Section Information -->
                 <div class="collapse" id="editcollapse<%=mentor.id%>">
                   <div class="panel panel-primary" style="width: 80%">
