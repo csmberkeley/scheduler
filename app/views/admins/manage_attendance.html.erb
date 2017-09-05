@@ -93,7 +93,6 @@
                     </div>
                   <!-- form_tag -->
                   <% end %>
-                <% end %>
 
                 <!-- Section Information -->
                 <div class="collapse" id="editcollapse<%=mentor.id%>">
@@ -127,23 +126,24 @@
                         <% end %>
                       </ul>
 
-                      <% badge_button = '<i class="fa fa-person"></i> '.html_safe + getPendingBadge(enroll).html_safe + ' View Attendance'%>
+                        <% badge_button = '<i class="fa fa-person"></i> '.html_safe + getPendingBadge(enroll).html_safe + ' View Attendance'%>
 
-                      <% if section.jenroll == nil %>
-                        <%= link_to badge_button.html_safe, senior_mentor_attendance_path(section.senroll), :class => "btn btn-info" %>
-                        <%= link_to '<i class="fa fa-search"></i> View Roster'.html_safe, senroll_roster_path(section.senroll), :class => "btn btn-primary" %>  
-                        <%= link_to '<i class="fa fa-exchange"></i> Switch Sections'.html_safe, senroll_switch_path(section.senroll.id), class: "btn btn-warning" %>
-                        <%= link_to '<i class="fa fa-cog"></i> Mentor Settings'.html_safe, edit_senroll_path(section.senroll.id), class: "btn btn-success" %>
-                      <% else %>
-                        <%= link_to badge_button.html_safe, junior_mentor_attendance_path(section.jenroll), :class => "btn btn-info" %>
-                        <%= link_to '<i class="fa fa-search"></i> View Roster'.html_safe, jenroll_roster_path(section.jenroll), :class => "btn btn-primary" %>
-                        <%= link_to '<i class="fa fa-exchange"></i> Switch Sections'.html_safe, jenroll_switch_path(section.jenroll.id), class: "btn btn-warning" %>
-                        <%= link_to '<i class="fa fa-cog"></i> Mentor Settings'.html_safe, edit_jenroll_path(section.jenroll.id), class: "btn btn-success" %>
-                       <% end %>
-                    </div> <!-- panel-body -->
-                  </div> <!-- panel panel-primary -->
-                </div> <!-- section collapse -->
-              </td>
+                        <% if section.jenroll == nil %>
+                          <%= link_to badge_button.html_safe, senior_mentor_attendance_path(section.senroll), :class => "btn btn-info" %>
+                          <%= link_to '<i class="fa fa-search"></i> View Roster'.html_safe, senroll_roster_path(section.senroll), :class => "btn btn-primary" %>  
+                          <%= link_to '<i class="fa fa-exchange"></i> Switch Sections'.html_safe, senroll_switch_path(section.senroll.id), class: "btn btn-warning" %>
+                          <%= link_to '<i class="fa fa-cog"></i> Mentor Settings'.html_safe, edit_senroll_path(section.senroll.id), class: "btn btn-success" %>
+                        <% else %>
+                          <%= link_to badge_button.html_safe, junior_mentor_attendance_path(section.jenroll), :class => "btn btn-info" %>
+                          <%= link_to '<i class="fa fa-search"></i> View Roster'.html_safe, jenroll_roster_path(section.jenroll), :class => "btn btn-primary" %>
+                          <%= link_to '<i class="fa fa-exchange"></i> Switch Sections'.html_safe, jenroll_switch_path(section.jenroll.id), class: "btn btn-warning" %>
+                          <%= link_to '<i class="fa fa-cog"></i> Mentor Settings'.html_safe, edit_jenroll_path(section.jenroll.id), class: "btn btn-success" %>
+                         <% end %>
+                      </div> <!-- panel-body -->
+                    </div> <!-- panel panel-primary -->
+                  </div> <!-- section collapse -->
+                </td>
+              <% end %>
             </tr>  
           <% end %> <!-- enroll -->
         <% end %> <!-- section -->
