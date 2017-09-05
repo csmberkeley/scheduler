@@ -36,10 +36,12 @@
                 <% section.jenroll == nil ? (mentor = section.senroll) : (mentor = section.jenroll) %>
                 <% course = enroll.course %>
                 <% course_name = course.course_name %>
-                <div>
-                  <a class="btn btn-success" data-toggle="collapse" href="#rostercollapse<%=mentor.id%>"  href="#" role="button"><i class="fa fa-list"></i></a>
-                  <a class="btn btn-warning"  data-toggle="collapse" href="#editcollapse<%=mentor.id%>"  role="button"><i class="fa fa-dashboard"></i></a>
-                </div>
+                <% if mentor != nil%>
+                  <div>
+                    <a class="btn btn-success" data-toggle="collapse" href="#rostercollapse<%=mentor.id%>"  href="#" role="button"><i class="fa fa-list"></i></a>
+                    <a class="btn btn-warning"  data-toggle="collapse" href="#editcollapse<%=mentor.id%>"  role="button"><i class="fa fa-dashboard"></i></a>
+                  </div>
+                <% end %>
                 <div>
                   <% badge_button = '<i class="fa fa-person"></i> '.html_safe + getPendingBadge(enroll).html_safe + ' Take '%>
                   <!-- Fix these -->
