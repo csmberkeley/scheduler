@@ -65,8 +65,10 @@ class ApplicationController < ActionController::Base
       #sm sections
       current_user.senrolls.each do |enroll|
         if enroll.section_id
-          section = Section.find(enroll.section_id)
-          sections << section
+          section = Section.find_by(id:enroll.section_id)
+          if section != nil 
+            sections << section
+          end
         end
       end
       #update sections
