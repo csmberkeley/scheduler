@@ -1,15 +1,28 @@
 <div class = "container">
     <h1>Manage Students</h1>
     <hr>
-    <%= link_to "<i class='fa fa-plus'></i> Add User".html_safe, admin_new_student_path, :class => "btn btn-success" %>
-    <div style = "margin-top:10px">
-        <b>Total students</b>: <%= @students.length %>
-    </div>
-    <div>
-        <b>Total course enrollments</b>: <%=  @total_course_enrollment %>
-    </div>
-    <div>
-        <b>Total section enrollments</b>: <%=  @total_section_enrollment %>
+    <div class="all-students-wrapper">
+      <div class="student-info">
+          <%= link_to "<i class='fa fa-plus'></i> Add User".html_safe, admin_new_student_path, :class => "btn btn-success" %>
+          <p><b>Total students</b>: <%= @total_students %></p>
+          <p><b>Total course enrollments</b>: <%=  @total_course_enrollment %></p>
+          <p><b>Total section enrollments</b>: <%=  @total_section_enrollment %></p>
+      </div>
+      <div class="course-filter">
+        <%= form_tag students_index_path, method: :post do |f| %>
+          <%= submit_tag("Filter by Course", class: "btn btn-primary") %>
+            <% Course.all.each do |course| %>
+              <span id="course-filter-checkbox" class="checkbox">
+                <% if @courses and @courses.include?(course) %>
+                  <%= check_box_tag("filter_course[#{course.id}]", 1, true) %>
+                <% else %>
+                  <%= check_box_tag("filter_course[#{course.id}]") %>
+                <% end %>
+                <%= label_tag("filter_course[#{course.id}]", course.course_name) %>
+              </span>
+            <% end %>
+        <% end %>
+      </div>
     </div>
     <div class = "sections">
       <table class="table">
@@ -17,26 +30,36 @@
           <tr>
             <th> Actions </th>
             <th> Students </th>
+            <th> Email </th>
           </tr>
         </thead>
         <tbody>
             <% @students.each do |student| %>
                 <tr class="student-list">
                 <td class="col-md-2">
-                <div>
-                <a class="btn btn-success" data-toggle="collapse" href="#coursecollapse<%=student.id%>"  href="#" role="button"><i class="fa fa-plus"></i></a> <a class="btn btn-warning"  data-toggle="collapse" href="#editcollapse<%=student.id%>"  role="button"><i class="fa fa-pencil-square-o"></i></a>
+                <div class="row">
+                <div class="border col-xs-3">
+                <a class="btn btn-success" id="add-course" data-toggle="collapse" data-tt="tooltip" title="Add Course" href="#coursecollapse<%=student.id%>" href="#" role="button"><i class="fa fa-plus"></i></a> 
                 </div>
-                <div style="margin-top:5px">
-                
-                <%= link_to '<span class="btn btn-info" href="#" role="button"><i class="fa fa-user"></i></span>'.html_safe, admin_edit_student_path(student), method: :get %>
-                <%= link_to '<span style="padding-right:15px"class="btn btn-danger" href="#" role="button"><i class="fa fa-times"></i></span>'.html_safe, admin_destroy_user_path(student), method: :delete, data: { confirm: "Are you sure you want to delete #{student.name}?" } %>
+                <div class="border col-xs-3">
+                <a class="btn btn-warning" id="drop-course" data-toggle="collapse" data_tt="tooltip" title="Drop Course" href="#editcollapse<%=student.id%>"  role="button"><i class="fa fa-pencil-square"></i></a>
+                </div>
+
+                <div class="border col-xs-3">
+                <%= link_to '<span class="btn btn-info" id="update-user" data-toggle="tooltip" title="Update User" href="#" role="button"><i class="fa fa-user"></i></span>'.html_safe, admin_edit_student_path(student), method: :get %>
+                </div>
+                <div class="border col-xs-3">
+                <%= link_to '<span class="btn btn-danger" id="delete-user" data-toggle="tooltip" title="Delete User" href="#" role="button"><i class="fa fa-times"></i></span>'.html_safe, admin_destroy_user_path(student), method: :delete, data: { confirm: "Are you sure you want to delete #{student.name}?" } %>
+                </div>
                 </div>
                 </td>
                 <td>
                 <h4 style="">
                  <%= student.name %>
                  </h4>
-                
+                </td>
+
+                <td>
                 <%= student.email %>
 
                 <%= form_tag admin_add_course_path(student) do %>
@@ -52,11 +75,11 @@
                 possible_enroll = Course.where.not(id: exclude)
                 %>
                 <% if possible_enroll.length > 0 %>
-                    <%= fields_for "course[]", @courses do |f| %>
+                    <%= fields_for "course[]", Course.all do |f| %>
                         <div class="field">
                         <div class="form-group">
                         <label>Course</label>
-                            <%= f.select :name, possible_enroll.collect {|p|                             
+                            <%= f.select :name, possible_enroll.collect {|p|
                                 [ p.course_name, p.id]
                                  },{}, {prompt: "Select one", class: "form-control"}%>
                         </div>
@@ -77,11 +100,11 @@
                                 <th>Class</th>
                                 <th>Section</th>
                             </tr>
-                        
+
                         </thead>
                     <tbody>
                 <% student.enrolls.each do |enroll| %>
-                    
+
                     <tr>
                         <td class="col-md-1">
                          <%= link_to '<span data-toggle="tooltip" data-placement="bottom" title="Drop from class" class="btn btn-danger" href="#" role="button"><i class="fa fa-trash-o"></i></span>'.html_safe, admin_destroy_enroll_path(enroll), method: :delete, data: { confirm: "Are you sure?" } %>
@@ -96,16 +119,17 @@
                             <% end %>
                         </td>
                         </tr>
-                    
+
                 <% end %>
                     </tbody>
                     </table>
                     <br />
                 </div>
                 </td>
-                </tr>  
+                </tr>
             <% end %>
         </tbody>
         </table>
     </div>
 </div>
+<%= will_paginate @students, id: "csm-pagination", previous_label: "←", next_label: "→", params: { filter_active: @courses } %>

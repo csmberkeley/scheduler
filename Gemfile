@@ -60,6 +60,7 @@ gem 'ckeditor'
 gem 'paperclip'
 gem 'momentjs-rails'
 gem 'bootstrap3-datetimepicker-rails'
+gem 'will_paginate', '~> 3.1.0'
 
 #For Windows compatibility, using rails installer. Download 2.1 ruby version to avoid sqlite3 errors
 gem 'coffee-script-source', '1.8.0'

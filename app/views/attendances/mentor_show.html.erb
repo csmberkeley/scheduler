@@ -10,16 +10,17 @@
             <%= f.label :password, "Password" %>
             <%= f.text_field(:password, class:"form-control") %> 
             <%= f.label :pass_enabled, "Open Check-ins" %>
-            <%= f.check_box :pass_enabled %>            
+            <%= f.check_box :pass_enabled %>
         </div>
         <%= f.submit("Update", class: "btn btn-success") %>
-    <% end %>   
+    <% end %>
     </div>
 </div>
 <div class="list-group">
 <% @current_week.downto(1) do |n| %>
+
     <div class="list-group-item">
-        <h3 class="list-group-item-heading">Week <%= n %></h3>
+        <h3 class="list-group-item-heading">Week <%= n %>: <%= @section.getDate(n) %> </h3>
         <p class="list-group-item-text">
         <div class="list-group">
           <% if @students %>

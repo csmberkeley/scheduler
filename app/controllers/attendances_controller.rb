@@ -73,6 +73,7 @@ class AttendancesController < ApplicationController
     def show
         @enroll = Enroll.find(params[:id])
         @blank_attendance = Attendance.new
+        @section = @enroll.section
         @current_week = getCurrentWeek(@enroll.course)
     end
     def set_pass
