@@ -1,0 +1,14 @@
+students_over_ten = 0
+s12 = 0
+emails = []
+for user in User.all
+	if user.enrolls.find_by(course_id:3) != nil
+		enroll = user.enrolls.find_by(course_id:3)
+		total_section_attended = enroll.attendances.where(status:0).count
+		total_excused = enroll.attendances.where(status:3).count
+		if total_section_attended + total_excused >= 12
+			s12 += 1
+			emails.append(user.email)
+		end
+	end
+end

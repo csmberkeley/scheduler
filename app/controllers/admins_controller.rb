@@ -93,9 +93,9 @@ class AdminsController < ApplicationController
     enroll.removeAllReplies
     if enroll.save!
       flash[:notice] = "Dropped #{student.name} from #{section.name}"
-      if Setting.find_by(name: 'silent').value == "0"
-        UserMailer.drop_email(student, section).deliver
-      end
+      # if Setting.find_by(name: 'silent').value == "0"
+      #   UserMailer.drop_email(student, section).deliver
+      # end
       redirect_to manage_sections_path(section.course_id)
     else
       flash[:alert] = "Could not drop #{student.name} from #{section.name}"
