@@ -12,7 +12,7 @@
 
 admin = User.create! :name => "Admin",
                      :email => "csmberkeley@gmail.com",
-                     :password => "ENV["ADMIN_PASS"]",
+                     :password => ENV["ADMIN_PASS"],
                      :password_confirmation => ENV["ADMIN_PASS"],
                      :confirmed_at => "2015-09-09 02:50:19"
 admin.admin = true

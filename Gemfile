@@ -44,7 +44,8 @@ gem 'spring',        group: :development
 group :development, :test do 
   gem "better_errors"
   gem "binding_of_caller"
-  gem 'sqlite3', '1.3.10'
+  gem 'pg'
+  # gem 'sqlite3', '1.3.10'
 end
 
 group :production do
