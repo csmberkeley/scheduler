@@ -47,37 +47,46 @@ class AdminsController < ApplicationController
     course = Course.find(@section.course_id)
     enrolls = Enroll.where(:course_id => @section.course_id, :section_id => nil)
     @students = []
-    enrolls.each do |enroll|
-    user = User.find(enroll.user_id)
-    if user
-      @students << user.name + " " + user.email
+
+    # This is ... not good ... but in theory, any User can be re-enrolled into any class
+    User.find_each do |user|
+      @students << user.name + " (" + user.email + ")"
     end
-    end
+    @students = @students.sort
   end
 
   def add_student_to_section
     # begin
       student = params[:student].split(" ")
-      student.pop
+      student.pop # this removes the email
       user = User.find_by_name(student.join(" "))
       section = Section.find(params[:section])
+
       user.enrolls.each do |enroll|
         if enroll.course_id == section.course_id
           enroll.section_id = section.id
           enroll.save
           flash[:notice] = "Added student #{user.name} to #{section.name}"
-          if Setting.find_by(name: 'silent').value == "0"
-            UserMailer.add_email(user, section).deliver
-          end
+          #if Setting.find_by(name: 'silent').value == "0"
+            #UserMailer.add_email(user, section).deliver
+          #end
           redirect_to manage_sections_path(enroll.course_id)
           return
         else
           next
         end
-        flash[:alert] = "Student not enrolled in the course. Select another student."
-        redirect_to manage_sections_path(section.course_id)
-        return
       end
+
+      # No enrolls for this student
+
+      @enrollment = Enroll.new
+      @enrollment.user_id = user.id
+      @enrollment.course_id = section.course_id
+      @enrollment.section_id = section.id
+      if @enrollment.save
+        flash[:notice] = "Successfully added student #{user.name} to #{section.name}"
+      end
+
     # rescue => exception
     #  flash[:alert] = "Error in enrolling student." + exception.backtrace
     #  redirect_to manage_sections_path
