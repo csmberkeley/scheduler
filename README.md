@@ -1,3 +1,6 @@
+# This repository is no longer being maintained.
+For the latest version of Scheduler, please see here: https://github.com/csmberkeley/csm_web
+
 # Scheduler
 
 ## Overview
